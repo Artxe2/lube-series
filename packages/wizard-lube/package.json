@@ -1,0 +1,28 @@
+{
+	"author": "artxe2",
+	"bugs": {
+		"url": "https://github.com/Artxe2/lube-series/issues"
+	},
+	"description": "Simplify Asynchronous Operations in JavaScript",
+	"keywords": [
+		"wizard",
+		"lube",
+		"wizard-lube",
+		"flow",
+		"step",
+		"form",
+		"syntax sugar"
+	],
+	"license": "MIT",
+	"main": "index.min.js",
+	"name": "wizard-lube",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Artxe2/lube-series"
+	},
+	"scripts": {
+		"test": "http-server test"
+	},
+	"type": "module",
+	"version": "0.1.0"
+}

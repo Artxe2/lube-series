@@ -1,0 +1,20 @@
+{
+	"author": "artxe2",
+	"bugs": {
+		"url": "https://github.com/Artxe2/lube-series/issues"
+	},
+	"description": "Simplify Asynchronous Operations in JavaScript",
+	"keywords": ["async", "lube", "async-lube", "dag", "decorator", "parallel", "promise", "syntax sugar"],
+	"license": "MIT",
+	"main": "index.min.js",
+	"name": "async-lube",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Artxe2/lube-series"
+	},
+	"scripts": {
+		"test": "node test/async-lube.test.js"
+	},
+	"type": "module",
+	"version": "0.1.5"
+}
