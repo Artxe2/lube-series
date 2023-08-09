@@ -1,0 +1,35 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      async-lube:
+        specifier: async-lube
+        version: link:packages/async-lube
+      date-lube:
+        specifier: date-lube
+        version: link:packages/date-lube
+      fetch-lube:
+        specifier: fetch-lube
+        version: link:packages/fetch-lube
+      hangul-lube:
+        specifier: hangul-lube
+        version: link:packages/hangul-lube
+      wizard-lube:
+        specifier: wizard-lube
+        version: link:packages/wizard-lube
+
+  packages/async-lube: {}
+
+  packages/date-lube: {}
+
+  packages/fetch-lube: {}
+
+  packages/hangul-lube: {}
+
+  packages/wizard-lube: {}

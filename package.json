@@ -1,0 +1,29 @@
+{
+	"author": "artxe2",
+	"bugs": {
+		"url": "https://github.com/Artxe2/lube-series/issues"
+	},
+	"description": "Simple tools to lubricate JavaScript",
+	"devDependencies": {
+		"async-lube": "async-lube",
+		"date-lube": "date-lube",
+		"fetch-lube": "fetch-lube",
+		"hangul-lube": "hangul-lube",
+		"wizard-lube": "wizard-lube"
+	},
+	"license": "MIT",
+	"name": "lube-series",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Artxe2/lube-series"
+	},
+	"scripts": {
+		"async-test": "node test/async-lube/_.test.js",
+		"date-test": "node test/date-lube/_.test.js",
+		"fetch-test": "node test/fetch-lube/_.test.js",
+		"hangul-test": "node test/hangul-lube/_.test.js",
+		"wizard-test": "node test/wizard-lube/_.test.js"
+	},
+	"type": "module",
+	"version": "0.0.0"
+}

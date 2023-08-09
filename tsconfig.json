@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"checkJs": true,
+		"lib": ["ES2020", "DOM"],
+		"module": "NodeNext",
+		"strict": true,
+		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
+		"target": "ES2020"
+	}
+}
