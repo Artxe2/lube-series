@@ -11,6 +11,9 @@ importers:
       async-lube:
         specifier: async-lube
         version: link:packages/async-lube
+      data-lube:
+        specifier: data-lube
+        version: link:packages/data-lube
       date-lube:
         specifier: date-lube
         version: link:packages/date-lube
@@ -25,6 +28,8 @@ importers:
         version: link:packages/wizard-lube
 
   packages/async-lube: {}
+
+  packages/data-lube: {}
 
   packages/date-lube: {}
 

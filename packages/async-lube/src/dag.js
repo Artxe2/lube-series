@@ -71,14 +71,14 @@ export default () => {
 	 * Default value is node.size - 1(lastly added).
 	 * @returns A Promise that resolves to the result of the DAG execution.
   	 *
-	 * The resolved value corresponds to the result of the job at the specified index (if provided).
+	 * The resolved value corresponds to the result of the job at the specified `index` (if provided).
 	 */
 	const utils = (index = nodes.size - 1) => run_dag(nodes, index)
 
 	/**
 	 * Add a dag execution plan.
 	 * @param {Function} callback A callback that runs when all dependencies are ready.
-	 * @param {*[]} dependencies These are the values ​​passed as parameters when executing the callback.
+	 * @param {*[]} dependencies These are the values ​​passed as parameters when executing the `callback`.
 	 *
 	 * If the value is a function, it waits for the function to be executed by dag and is replaced by the resulting value.
 	 * @returns The DAG instance with the added execution plan.
@@ -87,7 +87,7 @@ export default () => {
 	 *
 	 * You can chain this method to add multiple jobs and their respective dependencies to the DAG.
 	 *
-	 * The DAG execution plan is specified as a callback function that receives resolved dependency values as arguments.
+	 * The DAG execution plan is specified as a `callback` function that receives resolved dependency values as arguments.
 	 */
 	utils.add = (callback, ...dependencies) => {
 		nodes.set(dependencies, callback)

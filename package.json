@@ -6,6 +6,7 @@
 	"description": "Simple tools to lubricate JavaScript",
 	"devDependencies": {
 		"async-lube": "async-lube",
+		"data-lube": "data-lube",
 		"date-lube": "date-lube",
 		"fetch-lube": "fetch-lube",
 		"hangul-lube": "hangul-lube",
@@ -19,6 +20,7 @@
 	},
 	"scripts": {
 		"async-test": "node test/async-lube/_.test.js",
+		"data-test": "node test/data-lube/_.test.js",
 		"date-test": "node test/date-lube/_.test.js",
 		"fetch-test": "node test/fetch-lube/_.test.js",
 		"hangul-test": "node test/hangul-lube/_.test.js",
