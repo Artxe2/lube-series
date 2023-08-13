@@ -7,10 +7,10 @@ let clone = obj => {
 		? []
 		: {}
 	for (let key in obj) {
-		let o = obj[key]
-		copy[key] = o && typeof o == "object"
-			? clone(o)
-			: o
+		let data = obj[key]
+		copy[key] = data && typeof data == "object"
+			? clone(data)
+			: data
 	}
 	return copy
 }

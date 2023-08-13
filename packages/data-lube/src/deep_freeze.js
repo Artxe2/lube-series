@@ -3,8 +3,8 @@
  */
 let freeze = obj => {
 	for (let key in Object.freeze(obj)) {
-		let o = obj[key]
-		if (o && typeof o == "object") freeze(o)
+		let data = obj[key]
+		if (data && typeof data == "object") freeze(data)
 	}
 }
 

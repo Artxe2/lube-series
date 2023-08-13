@@ -1,9 +1,9 @@
 import { assert, describe, it } from "vitest"
 
-import { deepFreeze } from "data-lube"
+import { deepEqual } from "data-lube"
 
 describe(
-	"deep_copy",
+	"deep_equal",
 	() => {
 		const dimensions = [{
 			"dimensions": [{
@@ -181,22 +181,38 @@ describe(
 				}
 			}]
 		}]
-		/**
-		 * @param {*} obj 
-		 */
-		function recursion(obj) {
-			if (!Object.isFrozen(obj)) return false
-			for (const key in obj) {
-				const o = obj[key]
-				if (o && typeof o == "object" && !recursion(o)) return false
-			}
-			return true
-		}
 
 		it(
-			"check deep freeze",
+			"check literals",
 			() => {
-				assert.isTrue(recursion(deepFreeze(dimensions)))
+				assert.isTrue(deepEqual(undefined, void 0))
+				assert.isTrue(deepEqual(null, null))
+				assert.isTrue(deepEqual(true, true))
+				assert.isTrue(deepEqual(123, 123))
+				assert.isTrue(deepEqual("abc", "abc"))
+				assert.isTrue(deepEqual({}, {}))
+				assert.isTrue(deepEqual([], []))
+
+				assert.isFalse(deepEqual(null, undefined))
+				assert.isFalse(deepEqual(true, false))
+				assert.isFalse(deepEqual(123, 456))
+				assert.isFalse(deepEqual("abc", "xyz"))
+				assert.isFalse(deepEqual("123", 123))
+				assert.isFalse(deepEqual("abc", ["a", "b", "c"]))
+				assert.isFalse(deepEqual({}, null))
+				assert.isFalse(deepEqual({}, []))
+			}
+		)
+
+		it(
+			"check with JSON.stringify",
+			() => {
+				const copy = JSON.parse(
+					JSON.stringify(dimensions)
+				)
+				assert.deepEqual(dimensions, copy)
+				copy.push("extra")
+				assert.notDeepEqual(dimensions, copy)
 			}
 		)
 	}
