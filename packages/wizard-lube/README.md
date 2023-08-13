@@ -7,6 +7,6 @@ This powerful JavaScript library provides a flexible and intuitive API that simp
 <br>
 
 ## installation
-```
+```bash
 npm i -D wizard-lube
 ```

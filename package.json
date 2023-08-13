@@ -5,11 +5,14 @@
 	},
 	"description": "Simple tools to lubricate JavaScript",
 	"devDependencies": {
+		"@typescript-eslint/parser": "^6.3.0",
 		"async-lube": "async-lube",
 		"data-lube": "data-lube",
 		"date-lube": "date-lube",
+		"eslint": "^8.47.0",
 		"fetch-lube": "fetch-lube",
 		"hangul-lube": "hangul-lube",
+		"vitest": "^0.34.1",
 		"wizard-lube": "wizard-lube"
 	},
 	"license": "MIT",
@@ -19,12 +22,7 @@
 		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"scripts": {
-		"async-test": "node test/async-lube/_.test.js",
-		"data-test": "node test/data-lube/_.test.js",
-		"date-test": "node test/date-lube/_.test.js",
-		"fetch-test": "node test/fetch-lube/_.test.js",
-		"hangul-test": "node test/hangul-lube/_.test.js",
-		"wizard-test": "node test/wizard-lube/_.test.js"
+		"test": "vitest run && echo \"manually check that there are no type errors in test/types by opening the files in there\""
 	},
 	"type": "module",
 	"version": "0.0.0"

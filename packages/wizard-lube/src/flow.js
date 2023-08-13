@@ -12,7 +12,8 @@ export default (base = "/") => {
 		/**
 		 * Adds a form handler for the specified `pathname`.
 		 * @param {string} pathname The relative URL path for the handler.
-		 * @param {(data: Record<string, any>) => void} handler The function that handles the form data for the specified `location.pathname`.
+		 * @param {(data: Record<string, any>) => void} handler
+		 * The function that handles the form data for the specified `location.pathname`.
 		 * @returns The `Flow` object for method chaining.
 		 */
 		add(pathname, handler) {
@@ -36,14 +37,16 @@ export default (base = "/") => {
 				data: () => form,
 				/**
 				 * A function that update data from the previous step for `popState`.
-				 * @throws Error("No information from previous data.") -- Failed to get previous data to current `location.pathname`
+				 * @throws Error("No information from previous data.")
+				 * -- Failed to get previous data to current `location.pathname`
 				 */
 				footprint() {
 					form = prevForms[location.pathname]
 					if (!form) throw Error("No information from previous data.")
 				},
 				/**
-				 * Forward the form data updated with the `data` you received to the data handler corresponding to the current `location.pathname`.
+				 * Forward the form data updated with the `data`
+				 * you received to the data handler corresponding to the current `location.pathname`.
 				 * @param {Record<string, *>} data The form data to be updated for the current step.
 				 */
 				step(data) {

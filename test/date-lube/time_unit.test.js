@@ -1,6 +1,33 @@
+import { assert, describe, it } from "vitest"
+
 import { timeUnit } from "date-lube"
 
-console.log("Assert DD == 24HH:", timeUnit.DD === timeUnit.HH * 24)
-console.log("Assert HH == 24mm:", timeUnit.HH === timeUnit.mm * 60)
-console.log("Assert mm == 60ss:", timeUnit.mm === timeUnit.ss * 60)
-console.log("Assert ss == 1000ms:", timeUnit.ss === 1000)
+describe(
+	"time_unit",
+	() => {
+		it(
+			"DD == 24HH",
+			() => {
+				assert.equal(timeUnit.DD, timeUnit.HH * 24)
+			}
+		)
+		it(
+			"HH == 60mm",
+			() => {
+				assert.equal(timeUnit.HH, timeUnit.mm * 60)
+			}
+		)
+		it(
+			"mm == 60ss",
+			() => {
+				assert.equal(timeUnit.mm, timeUnit.ss * 60)
+			}
+		)
+		it(
+			"ss == 1000ms",
+			() => {
+				assert.equal(timeUnit.ss, 1000)
+			}
+		)
+	}
+)

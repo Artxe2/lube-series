@@ -7,6 +7,6 @@ This powerful JavaScript library provides a set of functions that simplify async
 <br>
 
 ## installation
-```
+```bash
 npm i -D async-lube
 ```

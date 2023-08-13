@@ -1,57 +1,140 @@
+import { assert, describe, it } from "vitest"
+
 import { decorator } from "async-lube"
 
-let resolve = () => Promise.resolve().then(() => "resolve")
+describe(
+	"decorator",
+	() => {
+		let resolve = () =>
+			() => Promise.resolve("resolve")
+				.then(
+					() => "resolve"
+				)
+		/**
+		 * @param {number} ms
+		 */
+		const sleep = ms =>
+			new Promise(
+				resolve => setTimeout(resolve, ms)
+			)
+		const get_result = (
+			() => {
+				let count = 0
+				return () => count++
+			}
+		)()
 
-const alreadyTest = decorator(resolve)
-alreadyTest()
-	.then( () => console.log("Assert already pass:", true) )
-	.catch( () => console.log("Assert already pass:", false) )
-alreadyTest()
-	.then( () => console.log("Assert already error:", false) )
-	.catch( reason => console.log("Assert already error:", reason.message === "Request already in progress") )
+		it(
+			"already error",
+			async () => {
+				const already_test = decorator(resolve)
+				await Promise.all([
+					already_test()
+						.catch(
+							reason => assert.fail(reason.message)
+						),
+					already_test()
+						.then(
+							() => assert.fail("No error occurred")
+						)
+						.catch(
+							reason => assert.equal(reason.message, "Request already in progress")
+						)
+				])
+			}
+		)
+		it(
+			"debounce error",
+			async () => {
+				const debounce_test = decorator(resolve)
+					.debounce(500)
+				await Promise.all([
+					debounce_test()
+						.then(
+							() => assert.fail("No error occurred")
+						)
+						.catch(
+							reason => assert.equal(reason.message, "Request be debounced")
+						),
+					debounce_test()
+						.catch(
+							reason => assert.fail(reason.message)
+						)
+				])
+			}
+		)
+		it(
+			"throttle error",
+			async () => {
+				const throttle_test = decorator(resolve)
+					.throttle(2, 1000)
+				await Promise.all([
+					await throttle_test()
+						.catch(
+							reason => assert.fail(reason.message)
+						),
+					await throttle_test()
+						.catch(
+							reason => assert.fail(reason.message)
+						),
+					throttle_test()
+						.then(
+							() => assert.fail("No error occurred")
+						)
+						.catch(
+							reason => assert.equal(reason.message, "Too many requests")
+						)
+				])
+			}
+		)
+		it(
+			"retries",
+			async () => {
+				const retry_test = decorator(
+					(() => {
+						let count = 0
+						return async () => {
+							if (++count % 5) throw Error("FAIL " + count)
+							return "OK"
+						}
+					})()
+				).retries(async (reason, count) => {
+					await sleep(100)
+					if (count == 3) throw reason
+				})
+				await Promise.all([
+					await retry_test()
+						.then(
+							() => assert.fail("No error occurred")
+						)
+						.catch(
+							reason => assert.equal(reason.message, "FAIL 3")
+						),
+					retry_test()
+						.then(
+							value => assert.equal(value, "OK")
+						)
+						.catch(
+							reason => assert.fail(reason.message)
+						)
+				])
+			}
+		)
+		it(
+			"caching",
+			async () => {
+				const caching_test = decorator(get_result)
+					.cache(1)
+				const first = await caching_test()
+				await sleep(500)
+				const second = await caching_test()
+				await sleep(600)
+				const third = await caching_test()
 
-const debounceTest = decorator(resolve)
-	.debounce(500)
-debounceTest()
-	.then( () => console.log("Assert debounce error:", false) )
-	.catch( reason => console.log("Assert debounce error:", reason.message === "Request be debounced") )
-await debounceTest()
-	.then( () => console.log("Assert debounce pass:", true) )
-	.catch( () => console.log("Assert debounce pass:", false) )
-
-const throttleTest = decorator(resolve)
-	.throttle(2, 1000)
-await throttleTest()
-	.then( () => console.log("Assert throttle pass 1:", true) )
-	.catch( () => console.log("Assert throttle pass 1:", false) )
-await throttleTest()
-	.then( () => console.log("Assert throttle pass 2:", true) )
-	.catch( () => console.log("Assert throttle pass 2:", false) )
-await throttleTest()
-	.then( () => console.log("Assert throttle error:", false) )
-	.catch( reason => console.log("Assert throttle error:", reason.message === "Too many requests") )
-
-/**
- * @param {number} ms
- */
-const sleep = ms => new Promise( resolve => setTimeout(resolve, ms) )
-
-const retryTest = decorator(
-	(() => {
-		let count = 0
-		return async () => {
-			if (++count % 5) throw Error("FAIL " + count)
-			return "OK"
-		}
-	})()
-).retries(async (reason, count) => {
-		await sleep(100)
-		if (count == 3) throw reason
-	})
-
-await retryTest()
-	.then( () => console.log("Assert retry fail:", false) )
-	.catch( reason => console.log("Assert retry fail:", reason.message === "FAIL 3") )
-await retryTest()
-	.then( value => console.log("Assert retry success:", value === "OK") )
-	.catch( reason => console.log("Assert retry fail:", false, reason) )
+				assert.equal(first, 0)
+				assert.equal(second, 0)
+				assert.equal(third, 1)
+			}
+		)
+	}
+)

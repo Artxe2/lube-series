@@ -7,6 +7,6 @@ This powerful JavaScript library provides a comprehensive set of functions that 
 <br>
 
 ## installation
-```
+```bash
 npm i -D date-lube
 ```

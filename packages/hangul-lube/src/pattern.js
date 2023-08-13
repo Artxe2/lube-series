@@ -24,14 +24,15 @@ const get_letter_range = letter => {
 	if (regex) return regex
 	const code = letter.charCodeAt(0)
 	return letter > "힣" || letter < "가" || (code - 44032) % 28
-			? letter
-			: `[${letter}-${String.fromCharCode(code + 27)}]`
+		? letter
+		: `[${letter}-${String.fromCharCode(code + 27)}]`
 }
 
 /**
  * Generates a regular expression pattern for Korean consonant search.
  * @param {string} text The input text containing Korean consonant characters.
- * @returns A regular expression string that matches Korean words with the same initial consonant letter as the input text.
+ * @returns A regular expression string that matches Korean words
+ * with the same initial consonant letter as the input text.
  * @example
  * pattern("ㄷㅎㅁㄱ"); //=> "[다-딯][하-힣][마-밓][가-깋]"
  *

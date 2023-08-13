@@ -7,6 +7,6 @@ This library allows you to effortlessly match Korean words or characters with th
 <br>
 
 ## installation
-```
+```bash
 npm i -D hangul-lube
 ```

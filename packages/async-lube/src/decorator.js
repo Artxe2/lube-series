@@ -52,8 +52,8 @@ export default callback => {
 				resolve(value)
 			}, reason => {
 				if (retry_checker) {
-					Promise.resolve( retry_checker(reason, ++count) )
-						.then( () => retries_impl(args, resolve, reject, count) )
+					Promise.resolve(retry_checker(reason, ++count))
+						.then(() => retries_impl(args, resolve, reject, count))
 						.catch(reason => {
 							isInProgress = false
 							reject(reason)
@@ -76,7 +76,7 @@ export default callback => {
 			isInProgress = true
 			retries_impl(args, resolve, reject, 0)
 		}
-		else reject( Error("Request be debounced") )
+		else reject(Error("Request be debounced"))
 	}
 
 	/**
@@ -99,7 +99,8 @@ export default callback => {
 	 * Run decorator.
 	 * @param {*[]} args Arguments to be passed to the decorated function.
 	 * @returns A Promise that resolves to the result of the decorated function.
-	 * @throws Error("Request already in progress") -- If you call the function again before the previous operation finishes.
+	 * @throws Error("Request already in progress")
+	 * -- If you call the function again before the previous operation finishes.
 	 * @throws Error("Request be debounced") -- If the operation is cancelled by the debounce.
 	 * @throws Error("Too many requests") -- If the operation is cancelled by the throttle.
 	 */
@@ -108,14 +109,18 @@ export default callback => {
 		let resolve
 		/** @type {(reason?: any) => void} */
 		let reject
-		const promise = new Promise( (res, rej) => {
-			resolve = res
-			reject = rej
-		} )
+		const promise = new Promise(
+			(res, rej) => {
+				resolve = res
+				reject = rej
+			}
+		)
 		// @ts-ignore
 		if (cachedValue != null) resolve(cachedValue)
 		// @ts-ignore
-		else if (isInProgress) reject( Error("Request already in progress") )
+		else if (isInProgress) reject(
+			Error("Request already in progress")
+		)
 		// @ts-ignore
 		else debounce_impl(args, resolve, reject, promise)
 		return promise
@@ -143,7 +148,8 @@ export default callback => {
 
 	/**
 	 * Enable retries for the decorated function.
-	 * @param {(reason: Error, count: number) => void} checker A function to determine whether to retry based on the rejection reason and the retry count.
+	 * @param {(reason: Error, count: number) => void} checker
+	 * A function to determine whether to retry based on the rejection reason and the retry count.
 	 *
 	 * If no errors occur in the checker, proceed with the retry.
 	 * @returns The Decorator with retries behavior applied.

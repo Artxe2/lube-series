@@ -7,6 +7,6 @@ This powerful JavaScript library provides a client function that simplifies comm
 <br>
 
 ## installation
-```
+```bash
 npm i -D fetch-lube
 ```

@@ -4,13 +4,13 @@
 let clone = obj => {
 	/** @type {Record<string, *>} */
 	let copy = obj.constructor == Array
-			? []
-			: {}
+		? []
+		: {}
 	for (let key in obj) {
 		let o = obj[key]
 		copy[key] = o && typeof o == "object"
-				? clone(o)
-				: o
+			? clone(o)
+			: o
 	}
 	return copy
 }

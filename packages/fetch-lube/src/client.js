@@ -6,7 +6,7 @@ const to_query = data => {
 			query += (query ? "&" : "") + encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
 		}
 	}
-	return query;
+	return query
 }
 
 /** @param {Record<string, string | Blob>} [data] */
@@ -54,7 +54,7 @@ const get_fetch_query = (url, setAbort, options, query, headers) => {
 	}
 	if (setAbort) {
 		const controller = new AbortController()
-		setAbort( () => controller.abort() )
+		setAbort(() => controller.abort())
 		// @ts-ignore
 		options.signal = controller.signal
 	}
@@ -84,7 +84,7 @@ const get_fetch_body = (url, method, contentType, setAbort, options, body, heade
 	}
 	if (setAbort) {
 		const controller = new AbortController()
-		setAbort( () => controller.abort() )
+		setAbort(() => controller.abort())
 		options.signal = controller.signal
 	}
 	return fetch(url, options)
@@ -190,42 +190,48 @@ export default (url, setAbort) =>
 		/**
 		 * HTTP DELETE method.
 		 * @param {RequestInit} [options] Optional configuration options for the request.
-		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function for call `Fetch` with body parameters.
+		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
+		 * for call `Fetch` with body parameters.
 		 */
 		delete: options => set_options_body(url, "DELETE", setAbort, options),
 
 		/**
 		 * HTTP HEAD method.
 		 * @param {RequestInit} [options] Optional configuration options for the request.
-		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function for call `Fetch` with body parameters.
+		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
+		 * for call `Fetch` with body parameters.
 		 */
 		head: options => set_options_body(url, "HEAD", setAbort, options),
 		
 		/**
 		 * HTTP OPTIONS method.
 		 * @param {RequestInit} [options] Optional configuration options for the request.
-		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function for call `Fetch` with body parameters.
+		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
+		 * for call `Fetch` with body parameters.
 		 */
 		options: options => set_options_body(url, "OPTIONS", setAbort, options),
 		
 		/**
 		 * HTTP PATCH method.
 		 * @param {RequestInit} [options] Optional configuration options for the request.
-		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function for call `Fetch` with body parameters.
+		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
+		 * for call `Fetch` with body parameters.
 		 */
 		patch: options => set_options_body(url, "PATCH", setAbort, options),
 		
 		/**
 		 * HTTP POST method.
 		 * @param {RequestInit} [options] Optional configuration options for the request.
-		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function for call `Fetch` with body parameters.
+		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
+		 * for call `Fetch` with body parameters.
 		 */
 		post: options => set_options_body(url, "POST", setAbort, options),
 		
 		/**
 		 * HTTP PUT method.
 		 * @param {RequestInit} [options] Optional configuration options for the request.
-		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function for call `Fetch` with body parameters.
+		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
+		 * for call `Fetch` with body parameters.
 		 */
 		put: options => set_options_body(url, "PUT", setAbort, options)
 	})

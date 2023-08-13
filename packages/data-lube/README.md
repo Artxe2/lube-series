@@ -7,6 +7,6 @@ This library offers easy-to-use functions for creating deep copies and deep free
 <br>
 
 ## installation
-```
+```bash
 npm i -D data-lube
 ```
