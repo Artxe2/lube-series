@@ -5,7 +5,7 @@ import { flow } from "wizard-lube"
 describe(
 	"flow",
 	() => {
-		const myFlow = flow()
+		const my_flow = flow()
 			.add("a", () => {
 				goto("/b")
 			})
@@ -30,16 +30,16 @@ describe(
 		it(
 			"init data",
 			() => {
-				assert.deepEqual(myFlow.data(), {})
+				assert.deepEqual(my_flow.data(), {})
 			}
 		)
 		it(
 			"step a => b",
 			() => {
-				myFlow.step({ firstName: "James", lastName: "Smith" })
+				my_flow.step({ firstName: "James", lastName: "Smith" })
 				assert.equal(location.pathname, "/b")
 				assert.deepEqual(
-					myFlow.data(),
+					my_flow.data(),
 					{ firstName: "James", lastName: "Smith" }
 				)
 			}
@@ -47,10 +47,10 @@ describe(
 		it(
 			"step b => c",
 			() => {
-				myFlow.step({ eMail: "user@domain.com", phone: "010-1234-5678" })
+				my_flow.step({ eMail: "user@domain.com", phone: "010-1234-5678" })
 				assert.equal(location.pathname, "/c")
 				assert.deepEqual(
-					myFlow.data(),
+					my_flow.data(),
 					{ firstName: "James", lastName: "Smith", eMail: "user@domain.com", phone: "010-1234-5678" }
 				)
 			}
@@ -58,10 +58,10 @@ describe(
 		it(
 			"step c => d",
 			() => {
-				myFlow.step({ eMail: "user@domain.com", phone: "010-1234-5678" })
+				my_flow.step({ eMail: "user@domain.com", phone: "010-1234-5678" })
 				assert.equal(location.pathname, "/d")
 				assert.deepEqual(
-					myFlow.data(),
+					my_flow.data(),
 					{
 						firstName: "James",
 						lastName: "Smith",
@@ -75,10 +75,10 @@ describe(
 			"footprint to d",
 			() => {
 				goto("/b")
-				myFlow.footprint()
+				my_flow.footprint()
 				assert.equal(location.pathname, "/b")
 				assert.deepEqual(
-					myFlow.data(),
+					my_flow.data(),
 					{ firstName: "James", lastName: "Smith" }
 				)
 			}
@@ -86,10 +86,10 @@ describe(
 		it(
 			"step again b => c",
 			() => {
-				myFlow.step({ eMail: "user2@domain.com", phone: "010-1234-1234" })
+				my_flow.step({ eMail: "user2@domain.com", phone: "010-1234-1234" })
 				assert.equal(location.pathname, "/c")
 				assert.deepEqual(
-					myFlow.data(),
+					my_flow.data(),
 					{ firstName: "James", lastName: "Smith", eMail: "user2@domain.com", phone: "010-1234-1234" }
 				)
 			}
@@ -97,10 +97,10 @@ describe(
 		it(
 			"step again c => d",
 			() => {
-				myFlow.step({ birthday: "2222-02-02" })
+				my_flow.step({ birthday: "2222-02-02" })
 				assert.equal(location.pathname, "/d")
 				assert.deepEqual(
-					myFlow.data(),
+					my_flow.data(),
 					{
 						firstName: "James",
 						lastName: "Smith",

@@ -1,6 +1,6 @@
 import { assert, describe, it } from "vitest"
 
-import { deepCopy } from "data-lube"
+import { deepCopy as deep_copy } from "data-lube"
 
 describe(
 	"deep_copy",
@@ -185,7 +185,7 @@ describe(
 		it(
 			"clone",
 			() => {
-				const clone = deepCopy(dimensions)
+				const clone = deep_copy(dimensions)
 				assert.deepEqual(JSON.stringify(dimensions), JSON.stringify(clone))
 				assert.notEqual(dimensions[0].dimensions, clone[0].dimensions)
 			}

@@ -1,5 +1,5 @@
 /** @type {Record<string, string>} */
-const firstConsonantLetters = {
+const first_consonant_letters = {
 	ㄱ: "[가-깋]",
 	ㄴ: "[나-닣]",
 	ㄷ: "[다-딯]",
@@ -20,9 +20,10 @@ const firstConsonantLetters = {
  * @param {string} letter
  */
 const get_letter_range = letter => {
-	const regex = firstConsonantLetters[letter]
+	const regex = first_consonant_letters[letter]
 	if (regex) return regex
-	const code = letter.charCodeAt(0)
+	// @ts-ignore
+	const code = letter.charCodeAt()
 	return letter > "힣" || letter < "가" || (code - 44032) % 28
 		? letter
 		: `[${letter}-${String.fromCharCode(code + 27)}]`
@@ -43,7 +44,7 @@ export default (text) => {
 	const len = text.length - 1
 	for (let i = 0; i < len; i++) {
 		let t = text[i]
-		regex += firstConsonantLetters[t] || get_letter_range(t)
+		regex += first_consonant_letters[t] || get_letter_range(t)
 	}
 	return regex + get_letter_range(text[len])
 }

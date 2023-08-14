@@ -1,6 +1,6 @@
 import { assert, describe, it } from "vitest"
 
-import { deepEqual } from "data-lube"
+import { deepEqual as deep_equal } from "data-lube"
 
 describe(
 	"deep_equal",
@@ -185,22 +185,24 @@ describe(
 		it(
 			"check literals",
 			() => {
-				assert.isTrue(deepEqual(undefined, void 0))
-				assert.isTrue(deepEqual(null, null))
-				assert.isTrue(deepEqual(true, true))
-				assert.isTrue(deepEqual(123, 123))
-				assert.isTrue(deepEqual("abc", "abc"))
-				assert.isTrue(deepEqual({}, {}))
-				assert.isTrue(deepEqual([], []))
+				assert.isTrue(deep_equal(undefined, void 0))
+				assert.isTrue(deep_equal(null, null))
+				assert.isTrue(deep_equal(true, true))
+				assert.isTrue(deep_equal(123, 123))
+				assert.isTrue(deep_equal("abc", "abc"))
+				assert.isTrue(deep_equal({}, {}))
+				assert.isTrue(deep_equal([], []))
 
-				assert.isFalse(deepEqual(null, undefined))
-				assert.isFalse(deepEqual(true, false))
-				assert.isFalse(deepEqual(123, 456))
-				assert.isFalse(deepEqual("abc", "xyz"))
-				assert.isFalse(deepEqual("123", 123))
-				assert.isFalse(deepEqual("abc", ["a", "b", "c"]))
-				assert.isFalse(deepEqual({}, null))
-				assert.isFalse(deepEqual({}, []))
+				assert.isFalse(deep_equal({a: void 0}, {b: 1}))
+				assert.isFalse(deep_equal({a: 1}, {b: void 0}))
+				assert.isFalse(deep_equal(null, undefined))
+				assert.isFalse(deep_equal(true, false))
+				assert.isFalse(deep_equal(123, 456))
+				assert.isFalse(deep_equal("abc", "xyz"))
+				assert.isFalse(deep_equal("123", 123))
+				assert.isFalse(deep_equal("abc", ["a", "b", "c"]))
+				assert.isFalse(deep_equal({}, null))
+				assert.isFalse(deep_equal({}, []))
 			}
 		)
 

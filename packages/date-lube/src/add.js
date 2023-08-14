@@ -1,4 +1,4 @@
-let timeRE = /(-?\d+)([YMDHms]+)/g
+let time_regex = /(-?\d+)([YMDHms]+)/g
 
 /**
  * Calculates and adds the specified time duration to the provided date.
@@ -18,7 +18,7 @@ let timeRE = /(-?\d+)([YMDHms]+)/g
  * @returns The modified Date object with the calculated time added.
  */
 export default (date, sum) => {
-	for (let [, n, unit] of sum.matchAll(timeRE)) {
+	for (let [, n, unit] of sum.matchAll(time_regex)) {
 		const number = Number(n)
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number)
 		else if (unit == "M") date.setMonth(date.getMonth() + number)

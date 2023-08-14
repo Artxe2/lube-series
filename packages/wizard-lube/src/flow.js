@@ -6,13 +6,13 @@
  * @returns A Flow instance to manage the form flow and handlers.
  */
 export default (base = "/") => {
-	/** @type {Map<string, (data: Record<string, any>) => void>} */
+	/** @type {Map<string, (data: Record<string, *>) => void>} */
 	let handlers = new Map()
 	let utils = {
 		/**
 		 * Adds a form handler for the specified `pathname`.
 		 * @param {string} pathname The relative URL path for the handler.
-		 * @param {(data: Record<string, any>) => void} handler
+		 * @param {(data: Record<string, *>) => void} handler
 		 * The function that handles the form data for the specified `location.pathname`.
 		 * @returns The `Flow` object for method chaining.
 		 */
@@ -26,7 +26,7 @@ export default (base = "/") => {
 		 */
 		begin: () => {
 			/** @type Record< string, Record<string, *> > */
-			let prevForms = {}
+			let prev_forms = {}
 			/** @type Record<string, *> */
 			let form = {}
 			return {
@@ -41,7 +41,7 @@ export default (base = "/") => {
 				 * -- Failed to get previous data to current `location.pathname`
 				 */
 				footprint() {
-					form = prevForms[location.pathname]
+					form = prev_forms[location.pathname]
 					if (!form) throw Error("No information from previous data.")
 				},
 				/**
@@ -50,7 +50,7 @@ export default (base = "/") => {
 				 * @param {Record<string, *>} data The form data to be updated for the current step.
 				 */
 				step(data) {
-					prevForms[location.pathname] = form
+					prev_forms[location.pathname] = form
 					form = { ...form, ...data}
 					// @ts-ignore
 					handlers.get(location.pathname)(form)

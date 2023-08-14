@@ -1,11 +1,11 @@
 /**
- * @param {(value: any) => void} resolve
- * @param {(reason?: any) => void} reject
- * @param {Map<any[], Function>} jobs
- * @param {Map<Function, any[][]>} dependents
+ * @param {(value: *) => void} resolve
+ * @param {(reason?: Error) => void} reject
+ * @param {Map<*[], Function>} jobs
+ * @param {Map<Function, *[][]>} dependents
  * @param {[number]} count
- * @param {any[]} dependencies
- * @param {Function|*} callback
+ * @param {*[]} dependencies
+ * @param {Function} callback
  * @param {number} index
  */
 const run_node = async (resolve, reject, jobs, dependents, count, dependencies, callback, index) => {
@@ -21,9 +21,11 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 				p[p.indexOf(callback)] = value
 				if (
 					p.every(
-						(/** @type {any} */p) => typeof p != "function"
+						// @ts-ignore
+						p => typeof p != "function"
 					)
 				) {
+					// @ts-ignore
 					run_node(resolve, reject, jobs, dependents, count, p, jobs.get(p), index)
 						.catch(reject)
 				}
@@ -33,15 +35,15 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 }
 
 /**
- * @param {Map<any[], Function>} nodes
+ * @param {Map<*[], Function>} nodes
  * @param {number} index
  */
 const run_dag = (nodes, index) =>
 	new Promise(
 		(resolve, reject) => {
-			/** @type {Map<any[], Function>} */
+			/** @type {Map<*[], Function>} */
 			const jobs = new Map()
-			/** @type {Map<Function, any[][]>} */
+			/** @type {Map<Function, *[][]>} */
 			const dependents = new Map()
 			/** @type {[number]} */
 			const count = [ nodes.size ]
@@ -59,7 +61,7 @@ const run_dag = (nodes, index) =>
 			for (const [dependencies, callback] of jobs)
 				if (
 					dependencies.every(
-						(/** @type {any} */p) => typeof p != "function"
+						(/** @type {*} */p) => typeof p != "function"
 					)
 				) {
 					run_node(resolve, reject, jobs, dependents, count, dependencies, callback, index)
@@ -73,7 +75,7 @@ const run_dag = (nodes, index) =>
  * @returns The DAG instance with methods to add execution plans and run the DAG asynchronously.
  */
 export default () => {
-	/** @type {Map<any[], Function>} */
+	/** @type {Map<*[], Function>} */
 	const nodes = new Map()
 
 	/**

@@ -1,4 +1,4 @@
-let timeZoneRE = /T\+?(-?\d+):?(\d*)/
+let time_zone_regex = /T\+?(-?\d+):?(\d*)/
 
 /**
  * Adjusts the date according to the specified time zone offset.
@@ -9,7 +9,7 @@ let timeZoneRE = /T\+?(-?\d+):?(\d*)/
  * @returns The modified Date object with the adjusted time zone.
  */
 export default (date, timeZone) => {
-	const array = timeZoneRE.exec(Intl.DateTimeFormat("ia", { timeZone, timeZoneName: "short" }).format())
+	const array = time_zone_regex.exec(Intl.DateTimeFormat("ia", { timeZone, timeZoneName: "short" }).format())
 	if (array) {
 		date.setMinutes(date.getMinutes() + date.getTimezoneOffset() + Number(array[1]) * 60 + Number(array[2]))
 	}

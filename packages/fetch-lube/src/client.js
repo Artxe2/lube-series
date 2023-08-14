@@ -12,21 +12,21 @@ const to_query = data => {
 /** @param {Record<string, string | Blob>} [data] */
 const to_form_data = data => {
 	if (data) {
-		const formData = new FormData()
-		for (const key in data) formData.append(key, data[key])
-		return formData
+		const form_data = new FormData()
+		for (const key in data) form_data.append(key, data[key])
+		return form_data
 	}
 }
 
-const pathVariableRE = /:[a-zA-Z0-9]+/g
+const path_variable_regex = /:[a-zA-Z0-9]+/g
 /**
  * @param {string} url
- * @param {Record<string, *>} [data]
+ * @param {Record<string, string | number | Blob>} [data]
  */
-const set_path_variables_in_URL = (url, data) => {
+const set_path_variables_in_url = (url, data) => {
 	if (data) {
 		url = url.replace(
-			pathVariableRE,
+			path_variable_regex,
 			s => {
 				s = s.slice(1)
 				const v = data[s]
@@ -107,7 +107,7 @@ const set_options_body = (url, method, setAbort, options) =>
 		 */
 		json: (data, headers) =>
 			get_fetch_body(
-				set_path_variables_in_URL(url, data),
+				set_path_variables_in_url(url, data),
 				method,
 				"application/json;charset=UTF-8",
 				setAbort,
@@ -126,7 +126,7 @@ const set_options_body = (url, method, setAbort, options) =>
 		 */
 		multiPart: (data, headers) =>
 			get_fetch_body(
-				set_path_variables_in_URL(url, data),
+				set_path_variables_in_url(url, data),
 				method,
 				"multipart/form-data;charset=UTF-8",
 				setAbort,
@@ -143,7 +143,7 @@ const set_options_body = (url, method, setAbort, options) =>
 		 */
 		urlEncoded: (data, headers) =>
 			get_fetch_body(
-				set_path_variables_in_URL(url, data),
+				set_path_variables_in_url(url, data),
 				method,
 				"application/x-www-form-urlencoded;charset=UTF-8",
 				setAbort,
@@ -179,7 +179,7 @@ export default (url, setAbort) =>
 			 */
 			query: (data, headers) =>
 				get_fetch_query(
-					set_path_variables_in_URL(url, data),
+					set_path_variables_in_url(url, data),
 					setAbort,
 					options,
 					to_query(data),

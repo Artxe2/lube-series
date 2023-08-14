@@ -11,24 +11,34 @@
 		"sourceType": "module"
 	},
 	"rules": {
+		// Require identifiers to snake-case
+		"id-match": ["error", "^[_$]?[_$]?[a-z]+(?:_[a-z]+)*(?:_?\\d+)?$|^[A-Z]+(?:_[A-Z]+)*(?:_?\\d+)?$|^(?:[A-Z][a-z]*)+(?:_?\\d+)?$", {
+			"onlyDeclarations": true
+		}],
+		// Require indentation using tab
 		"indent": ["error", "tab"],
+		// Require spacing arround keywords
 		"keyword-spacing": ["error", {
 			"after": true,
 			"before": true
 		}],
-		"linebreak-style": ["error", "windows"],
+		// Disallow line that longer than 120 characters
 		"max-len": ["error", 120],
-		"max-statements-per-line": ["error", {
-			"max": 2
-		}],
+		// Disallow callback that nested more than 3
+		"max-nested-callbacks": ["error", 3],
+		// Disallow multi spaces
 		"no-multi-spaces": "error",
+		// Require using double quotes
 		"quotes": ["error", "double"],
+		// Disallow semicolons instead of ASI
 		"semi": ["error", "never"],
+		// Disallow spacing before function definition opening parenthesis
 		"space-before-function-paren": ["error", {
 			"anonymous": "never",
 			"asyncArrow": "always",
 			"named": "never"
 		}],
+		// Disallow spacing spacing inside parentheses
 		"space-in-parens": ["error", "never"]
 	}
 }

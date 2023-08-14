@@ -1,6 +1,6 @@
 import { assert, describe, it } from "vitest"
 
-import { deepFreeze } from "data-lube"
+import { deepFreeze as deep_freeze } from "data-lube"
 
 describe(
 	"deep_copy",
@@ -196,7 +196,7 @@ describe(
 		it(
 			"check deep freeze",
 			() => {
-				assert.isTrue(recursion(deepFreeze(dimensions)))
+				assert.isTrue(recursion(deep_freeze(dimensions)))
 			}
 		)
 	}

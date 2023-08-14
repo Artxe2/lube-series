@@ -8,7 +8,7 @@ describe(
 		/**
 		 * @type {((str: string) => Promise<string>)[]}
 		 */
-		const resolveArray = [
+		const resolve_array = [
 			(...str) =>
 				Promise.resolve()
 					.then(
@@ -46,7 +46,7 @@ describe(
 					)
 		]
 
-		const rejectArray = [
+		const reject_array = [
 			() =>
 				Promise.resolve()
 					.then(
@@ -88,13 +88,13 @@ describe(
 			"default(last) resolve",
 			async () => {
 				const my_dag = dag()
-					.add(resolveArray[0])
-					.add(resolveArray[1], resolveArray[0])
-					.add(resolveArray[2])
-					.add(resolveArray[3], resolveArray[5])
-					.add(resolveArray[4])
-					.add(resolveArray[5], resolveArray[0])
-					.add(resolveArray[6], resolveArray[5], resolveArray[3])
+					.add(resolve_array[0])
+					.add(resolve_array[1], resolve_array[0])
+					.add(resolve_array[2])
+					.add(resolve_array[3], resolve_array[5])
+					.add(resolve_array[4])
+					.add(resolve_array[5], resolve_array[0])
+					.add(resolve_array[6], resolve_array[5], resolve_array[3])
 				await my_dag()
 					.then(
 						value => assert.equal(value, "a,f,a,f,d,g")
@@ -108,13 +108,13 @@ describe(
 			"index resolve",
 			async () => {
 				const my_dag = dag()
-					.add(resolveArray[0])
-					.add(resolveArray[1], resolveArray[0])
-					.add(resolveArray[2])
-					.add(resolveArray[3], resolveArray[5])
-					.add(resolveArray[4])
-					.add(resolveArray[5], resolveArray[0])
-					.add(resolveArray[6], resolveArray[5], resolveArray[3])
+					.add(resolve_array[0])
+					.add(resolve_array[1], resolve_array[0])
+					.add(resolve_array[2])
+					.add(resolve_array[3], resolve_array[5])
+					.add(resolve_array[4])
+					.add(resolve_array[5], resolve_array[0])
+					.add(resolve_array[6], resolve_array[5], resolve_array[3])
 				await my_dag(3)
 					.then(
 						value => assert.equal(value, "a,f,d")
@@ -128,13 +128,13 @@ describe(
 			"run_dag error",
 			async () => {
 				const my_dag = dag()
-					.add(rejectArray[0])
-					.add(rejectArray[1])
-					.add(rejectArray[2])
-					.add(rejectArray[3])
-					.add(rejectArray[4])
-					.add(rejectArray[5])
-					.add(rejectArray[6])
+					.add(reject_array[0])
+					.add(reject_array[1])
+					.add(reject_array[2])
+					.add(reject_array[3])
+					.add(reject_array[4])
+					.add(reject_array[5])
+					.add(reject_array[6])
 				await my_dag()
 					.then(
 						() => assert.fail("No error occurred")
@@ -148,13 +148,13 @@ describe(
 			"run_node error",
 			async () => {
 				const my_dag = dag()
-					.add(rejectArray[0])
-					.add(rejectArray[1], rejectArray[0])
-					.add(rejectArray[2])
-					.add(rejectArray[3])
-					.add(rejectArray[4])
-					.add(rejectArray[5])
-					.add(rejectArray[6])
+					.add(reject_array[0])
+					.add(reject_array[1], reject_array[0])
+					.add(reject_array[2])
+					.add(reject_array[3])
+					.add(reject_array[4])
+					.add(reject_array[5])
+					.add(reject_array[6])
 				await my_dag()
 					.then(
 						() => assert.fail("No error occurred")
@@ -168,13 +168,13 @@ describe(
 			"run_node nest error",
 			async () => {
 				const my_dag = dag()
-					.add(rejectArray[0])
-					.add(rejectArray[1], rejectArray[2])
-					.add(rejectArray[2], rejectArray[3])
-					.add(rejectArray[3])
-					.add(rejectArray[4])
-					.add(rejectArray[5])
-					.add(rejectArray[6])
+					.add(reject_array[0])
+					.add(reject_array[1], reject_array[2])
+					.add(reject_array[2], reject_array[3])
+					.add(reject_array[3])
+					.add(reject_array[4])
+					.add(reject_array[5])
+					.add(reject_array[6])
 				await my_dag()
 					.then(
 						() => assert.fail("No error occurred")

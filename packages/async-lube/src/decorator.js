@@ -1,79 +1,80 @@
 /**
  * Create a function decorator with added behaviors such as caching, debouncing, retries, and throttling.
- * @param {Function} callback The function to be decorated.
+ * @template T
+ * @param {(...args: *[]) => T} callback The function to be decorated.
  * @returns The Decorator with added behaviors.
  */
 export default callback => {
-	let cacheTime = 0
-	/** @type {*} */
-	let cachedValue
-	/** @type {Promise<*>?} */
-	let debouncePromise
-	let debounceTimeMs = 0
+	let cache_time = 0
+	/** @type {T?} */
+	let cached_value
+	/** @type {Promise<T>?} */
+	let debounce_promise
+	let debounce_time_ms = 0
 	/** @type {boolean} */
-	let isInProgress
+	let is_in_progress
 	/** @type {(reason: Error, count: number) => void} */
 	let retry_checker
-	let throttleCount = 0
-	let throttleLimit = 0
-	let throttleTimeMs = 0
+	let throttle_count = 0
+	let throttle_limit = 0
+	let throttle_time_ms = 0
 
-	const decrease_throttle = () => throttleCount--
+	const decrease_throttle = () => throttle_count--
 
 	/** @param {*[]} args */
 	const throttle_impl = async args => {
-		if (!throttleLimit || throttleCount < throttleLimit) {
-			if (throttleLimit) {
-				throttleCount++
-				setTimeout(decrease_throttle, throttleTimeMs)
+		if (!throttle_limit || throttle_count < throttle_limit) {
+			if (throttle_limit) {
+				throttle_count++
+				setTimeout(decrease_throttle, throttle_time_ms)
 			}
 			return callback(...args)
 		}
 		throw Error("Too many requests")
 	}
 
-	const clear_cached_value = () => cachedValue = null
+	const clear_cached_value = () => cached_value = null
 
 	/**
 	 * @param {*[]} args
-	 * @param {(value: any) => void} resolve
-	 * @param {(reason?: any) => void} reject
+	 * @param {(value: T) => void} resolve
+	 * @param {(reason?: Error) => void} reject
 	 * @param {number} count
 	 * @returns
 	 */
 	const retries_impl = (args, resolve, reject, count) =>
 		throttle_impl(args)
 			.then(value => {
-				if (cacheTime) {
-					cachedValue = value
-					setTimeout(clear_cached_value, cacheTime)
+				if (cache_time) {
+					cached_value = value
+					setTimeout(clear_cached_value, cache_time)
 				}
-				isInProgress = false
+				is_in_progress = false
 				resolve(value)
 			}, reason => {
 				if (retry_checker) {
 					Promise.resolve(retry_checker(reason, ++count))
 						.then(() => retries_impl(args, resolve, reject, count))
 						.catch(reason => {
-							isInProgress = false
+							is_in_progress = false
 							reject(reason)
 						})
 				} else {
-					isInProgress = false
+					is_in_progress = false
 					reject(reason)
 				}
 			})
 
 	/**
 	 * @param {*[]} args
-	 * @param {(value: any) => void} resolve
-	 * @param {(reason?: any) => void} reject
+	 * @param {(value: T) => void} resolve
+	 * @param {(reason?: Error) => void} reject
 	 * @param {Promise<*>} promise
 	 */
 	const handle_debounce_timeout = (args, resolve, reject, promise) => {
-		if (debouncePromise == promise) {
-			debouncePromise = null
-			isInProgress = true
+		if (debounce_promise == promise) {
+			debounce_promise = null
+			is_in_progress = true
 			retries_impl(args, resolve, reject, 0)
 		}
 		else reject(Error("Request be debounced"))
@@ -81,16 +82,16 @@ export default callback => {
 
 	/**
 	 * @param {*[]} args
-	 * @param {(value: any) => void} resolve
-	 * @param {(reason?: any) => void} reject
-	 * @param {Promise<*>} promise
+	 * @param {(value: T) => void} resolve
+	 * @param {(reason?: Error) => void} reject
+	 * @param {Promise<T>} promise
 	 */
 	const debounce_impl = (args, resolve, reject, promise) => {
-		if (debounceTimeMs) {
-			debouncePromise = promise
-			setTimeout(handle_debounce_timeout, debounceTimeMs, args, resolve, reject, promise)
+		if (debounce_time_ms) {
+			debounce_promise = promise
+			setTimeout(handle_debounce_timeout, debounce_time_ms, args, resolve, reject, promise)
 		} else {
-			isInProgress = true
+			is_in_progress = true
 			retries_impl(args, resolve, reject, 0)
 		}
 	}
@@ -105,9 +106,9 @@ export default callback => {
 	 * @throws Error("Too many requests") -- If the operation is cancelled by the throttle.
 	 */
 	const utils = (...args) => {
-		/** @type {(value: any) => void} */
+		/** @type {(value: T) => void} */
 		let resolve
-		/** @type {(reason?: any) => void} */
+		/** @type {(reason?: Error) => void} */
 		let reject
 		const promise = new Promise(
 			(res, rej) => {
@@ -116,9 +117,9 @@ export default callback => {
 			}
 		)
 		// @ts-ignore
-		if (cachedValue != null) resolve(cachedValue)
+		if (cached_value != null) resolve(cached_value)
 		// @ts-ignore
-		else if (isInProgress) reject(
+		else if (is_in_progress) reject(
 			Error("Request already in progress")
 		)
 		// @ts-ignore
@@ -132,7 +133,7 @@ export default callback => {
 	 * @returns The Decorator with caching behavior applied.
 	 */
 	utils.cache = s => {
-		cacheTime = s * 1000
+		cache_time = s * 1000
 		return utils
 	}
 
@@ -142,7 +143,7 @@ export default callback => {
 	 * @returns The Decorator with debouncing behavior applied.
 	 */
 	utils.debounce = ms => {
-		debounceTimeMs = ms
+		debounce_time_ms = ms
 		return utils
 	}
 
@@ -154,7 +155,7 @@ export default callback => {
 	 * If no errors occur in the checker, proceed with the retry.
 	 * @returns The Decorator with retries behavior applied.
 	 */
-	utils.retries = (checker) => {
+	utils.retries = checker => {
 		retry_checker = checker
 		return utils
 	}
@@ -166,8 +167,8 @@ export default callback => {
 	 * @returns The Decorator with throttling behavior applied.
 	 */
 	utils.throttle = (n, ms) => {
-		throttleLimit = n
-		throttleTimeMs = ms
+		throttle_limit = n
+		throttle_time_ms = ms
 		return utils
 	}
 	return utils
