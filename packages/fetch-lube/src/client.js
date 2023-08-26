@@ -18,7 +18,7 @@ const to_form_data = data => {
 	}
 }
 
-const path_variable_regex = /:[a-zA-Z0-9]+/g
+const path_variable_regex = /:[_a-zA-Z0-9]+/g
 /**
  * @param {string} url
  * @param {Record<string, string | number | Blob>} [data]
