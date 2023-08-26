@@ -6,7 +6,7 @@ let _array = Array
  */
 let clone = obj => {
 	// @ts-ignore
-	if (obj.constructor == _date) return new Date(obj)
+	if (obj.constructor == _date) return new _date(obj)
 	/** @type {Record<string, *>} */
 	let copy = obj.constructor == _array
 		? []
