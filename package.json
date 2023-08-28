@@ -22,7 +22,8 @@
 		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"scripts": {
-		"test": "vitest run && echo \"manually check that there are no type errors in test/types by opening the files in there\""
+		"lint": "tsc --noEmit && eslint --fix .",
+		"test": "vitest run"
 	},
 	"type": "module",
 	"version": "0.0.0"

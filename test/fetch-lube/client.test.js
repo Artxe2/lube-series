@@ -8,10 +8,10 @@ describe(
 		it(
 			"get",
 			async () => {
-				const value = await client("https://dummyjson.com/products/category/:category")
+				const value = await client("https://dummyjson.com/products/category/:ca_teGory123")
 					.get()
 					.query({
-						category: "smartphones",
+						ca_teGory123: "smartphones",
 						limit: 2
 					}, {
 						// eslint-disable-next-line max-len

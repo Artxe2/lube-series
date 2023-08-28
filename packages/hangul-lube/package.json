@@ -6,12 +6,12 @@
 	"description": "Simplify Korean Consonant Search in JavaScript",
 	"keywords": ["hangul", "lube", "hangul-lube", "syntax sugar"],
 	"license": "MIT",
-	"main": "export.js",
+	"main": "index.js",
 	"name": "hangul-lube",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"type": "module",
-	"version": "1.1.1"
+	"version": "1.2.0"
 }
