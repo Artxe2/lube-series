@@ -4,17 +4,17 @@
  * @param {*} another Any type of object too
  * @returns is deep equal `object` and `another`.
  */
-let equals = (object, another) => {
+const equals = (object, another) => {
 	if (object !== another) {
 		if (
 			typeof object !== "object"
 			|| typeof another !== "object"
 			|| object?.constructor !== another?.constructor
 		) return false
-		let o_key = Object.keys(object)
-		let a_key = Object.keys(another)
+		const o_key = Object.keys(object)
+		const a_key = Object.keys(another)
 		if (o_key.length != a_key.length) return false
-		for (let key of o_key) {
+		for (const key of o_key) {
 			if (!a_key.includes(key) || !equals(object[key], another[key])) return false
 		}
 	}

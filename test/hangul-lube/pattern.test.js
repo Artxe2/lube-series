@@ -1,4 +1,6 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert, describe, it 
+} from "vitest"
 
 import { pattern } from "hangul-lube"
 
@@ -25,5 +27,8 @@ describe(
 				)
 			}
 		)
+		for (let i = 0; i < 5; i++){
+			//asd
+		}
 	}
 )

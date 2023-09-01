@@ -1,9 +1,9 @@
 /**
  * @param {Record<string, *>} obj
  */
-let freeze = obj => {
-	for (let key in Object.freeze(obj)) {
-		let data = obj[key]
+const freeze = obj => {
+	for (const key in Object.freeze(obj)) {
+		const data = obj[key]
 		if (data && typeof data == "object") freeze(data)
 	}
 }

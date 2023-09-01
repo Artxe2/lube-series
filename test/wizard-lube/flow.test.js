@@ -1,4 +1,6 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert, describe, it 
+} from "vitest"
 
 import { flow } from "wizard-lube"
 
@@ -17,9 +19,7 @@ describe(
 			})
 			.begin()
 		// @ts-ignore
-		globalThis.location = {
-			pathname: "/a"
-		}
+		globalThis.location = { pathname: "/a" }
 		/**
 		 * @param {string} pathname
 		 */
@@ -36,29 +36,46 @@ describe(
 		it(
 			"step a => b",
 			() => {
-				my_flow.step({ firstName: "James", lastName: "Smith" })
+				my_flow.step({
+					firstName: "James",
+					lastName: "Smith" 
+				})
 				assert.equal(location.pathname, "/b")
 				assert.deepEqual(
 					my_flow.data(),
-					{ firstName: "James", lastName: "Smith" }
+					{
+						firstName: "James",
+						lastName: "Smith" 
+					}
 				)
 			}
 		)
 		it(
 			"step b => c",
 			() => {
-				my_flow.step({ eMail: "user@domain.com", phone: "010-1234-5678" })
+				my_flow.step({
+					eMail: "user@domain.com",
+					phone: "010-1234-5678" 
+				})
 				assert.equal(location.pathname, "/c")
 				assert.deepEqual(
 					my_flow.data(),
-					{ firstName: "James", lastName: "Smith", eMail: "user@domain.com", phone: "010-1234-5678" }
+					{
+						firstName: "James",
+						lastName: "Smith",
+						eMail: "user@domain.com",
+						phone: "010-1234-5678" 
+					}
 				)
 			}
 		)
 		it(
 			"step c => d",
 			() => {
-				my_flow.step({ eMail: "user@domain.com", phone: "010-1234-5678" })
+				my_flow.step({
+					eMail: "user@domain.com",
+					phone: "010-1234-5678" 
+				})
 				assert.equal(location.pathname, "/d")
 				assert.deepEqual(
 					my_flow.data(),
@@ -79,18 +96,29 @@ describe(
 				assert.equal(location.pathname, "/b")
 				assert.deepEqual(
 					my_flow.data(),
-					{ firstName: "James", lastName: "Smith" }
+					{
+						firstName: "James",
+						lastName: "Smith" 
+					}
 				)
 			}
 		)
 		it(
 			"step again b => c",
 			() => {
-				my_flow.step({ eMail: "user2@domain.com", phone: "010-1234-1234" })
+				my_flow.step({
+					eMail: "user2@domain.com",
+					phone: "010-1234-1234" 
+				})
 				assert.equal(location.pathname, "/c")
 				assert.deepEqual(
 					my_flow.data(),
-					{ firstName: "James", lastName: "Smith", eMail: "user2@domain.com", phone: "010-1234-1234" }
+					{
+						firstName: "James",
+						lastName: "Smith",
+						eMail: "user2@domain.com",
+						phone: "010-1234-1234" 
+					}
 				)
 			}
 		)

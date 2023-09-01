@@ -1,4 +1,6 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert, describe, it 
+} from "vitest"
 
 import { client } from "fetch-lube"
 
@@ -77,9 +79,7 @@ describe(
 				let json = await value.json()
 				value = await client("https://dummyjson.com/auth/users/1")
 					.get()
-					.query({}, {
-						Authorization: "Bearer " + json.token
-					})
+					.query({}, { Authorization: "Bearer " + json.token })
 				json = await value.json()
 				assert.equal(json.email, "atuny0@sohu.com")
 			}
@@ -89,9 +89,7 @@ describe(
 			async () => {
 				const value = await client("https://dummyjson.com/auth/login")
 					.post()
-					.json({
-						username: "kminchelle"
-					})
+					.json({ username: "kminchelle" })
 				assert.equal(value.status, 400)
 			}
 		)
@@ -100,7 +98,7 @@ describe(
 			async () => {
 				/** @type {VoidFunction} */
 				let stop
-				let api = client("https://dummyjson.com/auth/login", abort => stop = abort)
+				const api = client("https://dummyjson.com/auth/login", abort => stop = abort)
 					.post()
 					.json({
 						username: "kminchelle",

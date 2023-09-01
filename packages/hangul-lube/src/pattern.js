@@ -43,7 +43,7 @@ export default (text) => {
 	let regex = ""
 	const len = text.length - 1
 	for (let i = 0; i < len; i++) {
-		let t = text[i]
+		const t = text[i]
 		regex += first_consonant_letters[t] || get_letter_range(t)
 	}
 	return regex + get_letter_range(text[len])

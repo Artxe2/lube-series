@@ -1,11 +1,9 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
-		"checkJs": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"module": "NodeNext",
-		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
+		"noEmit": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"

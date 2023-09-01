@@ -1,4 +1,8 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert,
+	describe,
+	it
+} from "vitest"
 
 import { dag } from "async-lube"
 
@@ -97,9 +101,11 @@ describe(
 					.add(resolve_array[6], resolve_array[5], resolve_array[3])
 				await my_dag()
 					.then(
+						// @ts-ignore
 						value => assert.equal(value, "a,f,a,f,d,g")
 					)
 					.catch(
+						// @ts-ignore
 						reason => assert.fail(reason.message)
 					)
 			}
@@ -117,9 +123,11 @@ describe(
 					.add(resolve_array[6], resolve_array[5], resolve_array[3])
 				await my_dag(3)
 					.then(
+						// @ts-ignore
 						value => assert.equal(value, "a,f,d")
 					)
 					.catch(
+						// @ts-ignore
 						reason => assert.fail(reason.message)
 					)
 			}
@@ -140,6 +148,7 @@ describe(
 						() => assert.fail("No error occurred")
 					)
 					.catch(
+						// @ts-ignore
 						reason => assert.equal("b", reason.message)
 					)
 			}
@@ -160,6 +169,7 @@ describe(
 						() => assert.fail("No error occurred")
 					)
 					.catch(
+						// @ts-ignore
 						reason => assert.equal("b", reason.message)
 					)
 			}
@@ -180,6 +190,7 @@ describe(
 						() => assert.fail("No error occurred")
 					)
 					.catch(
+						// @ts-ignore
 						reason => assert.equal("b", reason.message)
 					)
 			}

@@ -1,11 +1,15 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert,
+	describe,
+	it
+} from "vitest"
 
 import { decorator } from "async-lube"
 
 describe(
 	"decorator",
 	() => {
-		let resolve = () =>
+		const resolve = () =>
 			() => Promise.resolve("resolve")
 				.then(
 					() => "resolve"
@@ -54,10 +58,12 @@ describe(
 							() => assert.fail("No error occurred")
 						)
 						.catch(
+							// @ts-ignore
 							reason => assert.equal(reason.message, "Request be debounced")
 						),
 					debounce_test()
 						.catch(
+							// @ts-ignore
 							reason => assert.fail(reason.message)
 						)
 				])
@@ -71,10 +77,12 @@ describe(
 				await Promise.all([
 					await throttle_test()
 						.catch(
+							// @ts-ignore
 							reason => assert.fail(reason.message)
 						),
 					await throttle_test()
 						.catch(
+							// @ts-ignore
 							reason => assert.fail(reason.message)
 						),
 					throttle_test()
@@ -82,6 +90,7 @@ describe(
 							() => assert.fail("No error occurred")
 						)
 						.catch(
+							// @ts-ignore
 							reason => assert.equal(reason.message, "Too many requests")
 						)
 				])
@@ -108,13 +117,16 @@ describe(
 							() => assert.fail("No error occurred")
 						)
 						.catch(
+							// @ts-ignore
 							reason => assert.equal(reason.message, "FAIL 3")
 						),
 					retry_test()
 						.then(
+							// @ts-ignore
 							value => assert.equal(value, "OK")
 						)
 						.catch(
+							// @ts-ignore
 							reason => assert.fail(reason.message)
 						)
 				])

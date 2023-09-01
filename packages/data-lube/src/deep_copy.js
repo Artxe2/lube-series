@@ -1,18 +1,18 @@
-let _date = Date
-let _array = Array
+const _date = Date
+const _array = Array
 
 /**
  * @param {Record<string, *>} obj
  */
-let clone = obj => {
+const clone = obj => {
 	// @ts-ignore
 	if (obj.constructor == _date) return new _date(obj)
 	/** @type {Record<string, *>} */
-	let copy = obj.constructor == _array
+	const copy = obj.constructor == _array
 		? []
 		: {}
-	for (let key in obj) {
-		let data = obj[key]
+	for (const key in obj) {
+		const data = obj[key]
 		copy[key] = data && typeof data == "object"
 			? clone(data)
 			: data

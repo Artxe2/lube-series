@@ -1,0 +1,1 @@
+module.exports = { rules: { "id-match": require("./rules/id-match") } }

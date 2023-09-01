@@ -7,8 +7,8 @@
  */
 export default (base = "/") => {
 	/** @type {Map<string, (data: Record<string, *>) => void>} */
-	let handlers = new Map()
-	let utils = {
+	const handlers = new Map()
+	const utils = {
 		/**
 		 * Adds a form handler for the specified `pathname`.
 		 * @param {string} pathname The relative URL path for the handler.
@@ -26,7 +26,7 @@ export default (base = "/") => {
 		 */
 		begin: () => {
 			/** @type Record< string, Record<string, *> > */
-			let prev_forms = {}
+			const prev_forms = {}
 			/** @type Record<string, *> */
 			let form = {}
 			return {
@@ -51,7 +51,10 @@ export default (base = "/") => {
 				 */
 				step(data) {
 					prev_forms[location.pathname] = form
-					form = { ...form, ...data}
+					form = {
+						...form,
+						...data 
+					}
 					// @ts-ignore
 					handlers.get(location.pathname)(form)
 				}

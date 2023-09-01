@@ -1,3 +1,8 @@
+/*
+VSCE: ESLint
+VSCE: Sort JS object keys
+VSCE: JavaScript and TypeScript Nightly
+*/
 {
 	"env": {
 		"browser": true,
@@ -5,40 +10,83 @@
 		"node": true
 	},
 	"extends": ["eslint:recommended"],
+	"ignorePatterns": ["**/types/*.d.ts"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
+	"plugins": ["lube"],
 	"rules": {
-		// Require identifiers to snake-case
-		"id-match": ["error", "^[_$]?[_$]?[a-z]+(?:_[a-z]+)*(?:_?\\d+)?$|^[A-Z]+(?:_[A-Z]+)*(?:_?\\d+)?$|^(?:[A-Z][a-z]*)+(?:_?\\d+)?$", {
-			"onlyDeclarations": true
-		}],
-		// Require indentation using tab
+		// Enforces consistent spacing around arrow functions
+		"arrow-spacing": "error",
+		// Enforces consistent spacing after commas
+		"comma-spacing": "error",
+		// Enforces that the dot operator should appear before properties
+		"dot-location": ["error", "property"],
+		// Flags potentially infinite loops in the forward direction
+		"for-direction": "error",
+		// Requires that getters in objects return a value
+		"getter-return": "error",
+		// Enforces the use of tabs for indentation
 		"indent": ["error", "tab"],
-		// Require spacing arround keywords
+		// Enforces consistent spacing around keywords
 		"keyword-spacing": ["error", {
 			"after": true,
 			"before": true
 		}],
-		// Disallow line that longer than 120 characters
-		"max-len": ["error", 120],
-		// Disallow callback that nested more than 3
+		// Custom rule that enforces a specific pattern for identifiers, including snake_case and CamelCase
+		"lube/id-match": ["error", "^[_$]?[_$]?(?:[a-z]+(?:_[a-z]+)*(?:_?\\d+)?\\$?)?$|^[A-Z]+(?:_[A-Z]+)*(?:_?\\d+)?$|^(?:[A-Z][a-z]*)+(?:_?\\d+)?$", {
+			"ignoreDestructuring": true,
+			"onlyDeclarations": true
+		}],
+		// Warns if lines are longer than 120 characters
+		"max-len": ["warn", 120],
+		// Flags if callbacks are nested more than 3 levels deep
 		"max-nested-callbacks": ["error", 3],
-		// Disallow multi spaces
+		// Helping to catch debugging statements that might be left in production code
+		"no-console": "error",
+		// Prevents importing the same module multiple times within the same file
+		"no-duplicate-imports": "error",
+		// Disallows the use of empty destructuring patterns, which can indicate a mistake.
+		"no-empty-pattern": "error",
+		// Disallows multiple spaces
 		"no-multi-spaces": "error",
-		// Require using double quotes
+		// Requires consistent spacing inside object braces
+		"object-curly-spacing": ["error", "always"],
+		// Requires consistent newlines inside object curly braces, with specific settings for different cases
+		"object-curly-newline": ["error", {
+			"ObjectExpression": { "consistent": true, "multiline": true, "minProperties": 3 },
+			"ObjectPattern": { "consistent": true, "multiline": true, "minProperties": 3 },
+			"ImportDeclaration": { "consistent": true, "multiline": true, "minProperties": 3 },
+			"ExportDeclaration": { "consistent": true, "multiline": true, "minProperties": 3 }
+		}],
+		// Enforce line breaks after each object property
+		"object-property-newline": ["warn", {
+			"allowAllPropertiesOnSameLine": false
+		}],
+		// Warns the use of const for variables that are not reassigned
+		"prefer-const": "warn",
+		// Requires the use of double quotes for strings
 		"quotes": ["error", "double"],
-		// Disallow semicolons instead of ASI
+		// Disallows the use of semicolons
 		"semi": ["error", "never"],
-		// Disallow spacing before function definition opening parenthesis
+		// Enforces consistent spacing after semicolons
+		"semi-spacing": ["error", {
+			"after": true,
+			"before": false
+		}],
+		// Enforces spacing before function parentheses for different function types
 		"space-before-function-paren": ["error", {
 			"anonymous": "never",
 			"asyncArrow": "always",
 			"named": "never"
 		}],
-		// Disallow spacing spacing inside parentheses
-		"space-in-parens": ["error", "never"]
+		// Disallows spacing inside parentheses
+		"space-in-parens": ["error", "never"],
+		// Enforces spacing around infix operators
+		"space-infix-ops": "error",
+		// Enforces spacing around unary operators
+		"space-unary-ops": "error"
 	}
 }

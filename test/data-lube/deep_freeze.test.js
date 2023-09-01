@@ -1,6 +1,8 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert, describe, it 
+} from "vitest"
 
-import { deepFreeze as deep_freeze } from "data-lube"
+import { deepFreeze } from "data-lube"
 
 describe(
 	"deep_copy",
@@ -43,25 +45,15 @@ describe(
 						"ar-MA": null,
 						"ar-SA": null
 					},
-					"bn": {
-						"bn-IN": null
-					},
-					"ca": {
-						"ca-ES": null
-					},
-					"cs": {
-						"cs-CZ": null
-					},
-					"da": {
-						"da-DK": null
-					},
+					"bn": { "bn-IN": null },
+					"ca": { "ca-ES": null },
+					"cs": { "cs-CZ": null },
+					"da": { "da-DK": null },
 					"de": {
 						"de-AT": null,
 						"de-DE": null
 					},
-					"el": {
-						"el-GR": null
-					},
+					"el": { "el-GR": null },
 					"en": {
 						"en-AU": null,
 						"en-BG": null,
@@ -92,87 +84,41 @@ describe(
 						"es-UY": null,
 						"es-VE": null
 					},
-					"fi": {
-						"fi-FI": null
-					},
+					"fi": { "fi-FI": null },
 					"fr": {
 						"fr-BE": null,
 						"fr-CA": null,
 						"fr-FR": null,
 						"fr-GF": null
 					},
-					"hi": {
-						"hi-IN": null
-					},
-					"hu": {
-						"hu-HU": null
-					},
-					"id": {
-						"id-ID": null
-					},
-					"it": {
-						"it-IT": null
-					},
-					"ja": {
-						"ja-JP": null
-					},
-					"kn": {
-						"kn-IN": null
-					},
-					"ko": {
-						"ko-KR": null
-					},
-					"ml": {
-						"ml-IN": null
-					},
-					"mr": {
-						"mr-IN": null
-					},
-					"ms": {
-						"ms-MY": null
-					},
-					"nb": {
-						"nb-NO": null
-					},
+					"hi": { "hi-IN": null },
+					"hu": { "hu-HU": null },
+					"id": { "id-ID": null },
+					"it": { "it-IT": null },
+					"ja": { "ja-JP": null },
+					"kn": { "kn-IN": null },
+					"ko": { "ko-KR": null },
+					"ml": { "ml-IN": null },
+					"mr": { "mr-IN": null },
+					"ms": { "ms-MY": null },
+					"nb": { "nb-NO": null },
 					"nl": {
 						"nl-BE": null,
 						"nl-NL": null,
 						"nl-SR": null
 					},
-					"pl": {
-						"pl-PL": null
-					},
-					"pt": {
-						"pt-BR": null
-					},
-					"ro": {
-						"ro-RO": null
-					},
-					"ru": {
-						"ru-RU": null
-					},
-					"sv": {
-						"sv-SE": null
-					},
-					"ta": {
-						"ta-IN": null
-					},
-					"te": {
-						"te-IN": null
-					},
-					"th": {
-						"th-TH": null
-					},
-					"tr": {
-						"tr-TR": null
-					},
-					"vi": {
-						"vi-VN": null
-					},
+					"pl": { "pl-PL": null },
+					"pt": { "pt-BR": null },
+					"ro": { "ro-RO": null },
+					"ru": { "ru-RU": null },
+					"sv": { "sv-SE": null },
+					"ta": { "ta-IN": null },
+					"te": { "te-IN": null },
+					"th": { "th-TH": null },
+					"tr": { "tr-TR": null },
+					"vi": { "vi-VN": null },
 					"zh": {
-						"zh-Hans": {
-							"zh-Hans-CN": null
-						},
+						"zh-Hans": { "zh-Hans-CN": null },
 						"zh-Hant": {
 							"zh-Hant-HK": null,
 							"zh-Hant-TW": null
@@ -196,7 +142,7 @@ describe(
 		it(
 			"check deep freeze",
 			() => {
-				assert.isTrue(recursion(deep_freeze(dimensions)))
+				assert.isTrue(recursion(deepFreeze(dimensions)))
 			}
 		)
 	}

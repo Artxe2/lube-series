@@ -1,4 +1,6 @@
-import { assert, describe, it } from "vitest"
+import {
+	assert, describe, it 
+} from "vitest"
 
 import { parallel } from "async-lube"
 
@@ -14,7 +16,11 @@ describe(
 			setTimeout(
 				() => {
 					const end = Date.now() - now
-					;(ms % 2 ? resolve : reject)({ ms, start, end })
+					;(ms % 2 ? resolve : reject)({
+						ms,
+						start,
+						end 
+					})
 				},
 				ms
 			)
@@ -47,43 +53,71 @@ describe(
 				assert.deepEqual(
 					value[0],
 					{
-						value: { ms: 1, start: 0, end: 1 }
+						value: {
+							ms: 1,
+							start: 0,
+							end: 1 
+						} 
 					}
 				)
 				assert.deepEqual(
 					value[1],
 					{
-						reason: { ms: 3, start: 0, end: 3 }
+						reason: {
+							ms: 3,
+							start: 0,
+							end: 3 
+						} 
 					}
 				)
 				assert.deepEqual(
 					value[2],
 					{
-						value: { ms: 5, start: 0, end: 5 }
+						value: {
+							ms: 5,
+							start: 0,
+							end: 5 
+						} 
 					}
 				)
 				assert.deepEqual(
 					value[3],
 					{
-						reason: { ms: 1, start: 1, end: 2 }
+						reason: {
+							ms: 1,
+							start: 1,
+							end: 2 
+						} 
 					}
 				)
 				assert.deepEqual(
 					value[4],
 					{
-						value: { ms: 2, start: 2, end: 4 }
+						value: {
+							ms: 2,
+							start: 2,
+							end: 4 
+						} 
 					}
 				)
 				assert.deepEqual(
 					value[5],
 					{
-						reason: { ms: 3, start: 3, end: 6 }
+						reason: {
+							ms: 3,
+							start: 3,
+							end: 6 
+						} 
 					}
 				)
 				assert.deepEqual(
 					value[6],
 					{
-						value: { ms: 4, start: 4, end: 8 }
+						value: {
+							ms: 4,
+							start: 4,
+							end: 8 
+						} 
 					}
 				)
 			}

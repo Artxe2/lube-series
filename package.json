@@ -6,14 +6,15 @@
 	"description": "Simple tools to lubricate JavaScript",
 	"devDependencies": {
 		"@typescript-eslint/parser": "^6.3.0",
-		"async-lube": "async-lube",
-		"data-lube": "data-lube",
-		"date-lube": "date-lube",
+		"async-lube": "workspace:^",
+		"data-lube": "workspace:^",
+		"date-lube": "workspace:^",
 		"eslint": "^8.47.0",
-		"fetch-lube": "fetch-lube",
-		"hangul-lube": "hangul-lube",
+		"eslint-plugin-lube": "workspace:^",
+		"fetch-lube": "workspace:^",
+		"hangul-lube": "workspace:^",
 		"vitest": "^0.34.1",
-		"wizard-lube": "wizard-lube"
+		"wizard-lube": "workspace:^"
 	},
 	"license": "MIT",
 	"name": "lube-series",
@@ -22,7 +23,8 @@
 		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"scripts": {
-		"lint": "tsc --noEmit && eslint --fix .",
+		"dts": "pnpm -r dts",
+		"lint": "tsc && eslint --fix .",
 		"test": "vitest run"
 	},
 	"type": "module",
