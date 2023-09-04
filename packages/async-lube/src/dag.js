@@ -21,11 +21,10 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 				p[p.indexOf(callback)] = value
 				if (
 					p.every(
-						// @ts-ignore
 						p => typeof p != "function"
 					)
 				) {
-					// @ts-ignore
+					// @ts-ignore: jobs.get(p)!
 					run_node(resolve, reject, jobs, dependents, count, p, jobs.get(p), index)
 						.catch(reject)
 				}

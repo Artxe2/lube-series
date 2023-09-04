@@ -110,7 +110,7 @@ describe(
 					.catch(
 						reason => assert.equal(reason.name, "AbortError")
 					)
-				// @ts-ignore
+				// @ts-ignore: stop is assigned in client
 				queueMicrotask(stop)
 				await api
 			}

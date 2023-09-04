@@ -49,13 +49,11 @@ const set_path_variables_in_url = (url, data) => {
 const get_fetch_query = (url, setAbort, options, query, headers) => {
 	options = {
 		...options,
-		// @ts-ignore
 		headers
 	}
 	if (setAbort) {
 		const controller = new AbortController()
 		setAbort(() => controller.abort())
-		// @ts-ignore
 		options.signal = controller.signal
 	}
 	return fetch(url + (query ? "?" + query : ""), options)

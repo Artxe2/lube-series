@@ -22,7 +22,7 @@ const first_consonant_letters = {
 const get_letter_range = letter => {
 	const regex = first_consonant_letters[letter]
 	if (regex) return regex
-	// @ts-ignore
+	// @ts-ignore: index -> index?
 	const code = letter.charCodeAt()
 	return letter > "힣" || letter < "가" || (code - 44032) % 28
 		? letter

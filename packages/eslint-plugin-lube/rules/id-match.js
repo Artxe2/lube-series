@@ -127,7 +127,7 @@ module.exports = {
 					? "notMatchPrivate" : "notMatch"
 
 				context.report({
-					// @ts-ignore
+					// @ts-ignore: ASTNode -> Node
 					node,
 					messageId: message_id,
 					data: {
@@ -232,7 +232,7 @@ module.exports = {
 			PrivateIdentifier(node) {
 				const is_class_field = node.parent.type === "PropertyDefinition"
 				if (is_class_field && !check_class_fields) return
-				// @ts-ignore
+				// @ts-ignore: PrivateIdentifier & Rule.NodeParentExtension -> ASTNode 
 				if (!allow_regex.test(node.name)) report(node)
 			}
 		}

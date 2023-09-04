@@ -18,7 +18,7 @@ describe(
 				goto("/d")
 			})
 			.begin()
-		// @ts-ignore
+		// @ts-ignore: globalThis.location
 		globalThis.location = { pathname: "/a" }
 		/**
 		 * @param {string} pathname

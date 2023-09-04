@@ -5,7 +5,6 @@ const _array = Array
  * @param {Record<string, *>} obj
  */
 const clone = obj => {
-	// @ts-ignore
 	if (obj.constructor == _date) return new _date(obj)
 	/** @type {Record<string, *>} */
 	const copy = obj.constructor == _array

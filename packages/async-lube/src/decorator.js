@@ -116,13 +116,13 @@ export default callback => {
 				reject = rej
 			}
 		)
-		// @ts-ignore
+		// @ts-ignore: resolve is assigned in PromiseConstructor
 		if (cached_value != null) resolve(cached_value)
-		// @ts-ignore
+		// @ts-ignore: reject is assigned in PromiseConstructor
 		else if (is_in_progress) reject(
 			Error("Request already in progress")
 		)
-		// @ts-ignore
+		// @ts-ignore: resolve & reject is assigned in PromiseConstructor
 		else debounce_impl(args, resolve, reject, promise)
 		return promise
 	}

@@ -55,7 +55,7 @@ export default (base = "/") => {
 						...form,
 						...data 
 					}
-					// @ts-ignore
+					// @ts-ignore: window.location.pathname
 					handlers.get(location.pathname)(form)
 				}
 			}

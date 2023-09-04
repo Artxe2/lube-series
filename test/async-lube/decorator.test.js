@@ -58,12 +58,12 @@ describe(
 							() => assert.fail("No error occurred")
 						)
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.equal(reason.message, "Request be debounced")
 						),
 					debounce_test()
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.fail(reason.message)
 						)
 				])
@@ -77,12 +77,12 @@ describe(
 				await Promise.all([
 					await throttle_test()
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.fail(reason.message)
 						),
 					await throttle_test()
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.fail(reason.message)
 						),
 					throttle_test()
@@ -90,7 +90,7 @@ describe(
 							() => assert.fail("No error occurred")
 						)
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.equal(reason.message, "Too many requests")
 						)
 				])
@@ -117,16 +117,16 @@ describe(
 							() => assert.fail("No error occurred")
 						)
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.equal(reason.message, "FAIL 3")
 						),
 					retry_test()
 						.then(
-							// @ts-ignore
+							/** @param {*} value */
 							value => assert.equal(value, "OK")
 						)
 						.catch(
-							// @ts-ignore
+							/** @param {*} reason */
 							reason => assert.fail(reason.message)
 						)
 				])
