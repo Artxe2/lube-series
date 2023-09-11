@@ -11,10 +11,8 @@
 		"date-lube": "workspace:^",
 		"eslint": "^8.47.0",
 		"eslint-plugin-lube": "workspace:^",
-		"fetch-lube": "workspace:^",
 		"hangul-lube": "workspace:^",
-		"vitest": "^0.34.1",
-		"wizard-lube": "workspace:^"
+		"vitest": "^0.34.1"
 	},
 	"license": "MIT",
 	"name": "lube-series",

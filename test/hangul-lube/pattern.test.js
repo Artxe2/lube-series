@@ -1,5 +1,5 @@
 import {
-	assert, describe, it 
+	assert, describe, it
 } from "vitest"
 
 import { pattern } from "hangul-lube"

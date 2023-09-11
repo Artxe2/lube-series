@@ -4,7 +4,7 @@
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
-		"module": "NodeNext",
+		"module": "CommonJS",
 		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
 		"skipLibCheck": true,
 		"strict": true,

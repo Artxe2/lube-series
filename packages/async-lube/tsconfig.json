@@ -4,14 +4,15 @@
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
 		"declaration": true,
-		"declarationDir": "types",
+		"declarationDir": "@types",
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
-		"module": "NodeNext",
+		"module": "Node16",
 		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
+		"rootDir": "src",
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"
-	}
+	},
 }

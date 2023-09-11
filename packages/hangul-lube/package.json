@@ -6,7 +6,7 @@
 	"description": "Simplify Korean Consonant Search in JavaScript",
 	"keywords": ["hangul", "lube", "hangul-lube", "syntax sugar"],
 	"license": "MIT",
-	"main": "index.js",
+	"main": "src/index.js",
 	"name": "hangul-lube",
 	"repository": {
 		"type": "git",
@@ -17,6 +17,6 @@
 		"test": "cd ../../test/hangul-lube/ && vitest run"
 	},
 	"type": "module",
-	"types": "types/index.d.ts",
+	"types": "@types/index.d.ts",
 	"version": "1.3.0"
 }

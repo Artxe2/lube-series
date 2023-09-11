@@ -69,7 +69,7 @@ module.exports = {
 		/**
 		 * Checks whether the given node represents a reference to a global variable that is not declared in the source code.
 		 * These identifiers will be allowed, as it is assumed that user has no control over the names of external global variables.
-		 * @param {import("./private").ASTNode} node `Identifier` node to check.
+		 * @param {import("../private").ASTNode} node `Identifier` node to check.
 		 * @returns {boolean|void} `true` if the node is a reference to a global variable.
 		 */
 		function is_reference_to_global_variable(node) {
@@ -80,7 +80,7 @@ module.exports = {
 
 		/**
 		 * Checks if a parent of a node is an ObjectPattern.
-		 * @param {import("./private").ASTNode} node The node to check.
+		 * @param {import("../private").ASTNode} node The node to check.
 		 * @returns {boolean} if the node is inside an ObjectPattern
 		 * @private
 		 */
@@ -98,7 +98,7 @@ module.exports = {
 		/**
 		 * Verifies if we should report an error or not based on the effective
 		 * parent node and the identifier name.
-		 * @param {import("./private").ASTNode} effective_parent The effective parent node of the node to be reported
+		 * @param {import("../private").ASTNode} effective_parent The effective parent node of the node to be reported
 		 */
 		function should_report(effective_parent) {
 			return (!only_declarations || DECLARATION_TYPES.includes(effective_parent.type)) &&
@@ -107,7 +107,7 @@ module.exports = {
 
 		/**
 		 * Reports an AST node as a rule violation.
-		 * @param {import("./private").ASTNode} node The node to report.
+		 * @param {import("../private").ASTNode} node The node to report.
 		 * @returns {void}
 		 * @private
 		 */
@@ -127,8 +127,7 @@ module.exports = {
 					? "notMatchPrivate" : "notMatch"
 
 				context.report({
-					// @ts-ignore: ASTNode -> Node
-					node,
+					node: /** @type {import("estree").Node} */(node),
 					messageId: message_id,
 					data: {
 						name: node.name,
@@ -143,7 +142,7 @@ module.exports = {
 			Program(node) {
 				global_scope = sourceCode.getScope(node)
 			},
-			/** @param {import("./private").ASTNode} node */
+			/** @param {import("../private").ASTNode} node */
 			Identifier(node) {
 				const name = node.name
 				if (allow_regex.test(name)) return
@@ -232,8 +231,11 @@ module.exports = {
 			PrivateIdentifier(node) {
 				const is_class_field = node.parent.type === "PropertyDefinition"
 				if (is_class_field && !check_class_fields) return
-				// @ts-ignore: PrivateIdentifier & Rule.NodeParentExtension -> ASTNode 
-				if (!allow_regex.test(node.name)) report(node)
+				if (!allow_regex.test(node.name)) {
+					report(
+						/** @type {import("../private").ASTNode} */(node)
+					)
+				}
 			}
 		}
 	}

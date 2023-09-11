@@ -26,18 +26,12 @@ importers:
       eslint-plugin-lube:
         specifier: workspace:^
         version: link:packages/eslint-plugin-lube
-      fetch-lube:
-        specifier: workspace:^
-        version: link:packages/fetch-lube
       hangul-lube:
         specifier: workspace:^
         version: link:packages/hangul-lube
       vitest:
         specifier: ^0.34.1
         version: 0.34.1
-      wizard-lube:
-        specifier: workspace:^
-        version: link:packages/wizard-lube
 
   packages/async-lube: {}
 
@@ -61,11 +55,7 @@ importers:
         specifier: ^8.47.0
         version: 8.47.0
 
-  packages/fetch-lube: {}
-
   packages/hangul-lube: {}
-
-  packages/wizard-lube: {}
 
 packages:
 
