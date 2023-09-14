@@ -70,6 +70,7 @@ exports.module = (valid, invalid) => {
 			pendingA = pendingB
 			var pendingA, pendingB
 			pendingA = pendingB
+			function func({ pendingA = 123 }) {}
 			`,
 			errors: [
 				{
@@ -109,7 +110,9 @@ exports.module = (valid, invalid) => {
 			pending_a = pending_b
 			var pending_a, pending_b
 			pending_a = pending_b
-			`
+			function func({ pendingA = 123 }) {}
+			`,
+			parserOptions: { ecmaVersion: "latest" }
 		},
 		// AssignmentPattern
 		{
@@ -561,13 +564,32 @@ exports.module = (valid, invalid) => {
 		},
 		// FunctionDeclaration
 		{
-			code: "function camelCase() {}",
-			errors: [{
-				...error,
-				line: 1,
-				column: 10
-			}],
-			output: "function camel_case() {}"
+			code: `
+			function camelCase() {}
+			export function camelCase2() {}
+			export function camelCase$() {}
+			`,
+			errors: [
+				{
+					...error,
+					line: 2,
+					column: 13
+				},
+				{
+					...error,
+					line: 4,
+					column: 20
+				}
+			],
+			output: `
+			function camel_case() {}
+			export function camelCase2() {}
+			export function camel_case$() {}
+			`,
+			parserOptions: {
+				ecmaVersion: "latest",
+				sourceType: "module"
+			}
 		},
 		// IfStatement
 		{
@@ -767,13 +789,19 @@ exports.module = (valid, invalid) => {
 		},
 		// MethodDefinition
 		{
-			code: "class Object { camelCase() {} }",
+			code: `
+			class ObjectB { camelCase() {} }
+			var camelCase
+			`,
 			errors: [{
 				...error,
-				line: 1,
-				column: 16
+				line: 3,
+				column: 8
 			}],
-			output: "class Object { camel_case() {} }",
+			output: `
+			class ObjectB { camelCase() {} }
+			var camel_case
+			`,
 			parserOptions: { ecmaVersion: "latest" }
 		},
 		// NewExpression
@@ -833,6 +861,11 @@ exports.module = (valid, invalid) => {
 					...error,
 					line: 5,
 					column: 23
+				},
+				{
+					...error,
+					line: 6,
+					column: 18
 				}
 			],
 			options: [{ fixSameNames: true }],
@@ -841,46 +874,32 @@ exports.module = (valid, invalid) => {
 			var value = { key: pending_a }
 			var pending_a
 			var value = { key: pending_a }
-			var value = { pendingA }
+			var value = { pendingA: pending_a }
 			`,
 			parserOptions: { ecmaVersion: "latest" }
 		},
 		// PropertyDefinition
 		{
 			code: `
-			class ObjectA { camelCase = deferA }
-			class ObjectB { snake_case = pendingA }
-			var pendingA
-			class ObjectC { snake_case = pendingA }
+			class ObjectB { camelCase = camelCase2 }
+			var camelCase, camelCase2
 			`,
 			errors: [
 				{
 					...error,
-					line: 2,
-					column: 20
-				},
-				{
-					...error,
 					line: 3,
-					column: 33
-				},
-				{
-					...error,
-					line: 4,
 					column: 8
 				},
 				{
 					...error,
-					line: 5,
-					column: 33
+					line: 3,
+					column: 19
 				}
 			],
 			options: [{ fixSameNames: true }],
 			output: `
-			class ObjectA { camel_case = deferA }
-			class ObjectB { snake_case = pending_a }
-			var pending_a
-			class ObjectC { snake_case = pending_a }
+			class ObjectB { camelCase = camelCase2 }
+			var camel_case, camel_case2
 			`,
 			parserOptions: { ecmaVersion: "latest" }
 		},
@@ -1230,6 +1249,8 @@ exports.module = (valid, invalid) => {
 			var snake_case = pendingA
 			var pendingA
 			var snake_case = pendingA
+			export var camelCase2
+			export var camelCase$
 			`,
 			errors: [
 				{
@@ -1251,6 +1272,11 @@ exports.module = (valid, invalid) => {
 					...error,
 					line: 5,
 					column: 21
+				},
+				{
+					...error,
+					line: 7,
+					column: 15
 				}
 			],
 			options: [{ fixSameNames: true }],
@@ -1259,7 +1285,13 @@ exports.module = (valid, invalid) => {
 			var snake_case = pending_a
 			var pending_a
 			var snake_case = pending_a
-			`
+			export var camelCase2
+			export var camel_case$
+			`,
+			parserOptions: {
+				ecmaVersion: "latest",
+				sourceType: "module"
+			}
 		},
 		// WhileStatement
 		{

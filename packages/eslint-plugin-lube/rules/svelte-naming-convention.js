@@ -9,8 +9,7 @@ module.exports = {
 		},
 		fixable: "code",
 		messages: {
-			not_match: "Identifier '{{name}}' does not match for svelte's naming conventions.",
-			not_match_private: "PrivateIdentifier '#{{name}}' does not match for svelte's naming conventions."
+			not_match: "Identifier '{{name}}' does not match for svelte's naming conventions."
 		},
 		schema: [{
 			properties: {
@@ -30,6 +29,7 @@ module.exports = {
 		const allow_regex = /^[_$]?[_$]?(?:[0-9a-z]+(?:_[0-9a-z]+)*\$?\$?)?$|^[A-Z][0-9A-Z_]*$|^(?:[0-9A-Z][0-9a-z]*)+$/
 		const fixable_name_regex = /^[_$]?[_$]?(?:[0-9A-Za-z]+(?:_[0-9A-Za-z]+)*\$?\$?)?$/
 		const fix_regex = /([0-9a-z]?)([A-Z][0-9A-Z]*)/g
+		const camel_case_regex = /^[0-9a-z]+([A-Z][0-9a-z]*)*$/
 
 		/**
 		 * @param {string} _
@@ -44,6 +44,8 @@ module.exports = {
 		const reported_declarations = new Set()
 		/** @type {Map<string, import("../private").ASTNode[]>} */
 		const pending_usages = new Map()
+		/** @type {Set<import("../private").ASTNode>} */
+		const shortand_properties = new Set()
 
 		/** @param {import("../private").ASTNode} node */
 		function defer(node) {
@@ -70,7 +72,8 @@ module.exports = {
 					if (fixable_name_regex.test(name)) {
 						return fixer.replaceTextRange(
 							node.range,
-							node.name.replace(fix_regex, fix_callback)
+							(shortand_properties.has(node) ? node.name + ": " : "")
+								+ node.name.replace(fix_regex, fix_callback)
 						)
 					}
 					return null
@@ -121,7 +124,10 @@ module.exports = {
 				// (left = right) => {}
 				if ("AssignmentPattern" == type) {
 					if (parent.left == node) {
-						report(node)
+						// function func({ camelCase = true }) {}
+						if (parent.parent?.type != "Property") {
+							report(node)
+						}
 					} else {
 						defer(node)
 					}
@@ -206,7 +212,13 @@ module.exports = {
 				}
 				// function camelCase() {}
 				if ("FunctionDeclaration" == type) {
-					report(node)
+					if (
+						parent.parent?.type != "ExportNamedDeclaration"
+						|| !camel_case_regex.test(name)
+					) {
+						report(node)
+					}
+					// export function camelCase() {}
 					return
 				}
 				/* FunctionExpression */
@@ -258,7 +270,6 @@ module.exports = {
 				/* MetaProperty */
 				// class Object { camelCase() {} }
 				if ("MethodDefinition" == type) {
-					report(node)
 					return
 				}
 				// new camelCase
@@ -273,18 +284,16 @@ module.exports = {
 				// var value = { key: value }
 				// var { key: value } = value
 				if ("Property" == type) {
-					if (parent.value == node && parent.key.name != parent.value.name) {
+					if (parent.value == node) {
+						if (parent.key.name == parent.value.name) {
+							shortand_properties.add(node)
+						}
 						defer(node)
 					}
 					return
 				}
-				// class Object { key = value }
+				// class Object { camelCase = value }
 				if ("PropertyDefinition" == type) {
-					if (parent.key == node) {
-						report(node)
-					} else {
-						defer(node)
-					}
 					return
 				}
 				// var [ ...camelCase ] = value
@@ -353,7 +362,13 @@ module.exports = {
 				// var id = init
 				if ("VariableDeclarator" == type) {
 					if (parent.id == node) {
-						report(node)
+						if (
+							parent.parent?.parent?.type != "ExportNamedDeclaration"
+							|| !camel_case_regex.test(name)
+						) {
+							report(node)
+						}
+						// export var camelCase
 					} else {
 						defer(node)
 					}
@@ -374,24 +389,6 @@ module.exports = {
 					defer(node)
 					return
 				}
-			},
-			/** @param {import("../private").ASTNode} node */
-			PrivateIdentifier(node) {
-				const name = node.name
-				if (allow_regex.test(name)) return
-				const parent = node.parent
-				const type = parent.type
-				// class Object { #camelCase() {} }
-				if ("MethodDefinition" == type) {
-					report(node)
-					return
-				}
-				// class Object { #camelCase = value }
-				if ("PropertyDefinition" == type) {
-					report(node)
-					return
-				}
-				// TODO ?
 			}
 		}
 	}
