@@ -17,7 +17,8 @@
 	"name": "eslint-plugin-lube",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Artxe2/lube-series"
+		"url": "https://github.com/Artxe2/lube-series",
+		"directory": "packages/eslint-plugin-lube"
 	},
 	"scripts": {
 		"test": "mocha"
