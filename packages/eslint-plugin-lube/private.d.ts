@@ -5,6 +5,8 @@ import {
 
 interface ASTNode extends Node, Pattern {
 	computed: boolean
+	id: ASTNode
+	imported: ASTNode
 	key: ASTNode
 	left: ASTNode
 	local: ASTNode

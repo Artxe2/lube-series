@@ -10,7 +10,8 @@
 	"devDependencies": {
 		"@types/eslint": "^8.44.2",
 		"@typescript-eslint/parser": "^6.3.0",
-		"eslint": "^8.47.0"
+		"eslint": "^8.47.0",
+		"mocha": "^10.2.0"
 	},
 	"license": "MIT",
 	"name": "eslint-plugin-lube",
@@ -22,5 +23,5 @@
 		"test": "mocha"
 	},
 	"type": "commonjs",
-	"version": "0.0.2"
+	"version": "0.1.3"
 }

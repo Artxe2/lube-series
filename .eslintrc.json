@@ -35,11 +35,8 @@ VSCE: JavaScript and TypeScript Nightly
 			"after": true,
 			"before": true
 		}],
-		// Custom rule that enforces a specific pattern for identifiers, including snake_case and CamelCase
-		"lube/id-match": ["error", "^[_$]?[_$]?(?:[a-z]+(?:_[a-z]+)*(?:_?\\d+)?\\$?)?$|^[A-Z]+(?:_[A-Z]+)*(?:_?\\d+)?$|^(?:[A-Z][a-z]*)+(?:_?\\d+)?$", {
-			"ignoreDestructuring": true,
-			"onlyDeclarations": true
-		}],
+		// Custom rule that enforces a specific pattern for identifiers
+		"lube/svelte-naming-convention": ["error", { "fixSameNames": true }],
 		// Warns if lines are longer than 120 characters
 		"max-len": ["warn", 120],
 		// Flags if callbacks are nested more than 3 levels deep

@@ -40,20 +40,20 @@ const set_path_variables_in_url = (url, data) => {
 
 /**
  * @param {string} url
- * @param {(abort: VoidFunction) => void} [setAbort]
+ * @param {(abort: VoidFunction) => void} [set_abort]
  * @param {RequestInit} [options]
  * @param {string} [query]
  * @param {Record<string, string>} [headers]
  * @returns
  */
-const get_fetch_query = (url, setAbort, options, query, headers) => {
+const get_fetch_query = (url, set_abort, options, query, headers) => {
 	options = {
 		...options,
 		headers
 	}
-	if (setAbort) {
+	if (set_abort) {
 		const controller = new AbortController()
-		setAbort(() => controller.abort())
+		set_abort(() => controller.abort())
 		options.signal = controller.signal
 	}
 	return fetch(url + (query ? "?" + query : ""), options)
@@ -62,16 +62,16 @@ const get_fetch_query = (url, setAbort, options, query, headers) => {
 /**
  * @param {string} url
  * @param {"DELETE" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT"} method
- * @param {string} contentType
- * @param {(abort: VoidFunction) => void} [setAbort]
+ * @param {string} content_type
+ * @param {(abort: VoidFunction) => void} [set_abort]
  * @param {RequestInit} [options]
  * @param {string | FormData} [body]
  * @param {Record<string, string>} [headers]
  * @returns
  */
-const get_fetch_body = (url, method, contentType, setAbort, options, body, headers) => {
+const get_fetch_body = (url, method, content_type, set_abort, options, body, headers) => {
 	headers = {
-		"Content-Type": contentType,
+		"Content-Type": content_type,
 		...headers
 	}
 	options = {
@@ -80,9 +80,9 @@ const get_fetch_body = (url, method, contentType, setAbort, options, body, heade
 		body,
 		headers
 	}
-	if (setAbort) {
+	if (set_abort) {
 		const controller = new AbortController()
-		setAbort(() => controller.abort())
+		set_abort(() => controller.abort())
 		options.signal = controller.signal
 	}
 	return fetch(url, options)
@@ -91,11 +91,11 @@ const get_fetch_body = (url, method, contentType, setAbort, options, body, heade
 /**
  * @param {string} url
  * @param {"DELETE" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT"} method
- * @param {(abort: VoidFunction) => void} [setAbort]
+ * @param {(abort: VoidFunction) => void} [set_abort]
  * @param {RequestInit} [options]
  * @returns
  */
-const set_options_body = (url, method, setAbort, options) =>
+const set_options_body = (url, method, set_abort, options) =>
 	({
 		/**
 		 * Function for making a JSON fetch request with optional data and headers.
@@ -108,7 +108,7 @@ const set_options_body = (url, method, setAbort, options) =>
 				set_path_variables_in_url(url, data),
 				method,
 				"application/json;charset=UTF-8",
-				setAbort,
+				set_abort,
 				options,
 				JSON.stringify(data),
 				headers
@@ -127,7 +127,7 @@ const set_options_body = (url, method, setAbort, options) =>
 				set_path_variables_in_url(url, data),
 				method,
 				"multipart/form-data;charset=UTF-8",
-				setAbort,
+				set_abort,
 				options,
 				to_form_data(data),
 				headers
@@ -144,7 +144,7 @@ const set_options_body = (url, method, setAbort, options) =>
 				set_path_variables_in_url(url, data),
 				method,
 				"application/x-www-form-urlencoded;charset=UTF-8",
-				setAbort,
+				set_abort,
 				options,
 				to_query(data),
 				headers
@@ -156,10 +156,10 @@ const set_options_body = (url, method, setAbort, options) =>
  *
  * Returns an object containing various HTTP methods.
  * @param {string} url The URL to create the HTTP client for.
- * @param {(abort: VoidFunction) => void} [setAbort] An optional callback function to abort the request.
+ * @param {(abort: VoidFunction) => void} [set_abort] An optional callback function to abort the request.
  * @returns An object containing various HTTP methods.
  */
-export default (url, setAbort) =>
+export default (url, set_abort) =>
 	({
 		/**
 		 * HTTP GET method.
@@ -178,7 +178,7 @@ export default (url, setAbort) =>
 			query: (data, headers) =>
 				get_fetch_query(
 					set_path_variables_in_url(url, data),
-					setAbort,
+					set_abort,
 					options,
 					to_query(data),
 					headers
@@ -191,7 +191,7 @@ export default (url, setAbort) =>
 		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
 		 * for call `Fetch` with body parameters.
 		 */
-		delete: options => set_options_body(url, "DELETE", setAbort, options),
+		delete: options => set_options_body(url, "DELETE", set_abort, options),
 
 		/**
 		 * HTTP HEAD method.
@@ -199,7 +199,7 @@ export default (url, setAbort) =>
 		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
 		 * for call `Fetch` with body parameters.
 		 */
-		head: options => set_options_body(url, "HEAD", setAbort, options),
+		head: options => set_options_body(url, "HEAD", set_abort, options),
 		
 		/**
 		 * HTTP OPTIONS method.
@@ -207,7 +207,7 @@ export default (url, setAbort) =>
 		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
 		 * for call `Fetch` with body parameters.
 		 */
-		options: options => set_options_body(url, "OPTIONS", setAbort, options),
+		options: options => set_options_body(url, "OPTIONS", set_abort, options),
 		
 		/**
 		 * HTTP PATCH method.
@@ -215,7 +215,7 @@ export default (url, setAbort) =>
 		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
 		 * for call `Fetch` with body parameters.
 		 */
-		patch: options => set_options_body(url, "PATCH", setAbort, options),
+		patch: options => set_options_body(url, "PATCH", set_abort, options),
 		
 		/**
 		 * HTTP POST method.
@@ -223,7 +223,7 @@ export default (url, setAbort) =>
 		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
 		 * for call `Fetch` with body parameters.
 		 */
-		post: options => set_options_body(url, "POST", setAbort, options),
+		post: options => set_options_body(url, "POST", set_abort, options),
 		
 		/**
 		 * HTTP PUT method.
@@ -231,5 +231,5 @@ export default (url, setAbort) =>
 		 * @returns An object containing the `json`, `multiPart`, `urlEncoded` function
 		 * for call `Fetch` with body parameters.
 		 */
-		put: options => set_options_body(url, "PUT", setAbort, options)
+		put: options => set_options_body(url, "PUT", set_abort, options)
 	})

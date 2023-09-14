@@ -1,1 +1,1 @@
-module.exports = { rules: { "id-match": require("./rules/id-match") } }
+module.exports = { rules: { "svelte-naming-convention": require("./rules/svelte-naming-convention") } }
