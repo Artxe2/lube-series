@@ -1,4 +1,4 @@
-declare function _default(url: string, setAbort?: ((abort: VoidFunction) => void) | undefined): {
+declare function _default(url: string, set_abort?: ((abort: VoidFunction) => void) | undefined): {
     /**
      * HTTP GET method.
      * @param {RequestInit} [options] Optional configuration options for the request.

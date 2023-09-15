@@ -10,7 +10,7 @@ VSCE: JavaScript and TypeScript Nightly
 		"node": true
 	},
 	"extends": ["eslint:recommended"],
-	"ignorePatterns": ["**/@types/**/*.d.ts"],
+	"ignorePatterns": ["**/types/**/*.d.ts"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",
