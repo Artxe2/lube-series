@@ -10,11 +10,12 @@
 	"name": "async-lube",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Artxe2/lube-series"
+		"url": "https://github.com/Artxe2/lube-series",
+		"directory": "packages/async-lube"
 	},
 	"scripts": {
 		"dts": "tsc",
-		"test": "cd ../../test/data-lube/ && vitest run"
+		"test": "cd ../../test/async-lube/ && vitest run"
 	},
 	"type": "module",
 	"types": "@types/index.d.ts",
