@@ -43,14 +43,13 @@ importers:
   packages/date-lube: {}
 
   packages/eslint-plugin-lube:
-    dependencies:
-      '@types/estree':
-        specifier: ^1.0.1
-        version: 1.0.1
     devDependencies:
       '@types/eslint':
         specifier: ^8.44.2
         version: 8.44.2
+      '@types/estree':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@typescript-eslint/parser':
         specifier: ^6.3.0
         version: 6.3.0(eslint@8.47.0)(typescript@5.2.2)
@@ -387,6 +386,7 @@ packages:
 
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
+    dev: true
 
   /@types/json-schema@7.0.12:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}

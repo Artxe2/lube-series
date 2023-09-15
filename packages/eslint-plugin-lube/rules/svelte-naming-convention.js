@@ -47,7 +47,7 @@ module.exports = {
 		/** @type {Set<import("../private").ASTNode>} */
 		const shortand_properties = new Set()
 
-		/** @param {import("../private").ASTNode} node */
+		/** @param {import("../private").ASTNode & import("estree").Identifier} node */
 		function defer(node) {
 			if (fix_same_names) {
 				const name = node.name
@@ -63,7 +63,7 @@ module.exports = {
 			}
 		}
 
-		/** @param {import("../private").ASTNode} node */
+		/** @param {import("../private").ASTNode & import("estree").Identifier} node */
 		function report(node) {
 			const name = node.name
 			context.report({
@@ -78,15 +78,13 @@ module.exports = {
 					}
 					return null
 				},
-				messageId: node.type == "PrivateIdentifier"
-					? "not_match_private"
-					: "not_match",
+				messageId: "not_match",
 				node: /** @type {import("estree").Node} */(node)
 			})
 			if (fix_same_names) {
 				const usages = pending_usages.get(name)
 				while (usages?.length) {
-					report(/** @type {import("../private").ASTNode} */(
+					report(/** @type {import("../private").ASTNode & import("estree").Identifier} */(
 						usages.pop()
 					))
 				}
@@ -95,7 +93,7 @@ module.exports = {
 		}
 
 		return {
-			/** @param {import("../private").ASTNode} node */
+			/** @param {import("../private").ASTNode & import("estree").Identifier} node */
 			Identifier(node) {
 				const name = node.name
 				if (allow_regex.test(name)) return
