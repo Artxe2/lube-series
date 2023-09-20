@@ -1,9 +1,4 @@
-import {
-	client,
-	dag,
-	decorator,
-	parallel
-} from "async-lube"
+import { client, dag, decorator, parallel } from "async-lube"
 
 client("")
 dag()

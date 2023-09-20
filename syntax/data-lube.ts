@@ -1,8 +1,4 @@
-import {
-	deepCopy,
-	deepEqual,
-	deepFreeze
-} from "data-lube"
+import { deepCopy, deepEqual, deepFreeze } from "data-lube"
 
 deepCopy({})
 deepEqual({}, {})

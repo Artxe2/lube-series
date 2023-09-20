@@ -34,7 +34,7 @@ export type ASTNode = {
 	| estree.ExportAllDeclaration
 	| estree.ExportDefaultDeclaration
 	| estree.ExportNamedDeclaration & {
-		source: estree.SimpleLiteral & {
+		source?: estree.SimpleLiteral & {
 			range: [number, number]
 			raw: string
 			value: string
