@@ -1,8 +1,4 @@
-import {
-	assert,
-	describe,
-	it
-} from "vitest"
+import { assert, describe, it } from "vitest"
 
 import { decorator } from "async-lube"
 

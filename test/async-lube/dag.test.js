@@ -1,8 +1,4 @@
-import {
-	assert,
-	describe,
-	it
-} from "vitest"
+import { assert, describe, it } from "vitest"
 
 import { dag } from "async-lube"
 

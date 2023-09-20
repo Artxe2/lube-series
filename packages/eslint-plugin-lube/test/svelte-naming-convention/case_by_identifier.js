@@ -33,7 +33,6 @@ exports.module = (valid, invalid) => {
 					column: 18
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			var value = [ deferA ]
 			var value = [ pending_a ]
@@ -104,7 +103,6 @@ exports.module = (valid, invalid) => {
 					column: 15
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA = deferB
 			pending_a = pending_b
@@ -144,7 +142,6 @@ exports.module = (valid, invalid) => {
 					column: 18
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			(camel_case = deferA) => {}
 			(snake_case = pending_a) => {}
@@ -178,7 +175,6 @@ exports.module = (valid, invalid) => {
 					column: 10
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			await deferA
 			await pending_a
@@ -230,7 +226,6 @@ exports.module = (valid, invalid) => {
 					column: 15
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA = deferB
 			pending_a - pending_b
@@ -263,7 +258,6 @@ exports.module = (valid, invalid) => {
 					column: 4
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA()
 			pending_a()
@@ -322,7 +316,6 @@ exports.module = (valid, invalid) => {
 					column: 22
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			test ? deferA : deferB
 			test ? pending_a : pending_b
@@ -341,7 +334,6 @@ exports.module = (valid, invalid) => {
 				line: 3,
 				column: 8
 			}],
-			options: [{ fixSameNames: true }],
 			output: `
 			export * as camelCase from "module"
 			var camel_case
@@ -362,6 +354,7 @@ exports.module = (valid, invalid) => {
 				line: 3,
 				column: 8
 			}],
+			options: [{ fixSameNames: false }],
 			output: `
 			export default camelCase
 			var camel_case
@@ -388,7 +381,6 @@ exports.module = (valid, invalid) => {
 					column: 8
 				},
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			export default camel_case
 			var camel_case
@@ -416,7 +408,6 @@ exports.module = (valid, invalid) => {
 					column: 19
 				},
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			export { default as camelCase, camelCase2 } from 'module'
 			var camel_case, camel_case2
@@ -451,7 +442,6 @@ exports.module = (valid, invalid) => {
 					column: 4
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA
 			pending_a
@@ -489,7 +479,6 @@ exports.module = (valid, invalid) => {
 					column: 23
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			for (camel_case in deferA) {}
 			for (snake_case in pending_a) {}
@@ -553,7 +542,6 @@ exports.module = (valid, invalid) => {
 					column: 29
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			for (deferA; deferB; deferC) {}
 			for (pending_a; pending_b; pending_c) {}
@@ -616,7 +604,6 @@ exports.module = (valid, invalid) => {
 					column: 8
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			if (deferA) {}
 			if (pending_a) {}
@@ -671,7 +658,6 @@ exports.module = (valid, invalid) => {
 					column: 4
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			import { imported as camel_case, camelCase2, camelCase3 } from "module"
 			camel_case
@@ -722,7 +708,6 @@ exports.module = (valid, invalid) => {
 					column: 16
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA && deferB
 			pending_a || pending_b
@@ -775,7 +760,6 @@ exports.module = (valid, invalid) => {
 					column: 11
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA.camelCase
 			pending_a.camelCase
@@ -829,7 +813,6 @@ exports.module = (valid, invalid) => {
 					column: 8
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			new deferA
 			new pending_a
@@ -868,7 +851,6 @@ exports.module = (valid, invalid) => {
 					column: 18
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			var value = { camelCase: deferA }
 			var value = { key: pending_a }
@@ -896,7 +878,6 @@ exports.module = (valid, invalid) => {
 					column: 19
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			class ObjectB { camelCase = camelCase2 }
 			var camel_case, camel_case2
@@ -921,7 +902,6 @@ exports.module = (valid, invalid) => {
 					column: 13
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			var [ ...camel_case_a ] = value
 			var { ...camel_case_b } = value
@@ -953,7 +933,6 @@ exports.module = (valid, invalid) => {
 					column: 31
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			function func_a() { return deferA }
 			function func_b() { return pending_a }
@@ -986,7 +965,6 @@ exports.module = (valid, invalid) => {
 					column: 10
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			a, b, deferA
 			a, b, pending_a
@@ -1034,7 +1012,6 @@ exports.module = (valid, invalid) => {
 					column: 31
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			var value = [ ...deferA, deferB ]
 			var value = [ ...pending_a, pending_b ]
@@ -1068,7 +1045,6 @@ exports.module = (valid, invalid) => {
 					column: 12
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			switch (deferA) {}
 			switch (pending_a) {}
@@ -1101,7 +1077,6 @@ exports.module = (valid, invalid) => {
 					column: 25
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			switch (cond) { case deferA: break }
 			switch (cond) { case pending_a: break }
@@ -1134,7 +1109,6 @@ exports.module = (valid, invalid) => {
 					column: 4
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			deferA\`quasis\${expression}quasis\`
 			pending_a\`quasis\${expression}quasis\`
@@ -1168,7 +1142,6 @@ exports.module = (valid, invalid) => {
 					column: 10
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			throw deferA
 			throw pending_a
@@ -1201,7 +1174,6 @@ exports.module = (valid, invalid) => {
 					column: 5
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			+deferA
 			-pending_a
@@ -1234,7 +1206,6 @@ exports.module = (valid, invalid) => {
 					column: 4
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			++deferA
 			--pending_a
@@ -1279,7 +1250,6 @@ exports.module = (valid, invalid) => {
 					column: 15
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			var camel_case = deferA
 			var snake_case = pending_a
@@ -1318,7 +1288,6 @@ exports.module = (valid, invalid) => {
 					column: 11
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			while (deferA) {}
 			while (pending_a) {}
@@ -1351,7 +1320,6 @@ exports.module = (valid, invalid) => {
 					column: 10
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			with (deferA) {}
 			with (pending_a) {}
@@ -1384,7 +1352,6 @@ exports.module = (valid, invalid) => {
 					column: 31
 				}
 			],
-			options: [{ fixSameNames: true }],
 			output: `
 			function* func_a() { yield deferA }
 			function* func_b() { yield pending_a }

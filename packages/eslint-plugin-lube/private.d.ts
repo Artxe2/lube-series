@@ -1,14 +1,19 @@
 import * as estree from "estree"
 
 export type ASTNode = {
-	end: number
 	parent: ASTNode
 	range: [number, number]
-	start: number
 } & (
-	estree.ArrayExpression
-	| estree.ArrayPattern
-	| estree.ArrowFunctionExpression
+	estree.ArrayExpression & {
+		elements: ASTNode[]
+	}
+	| estree.ArrayPattern & {
+		elements: ASTNode[]
+	}
+	| estree.ArrowFunctionExpression & {
+		body: ASTNode
+		params: ASTNode[]
+	}
 	| estree.AssignmentExpression
 	| estree.AssignmentPattern
 	| estree.AwaitExpression
@@ -28,17 +33,37 @@ export type ASTNode = {
 	| estree.EmptyStatement
 	| estree.ExportAllDeclaration
 	| estree.ExportDefaultDeclaration
-	| estree.ExportNamedDeclaration
+	| estree.ExportNamedDeclaration & {
+		source: estree.SimpleLiteral & {
+			range: [number, number]
+			raw: string
+			value: string
+		}
+		specifiers: ASTNode[]
+	}
 	| estree.ExportSpecifier
 	| estree.ExpressionStatement
 	| estree.ForInStatement
 	| estree.ForOfStatement
 	| estree.ForStatement
-	| estree.FunctionDeclaration
-	| estree.FunctionExpression
+	| estree.FunctionDeclaration & {
+		body: ASTNode
+		params: ASTNode[]
+	}
+	| estree.FunctionExpression & {
+		body: ASTNode
+		params: ASTNode[]
+	}
 	| estree.Identifier
 	| estree.IfStatement
-	| estree.ImportDeclaration
+	| estree.ImportDeclaration & {
+		source: estree.SimpleLiteral & {
+			range: [number, number]
+			raw: string
+			value: string
+		}
+		specifiers: ASTNode[]
+	}
 	| estree.ImportDefaultSpecifier
 	| estree.ImportExpression
 	| estree.ImportNamespaceSpecifier
@@ -50,8 +75,12 @@ export type ASTNode = {
 	| estree.MetaProperty
 	| estree.MethodDefinition
 	| estree.NewExpression
-	| estree.ObjectExpression
-	| estree.ObjectPattern
+	| estree.ObjectExpression & {
+		properties: ASTNode[]
+	}
+	| estree.ObjectPattern & {
+		properties: ASTNode[]
+	}
 	| estree.PrivateIdentifier
 	| estree.Program
 	| estree.Property & { key: estree.Identifier }

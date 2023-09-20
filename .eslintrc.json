@@ -9,7 +9,7 @@ VSCE: JavaScript and TypeScript Nightly
 		"es2021": true,
 		"node": true
 	},
-	"extends": ["eslint:recommended"],
+	"extends": ["plugin:lube/recommended"],
 	"ignorePatterns": ["**/types/**/*.d.ts"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -17,73 +17,5 @@ VSCE: JavaScript and TypeScript Nightly
 		"sourceType": "module"
 	},
 	"plugins": ["lube"],
-	"rules": {
-		// Enforces consistent spacing around arrow functions
-		"arrow-spacing": "error",
-		// Enforces consistent spacing after commas
-		"comma-spacing": "error",
-		// Enforces that the dot operator should appear before properties
-		"dot-location": ["error", "property"],
-		// Flags potentially infinite loops in the forward direction
-		"for-direction": "error",
-		// Requires that getters in objects return a value
-		"getter-return": "error",
-		// Enforces the use of tabs for indentation
-		"indent": ["error", "tab"],
-		// Enforces consistent spacing around keywords
-		"keyword-spacing": ["error", {
-			"after": true,
-			"before": true
-		}],
-		// Custom rule that enforces a specific pattern for identifiers
-		"lube/svelte-naming-convention": ["error", { "fixSameNames": true }],
-		// Warns if lines are longer than 120 characters
-		"max-len": ["warn", 120],
-		// Flags if callbacks are nested more than 3 levels deep
-		"max-nested-callbacks": ["error", 3],
-		// Helping to catch debugging statements that might be left in production code
-		"no-console": "error",
-		// Prevents importing the same module multiple times within the same file
-		"no-duplicate-imports": "error",
-		// Disallows the use of empty destructuring patterns, which can indicate a mistake.
-		"no-empty-pattern": "error",
-		// Disallows multiple spaces
-		"no-multi-spaces": "error",
-		// Requires consistent spacing inside object braces
-		"object-curly-spacing": ["error", "always"],
-		// Requires consistent newlines inside object curly braces, with specific settings for different cases
-		"object-curly-newline": ["error", {
-			"ObjectExpression": { "consistent": true, "multiline": true, "minProperties": 3 },
-			"ObjectPattern": { "consistent": true, "multiline": true, "minProperties": 3 },
-			"ImportDeclaration": { "consistent": true, "multiline": true, "minProperties": 3 },
-			"ExportDeclaration": { "consistent": true, "multiline": true, "minProperties": 3 }
-		}],
-		// Enforce line breaks after each object property
-		"object-property-newline": ["warn", {
-			"allowAllPropertiesOnSameLine": false
-		}],
-		// Warns the use of const for variables that are not reassigned
-		"prefer-const": "warn",
-		// Requires the use of double quotes for strings
-		"quotes": ["error", "double"],
-		// Disallows the use of semicolons
-		"semi": ["error", "never"],
-		// Enforces consistent spacing after semicolons
-		"semi-spacing": ["error", {
-			"after": true,
-			"before": false
-		}],
-		// Enforces spacing before function parentheses for different function types
-		"space-before-function-paren": ["error", {
-			"anonymous": "never",
-			"asyncArrow": "always",
-			"named": "never"
-		}],
-		// Disallows spacing inside parentheses
-		"space-in-parens": ["error", "never"],
-		// Enforces spacing around infix operators
-		"space-infix-ops": "error",
-		// Enforces spacing around unary operators
-		"space-unary-ops": "error"
-	}
+	"rules": {}
 }

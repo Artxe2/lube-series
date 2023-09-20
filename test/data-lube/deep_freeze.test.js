@@ -1,6 +1,4 @@
-import {
-	assert, describe, it 
-} from "vitest"
+import { assert, describe, it } from "vitest"
 
 import { deepFreeze } from "data-lube"
 
