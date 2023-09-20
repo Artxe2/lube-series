@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
