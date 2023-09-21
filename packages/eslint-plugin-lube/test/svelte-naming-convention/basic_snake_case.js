@@ -30,5 +30,23 @@ exports.module = (valid, invalid) => {
 			}],
 			output: "var camel_case = 'Hello'"
 		},
+		{
+			code: "var NO_SNAKE__CASE = 'Hello'",
+			errors: [{
+				...error,
+				line: 1,
+				column: 5
+			}],
+			output: "var NO_SNAKE__CASE = 'Hello'"
+		},
+		{
+			code: "var NO_SNAKE_CASE_ = 'Hello'",
+			errors: [{
+				...error,
+				line: 1,
+				column: 5
+			}],
+			output: "var NO_SNAKE_CASE_ = 'Hello'"
+		},
 	)
 }

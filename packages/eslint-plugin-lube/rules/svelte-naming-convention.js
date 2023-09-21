@@ -26,7 +26,7 @@ module.exports = {
 		const fix_same_names = /** @type {boolean} */ (context.options[0]?.fixSameNames) ?? true
 
 		// let name | const name | class name
-		const allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z][\dA-Z_]*$|^(?:[\dA-Z][\da-z]*)+$/
+		const allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
 		const fixable_name_regex = /^[_$]?[_$]?(?:[\dA-Za-z]+(?:_[\dA-Za-z]+)*\$?\$?)?$/
 		const fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
 		const camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
