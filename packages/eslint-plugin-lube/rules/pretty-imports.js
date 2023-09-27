@@ -115,7 +115,7 @@ module.exports = {
 					if (semicolon) {
 						corrected_text += ";"
 					}
-					if (corrected_text != text.slice(node.range[0], node.range[1])) report(node, corrected_text)
+					if (corrected_text != get_text(node)) report(node, corrected_text)
 				}
 			},
 			/** @param {import("../private").ASTNode & import("estree").ImportDeclaration} node */
