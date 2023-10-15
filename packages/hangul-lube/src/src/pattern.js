@@ -18,6 +18,7 @@ const first_consonant_letters = {
 
 /**
  * @param {string} letter
+ * @returns {string}
  */
 const get_letter_range = letter => {
 	const regex = first_consonant_letters[letter]
@@ -31,15 +32,13 @@ const get_letter_range = letter => {
 
 /**
  * Generates a regular expression pattern for Korean consonant search.
- * @param {string} text The input text containing Korean consonant characters.
- * @returns A regular expression string that matches Korean words
- * with the same initial consonant letter as the input text.
- * @example
- * pattern("ㄷㅎㅁㄱ"); //=> "[다-딯][하-힣][마-밓][가-깋]"
+ * @param {string} text
+ * @returns {string}
+ * @example pattern("ㄷㅎㅁㄱ") //=> "[다-딯][하-힣][마-밓][가-깋]"
  *
- * pattern("특수문자 test 1234!@#$"); //=> "특[수-숳]문[자-잫] test 1234!@#$"
+ * pattern("특수문자 test 1234!@#$") //=> "특[수-숳]문[자-잫] test 1234!@#$"
  */
-export default (text) => {
+const _default = (text) => {
 	let regex = ""
 	const len = text.length - 1
 	for (let i = 0; i < len; i++) {
@@ -48,3 +47,5 @@ export default (text) => {
 	}
 	return regex + get_letter_range(text[len])
 }
+
+export default _default

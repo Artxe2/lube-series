@@ -6,7 +6,25 @@ This library allows you to effortlessly match Korean words or characters with th
 <br>
 <br>
 
-## installation
+## Installation
 ```bash
-npm i -D hangul-lube
+npm i hangul-lube
+```
+```bash
+pnpm i hangul-lube
+```
+```bash
+bun i hangul-lube
+```
+
+## How to use
+### Get regular expression pattern for Korean consonant search
+```ts
+import { pattern } from "hangul-lube"
+
+var p: string = pattern("ㄷㅎㅁㄱ")
+//=> "[다-딯][하-힣][마-밓][가-깋]"
+
+var p: string = pattern("특수문자 test 1234!@#$")
+//=> "특[수-숳]문[자-잫] test 1234!@#$"
 ```
