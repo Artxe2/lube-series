@@ -2,10 +2,11 @@ const time_regex = /(-?\d+)([YMDHms]+)/g
 
 /**
  * Calculates and adds the specified time duration to the provided date.
- * @param {Date} date The initial Date object.
- * @param {string} sum A string containing time units and values to calculate and add.
- *
- * (e.g., "1Y2M 3D")
+ * @param {Date} date
+ * @param {string} sum
+ * ```
+ * e.g. "1Y2M 3D"
+ * ```
  *
  * Supported time units:
  * - "Y": Years
@@ -15,11 +16,12 @@ const time_regex = /(-?\d+)([YMDHms]+)/g
  * - "m": Minutes
  * - "s": Seconds
  * - "sss": Milliseconds
- * @returns The modified Date object with the calculated time added.
+ * @returns {Date}
+ * @example add(new Date, "-1D") //=> Date { yesterday }
  */
-export default (date, sum) => {
+const _default = (date, sum) => {
 	for (const [, n, unit] of sum.matchAll(time_regex)) {
-		const number = Number(n)
+		const number = +n
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number)
 		else if (unit == "M") date.setMonth(date.getMonth() + number)
 		else if (unit == "D") date.setDate(date.getDate() + number)
@@ -30,3 +32,5 @@ export default (date, sum) => {
 	}
 	return date
 }
+
+export default _default

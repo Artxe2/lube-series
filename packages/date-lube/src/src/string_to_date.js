@@ -1,9 +1,10 @@
 /**
  * Converts a date string to a Date object based on the provided format.
- * @param {string} date The date string to be parsed.
- * @param {string} format The format of the input date string using placeholders.
- *
- * (Default: "YYYY-MM-DDTHH:mm:ss.sss")
+ * @param {string} date
+ * @param {string=} format
+ * ```js
+ * = "YYYY-MM-DDTHH:mm:ss.sss"
+ * ```
  *
  * Supported time units:
  * - "YYYY": Years
@@ -13,9 +14,9 @@
  * - "mm": Minutes
  * - "ss": Seconds
  * - "sss": Milliseconds
- * @returns A Date object representing the parsed date.
+ * @returns {Date}
  */
-export default (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
+const _default = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
 	let x = format.indexOf("YYYY")
 	const year = x < 0 ? "0000" : date.slice(x, x + 4)
 	x = format.indexOf("MM")
@@ -32,3 +33,5 @@ export default (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
 	const milliseconds = x < 0 ? "000" : date.slice(x, x + 3)
 	return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`)
 }
+
+export default _default

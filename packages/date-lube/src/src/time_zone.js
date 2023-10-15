@@ -1,20 +1,24 @@
-const time_zone_regex = /T\+?(-?\d+):?(\d*)/
+const time_zone_regex = /T\+?(-?\d*):?(\d*)/
 
 /**
  * Adjusts the date according to the specified time zone offset.
- * @param {Date} date The Date object to be adjusted.
- * @param {string} time_zone A string representing the IANA time zone identifier.
- *
- * (e.g., "America/New_York" {@link https://www.iana.org/time-zones})
- * @returns The modified Date object with the adjusted time zone.
+ * @param {Date} date
+ * @param {import("../../public.js").TimeZone} time_zone
+ * @param {true=} inversion
+ * @returns {Date}
+ * @throws
+ * ```
+ * RangeError(`Invalid time zone specified: ${time_zone}`) // Throws from Intl.DateTimeFormat
+ * ```
  */
-export default (date, time_zone) => {
-	const array = time_zone_regex.exec(Intl.DateTimeFormat("ia", {
+const _default = (date, time_zone, inversion) => {
+	const array = /** @type {RegExpExecArray} */(time_zone_regex.exec(Intl.DateTimeFormat("ia", {
 		timeZone: time_zone,
 		timeZoneName: "short" 
-	}).format())
-	if (array) {
-		date.setMinutes(date.getMinutes() + date.getTimezoneOffset() + Number(array[1]) * 60 + Number(array[2]))
-	}
+	}).format()))
+	const offset = date.getTimezoneOffset() + +(array[1] ?? 0) * 60 + +(array[2] ?? 0)
+	date.setMinutes(date.getMinutes() + (inversion ? -offset : offset))
 	return date
 }
+
+export default _default
