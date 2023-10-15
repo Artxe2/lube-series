@@ -1,9 +1,10 @@
-export default equals;
+export default _default;
 /**
  * Verify that the object is the same as another object
- * @param {*} object Any type of object
- * @param {*} another Any type of object too
- * @returns is deep equal `object` and `another`.
+ * @template {*} T
+ * @param {T} object
+ * @param {*} another
+ * @returns {another is T}
  */
-declare function equals(object: any, another: any): boolean;
+declare function _default<T extends unknown>(object: T, another: any): another is T;
 //# sourceMappingURL=deep_equal.d.ts.map

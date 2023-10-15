@@ -1,19 +1,14 @@
 /**
- * @param {Record<string, *>} obj
+ * Deep freeze object.
+ * @template {*} T
+ * @param {T} data
+ * @returns {import("../../private.js").DeepReadonly<T>}
  */
-const freeze = obj => {
-	for (const key in Object.freeze(obj)) {
-		const data = obj[key]
-		if (data && typeof data == "object") freeze(data)
+const _default = data => {
+	if (data && typeof data == "object") {
+		for (const key in Object.freeze(data)) _default(data[key])
 	}
+	return /** @type {import("../../private.js").DeepReadonly<T>} */(data)/**/
 }
 
-/**
- * Deep freeze object.
- * @param {*} data Any type of object to freeze
- * @returns Freezed `data`.
- */
-export default data => {
-	if (data && typeof data == "object") freeze(data)
-	return data
-}
+export default _default

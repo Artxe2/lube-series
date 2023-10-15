@@ -8,5 +8,59 @@ This library offers easy-to-use functions such as deep copy and deep freeze, all
 
 ## installation
 ```bash
-npm i -D data-lube
+npm i data-lube
+```
+```bash
+pnpm i data-lube
+```
+```bash
+bun i data-lube
+```
+
+## How to use
+### Easy deep copy
+```ts
+import { deepCopy } from "data-lube"
+
+var origin = {
+	a: [ 1, 2 ],
+    d: new Date
+	n: null,
+	o: { k: "v" },
+	s: "string",
+	u: void 0
+}
+var clone: typeof origin = deepCopy(origin)
+```
+
+### Easy comparison and type evaluation
+```ts
+import { deepEqual } from "data-lube"
+
+var origin = {
+	a: [ 1, 2 ],
+	n: null,
+	o: { k: "v" },
+	s: "string"
+} as const
+var clone: any = JSON.parse(JSON.stringify(origin))
+if (deepEqual(origin, clone)) {
+    clone.a = [] // Cannot assign to 'a' because it is a read-only property.ts(2540)
+}
+```
+
+### Easy deep freeze
+```ts
+import { deepFreeze } from "data-lube"
+
+var freezed = deepFreeze({
+	a: [ 1, 2 ],
+	n: null,
+	o: { k: "v" },
+	s: "string"
+})
+freezed.a = [] // Cannot assign to 'a' because it is a read-only property.ts(2540)
+
+// @ts-ignore
+freezed.a = [] // TypeError: Cannot assign to read only property 'a' of object '#<Object>'
 ```

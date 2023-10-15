@@ -2,10 +2,14 @@ const _date = Date
 const _array = Array
 
 /**
- * @param {Record<string, *>} obj
+ * Deep copy object.
+ * @template {*} T
+ * @param {T} obj
+ * @returns {T}
  */
-const clone = obj => {
-	if (obj.constructor == _date) return new _date(obj)
+const _default = obj => {
+	if (!obj || typeof obj != "object") return obj
+	if (obj.constructor == _date) return /** @type {T} */(new _date(obj))/**/
 	/** @type {Record<string, *>} */
 	const copy = obj.constructor == _array
 		? []
@@ -13,18 +17,10 @@ const clone = obj => {
 	for (const key in obj) {
 		const data = obj[key]
 		copy[key] = data && typeof data == "object"
-			? clone(data)
+			? _default(data)
 			: data
 	}
-	return copy
+	return /** @type {T} */(copy)/**/
 }
 
-/**
- * Deep copy object.
- * @param {*} data Any type of object to copy
- * @returns The clone of `data`.
- */
-export default data =>
-	data && typeof data == "object"
-		? clone(data)
-		: data
+export default _default

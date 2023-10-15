@@ -3,7 +3,7 @@ import { assert, describe, it } from "vitest"
 import { deepFreeze } from "data-lube"
 
 describe(
-	"deep_copy",
+	"deep_freeze.test",
 	() => {
 		const dimensions = [{
 			"dimensions": [{
@@ -141,6 +141,13 @@ describe(
 			"check deep freeze",
 			() => {
 				assert.isTrue(recursion(deepFreeze(dimensions)))
+			}
+		)
+
+		it(
+			"check null",
+			() => {
+				assert.isTrue(recursion(deepFreeze(null)))
 			}
 		)
 	}

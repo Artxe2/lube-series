@@ -156,7 +156,7 @@ describe(
 				const copy = JSON.parse(
 					JSON.stringify(dimensions)
 				)
-				assert.deepEqual(dimensions, copy)
+				assert.deepStrictEqual(dimensions, copy)
 				copy.push("extra")
 				assert.notDeepEqual(dimensions, copy)
 			}

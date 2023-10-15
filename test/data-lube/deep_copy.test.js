@@ -130,8 +130,15 @@ describe(
 			"clone",
 			() => {
 				const clone = deepCopy(dimensions)
-				assert.deepEqual(JSON.stringify(dimensions), JSON.stringify(clone))
+				assert.equal(JSON.stringify(dimensions), JSON.stringify(clone))
 				assert.notEqual(dimensions[0].dimensions, clone[0].dimensions)
+			}
+		)
+
+		it(
+			"check null",
+			() => {
+				assert.deepStrictEqual(deepCopy(null), null)
 			}
 		)
 	}
