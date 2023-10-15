@@ -5,15 +5,15 @@
 	},
 	"description": "Simple tools to lubricate JavaScript",
 	"devDependencies": {
-		"@typescript-eslint/parser": "^6.3.0",
+		"@typescript-eslint/parser": "^6.7.5",
 		"async-lube": "workspace:^",
 		"data-lube": "workspace:^",
 		"date-lube": "workspace:^",
-		"eslint": "^8.47.0",
+		"eslint": "^8.51.0",
 		"eslint-plugin-lube": "workspace:^",
 		"hangul-lube": "workspace:^",
 		"typescript": "^5.2.2",
-		"vitest": "^0.34.1"
+		"vitest": "^0.34.6"
 	},
 	"license": "MIT",
 	"name": "lube-series",

@@ -9,5 +9,8 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"
+	},
+	"ts-node": {
+		"esm": true
 	}
 }
