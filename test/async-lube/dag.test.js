@@ -5,9 +5,7 @@ import { dag } from "async-lube"
 describe(
 	"dag",
 	() => {
-		/**
-		 * @type {((str: string) => Promise<string>)[]}
-		 */
+		/** @type {((...str: string[]) => Promise<string>)[]} */
 		const resolve_array = [
 			(...str) =>
 				Promise.resolve()
@@ -46,6 +44,7 @@ describe(
 					)
 		]
 
+		/** @type {((...str: string[]) => Promise<string>)[]} */
 		const reject_array = [
 			() =>
 				Promise.resolve()
@@ -96,14 +95,8 @@ describe(
 					.add(resolve_array[5], resolve_array[0])
 					.add(resolve_array[6], resolve_array[5], resolve_array[3])
 				await my_dag()
-					.then(
-						/** @param {*} value */
-						value => assert.equal(value, "a,f,a,f,d,g")
-					)
-					.catch(
-						/** @param {*} reason */
-						reason => assert.fail(reason.message)
-					)
+					.then(value => assert.equal(value, "a,f,a,f,d,g"))
+					.catch(reason => assert.fail(reason.message))
 			}
 		)
 		it(
@@ -118,14 +111,8 @@ describe(
 					.add(resolve_array[5], resolve_array[0])
 					.add(resolve_array[6], resolve_array[5], resolve_array[3])
 				await my_dag(3)
-					.then(
-						/** @param {*} value */
-						value => assert.equal(value, "a,f,d")
-					)
-					.catch(
-						/** @param {*} reason */
-						reason => assert.fail(reason.message)
-					)
+					.then(value => assert.equal(value, "a,f,d"))
+					.catch(reason => assert.fail(reason.message))
 			}
 		)
 		it(
@@ -140,13 +127,8 @@ describe(
 					.add(reject_array[5])
 					.add(reject_array[6])
 				await my_dag()
-					.then(
-						() => assert.fail("No error occurred")
-					)
-					.catch(
-						/** @param {*} reason */
-						reason => assert.equal("b", reason.message)
-					)
+					.then(() => assert.fail("No error occurred"))
+					.catch(reason => assert.equal("b", reason.message))
 			}
 		)
 		it(
@@ -161,13 +143,8 @@ describe(
 					.add(reject_array[5])
 					.add(reject_array[6])
 				await my_dag()
-					.then(
-						() => assert.fail("No error occurred")
-					)
-					.catch(
-						/** @param {*} reason */
-						reason => assert.equal("b", reason.message)
-					)
+					.then(() => assert.fail("No error occurred"))
+					.catch(reason => assert.equal("b", reason.message))
 			}
 		)
 		it(
@@ -182,13 +159,8 @@ describe(
 					.add(reject_array[5])
 					.add(reject_array[6])
 				await my_dag()
-					.then(
-						() => assert.fail("No error occurred")
-					)
-					.catch(
-						/** @param {*} reason */
-						reason => assert.equal("b", reason.message)
-					)
+					.then(() => assert.fail("No error occurred"))
+					.catch(reason => assert.equal("b", reason.message))
 			}
 		)
 	}

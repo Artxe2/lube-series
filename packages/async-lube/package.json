@@ -14,10 +14,10 @@
 		"directory": "packages/async-lube"
 	},
 	"scripts": {
-		"dts": "tsc",
+		"dts": "tsc && cd ../.. && node scripts/async-lube_fix_types.js",
 		"test": "cd ../../test/async-lube/ && vitest run"
 	},
 	"type": "module",
 	"types": "types/index.d.ts",
-	"version": "1.4.2"
+	"version": "1.5.1"
 }

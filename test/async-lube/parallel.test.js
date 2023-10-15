@@ -8,17 +8,19 @@ describe(
 		const now = Date.now()
 		/**
 		 * @param {number} ms
+		 * @returns {Promise<{
+		 *   end: number
+		 *   start: number
+		 *   ms: number
+		 * }>}
 		 */
 		const wait = ms => new Promise((resolve, reject) => {
 			const start = Date.now() - now
 			setTimeout(
 				() => {
 					const end = Date.now() - now
-					;(ms % 2 ? resolve : reject)({
-						ms,
-						start,
-						end 
-					})
+					if (ms % 2) resolve({ end, start, ms })
+					else reject({ end, start, ms })
 				},
 				ms
 			)
@@ -38,7 +40,7 @@ describe(
 					() => wait(401)
 				)
 				for (const v of value) {
-					if (v.value?.ms != null) {
+					if ("value" in v) {
 						v.value.ms = parseInt(String(v.value.ms / 100))
 						v.value.start = parseInt(String(v.value.start / 100))
 						v.value.end = parseInt(String(v.value.end / 100))
@@ -48,7 +50,7 @@ describe(
 						v.reason.end = parseInt(String(v.reason.end / 100))
 					}
 				}
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[0],
 					{
 						value: {
@@ -58,7 +60,7 @@ describe(
 						} 
 					}
 				)
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[1],
 					{
 						reason: {
@@ -68,7 +70,7 @@ describe(
 						} 
 					}
 				)
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[2],
 					{
 						value: {
@@ -78,7 +80,7 @@ describe(
 						} 
 					}
 				)
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[3],
 					{
 						reason: {
@@ -88,7 +90,7 @@ describe(
 						} 
 					}
 				)
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[4],
 					{
 						value: {
@@ -98,7 +100,7 @@ describe(
 						} 
 					}
 				)
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[5],
 					{
 						reason: {
@@ -108,7 +110,7 @@ describe(
 						} 
 					}
 				)
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					value[6],
 					{
 						value: {

@@ -1,14 +1,32 @@
 /**
  * Create a function decorator with added behaviors such as caching, debouncing, retries, and throttling.
- * @template T
- * @param {(...args: *[]) => T} callback The function to be decorated.
- * @returns The Decorator with added behaviors.
+ * @template {(...args: *[]) => *} T
+ * @param {T} callback
+ * @returns
+ * ```
+ * type Decorator<T extends Function> = {
+ *   // Run decorator.
+ *   (...args): Promise<ReturnType<typeof callback>>
+ * }
+ * ```
+ * @throws
+ * ```
+ * Error("Request already in progress") // If you call the function again before the previous operation finishes.
+ * ```
+ * @throws
+ * ```
+ * Error("Request be debounced") // If the operation is cancelled by the debounce.
+ * ```
+ * @throws
+ * ```
+ * Error("Too many requests") // f the operation is cancelled by the throttle.
+ * ```
  */
-export default callback => {
+const _default = callback => {
 	let cache_time = 0
-	/** @type {T?} */
+	/** @type {ReturnType<T>?} */
 	let cached_value
-	/** @type {Promise<T>?} */
+	/** @type {Promise<ReturnType<T>>?} */
 	let debounce_promise
 	let debounce_time_ms = 0
 	/** @type {boolean} */
@@ -21,7 +39,7 @@ export default callback => {
 
 	const decrease_throttle = () => throttle_count--
 
-	/** @param {*[]} args */
+	/** @param {Parameters<T>} args */
 	const throttle_impl = async args => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
@@ -36,8 +54,8 @@ export default callback => {
 	const clear_cached_value = () => cached_value = null
 
 	/**
-	 * @param {*[]} args
-	 * @param {(value?: T) => void} resolve
+	 * @param {Parameters<T>} args
+	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {number} count
 	 * @returns
@@ -66,10 +84,10 @@ export default callback => {
 			})
 
 	/**
-	 * @param {*[]} args
-	 * @param {(value?: T) => void} resolve
+	 * @param {Parameters<T>} args
+	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
-	 * @param {Promise<*>} promise
+	 * @param {Promise<ReturnType<T>>} promise
 	 */
 	const handle_debounce_timeout = (args, resolve, reject, promise) => {
 		if (debounce_promise == promise) {
@@ -81,10 +99,10 @@ export default callback => {
 	}
 
 	/**
-	 * @param {*[]} args
-	 * @param {(value?: T) => void} resolve
+	 * @param {Parameters<T>} args
+	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
-	 * @param {Promise<T>} promise
+	 * @param {Promise<ReturnType<T>>} promise
 	 */
 	const debounce_impl = (args, resolve, reject, promise) => {
 		if (debounce_time_ms) {
@@ -97,16 +115,11 @@ export default callback => {
 	}
 
 	/**
-	 * Run decorator.
-	 * @param {*[]} args Arguments to be passed to the decorated function.
-	 * @returns A Promise that resolves to the result of the decorated function.
-	 * @throws Error("Request already in progress")
-	 * -- If you call the function again before the previous operation finishes.
-	 * @throws Error("Request be debounced") -- If the operation is cancelled by the debounce.
-	 * @throws Error("Too many requests") -- If the operation is cancelled by the throttle.
+	 * @param {Parameters<T>} args
+	 * @returns {Promise<Awaited<ReturnType<T>>>}
 	 */
 	const utils = (...args) => {
-		/** @type {(value?: T) => void} */
+		/** @type {(value?: ReturnType<T>) => void} */
 		let resolve
 		/** @type {(reason?: Error) => void} */
 		let reject
@@ -119,9 +132,7 @@ export default callback => {
 		// @ts-ignore: resolve is assigned in PromiseConstructor
 		if (cached_value != null) resolve(cached_value)
 		// @ts-ignore: reject is assigned in PromiseConstructor
-		else if (is_in_progress) reject(
-			Error("Request already in progress")
-		)
+		else if (is_in_progress) reject(Error("Request already in progress"))
 		// @ts-ignore: resolve & reject is assigned in PromiseConstructor
 		else debounce_impl(args, resolve, reject, promise)
 		return promise
@@ -129,8 +140,8 @@ export default callback => {
 
 	/**
 	 * Enable caching for the decorated function.
-	 * @param {number} s The cache duration in seconds.
-	 * @returns The Decorator with caching behavior applied.
+	 * @param {number} s
+	 * @returns {ReturnType<typeof _default<T>>}
 	 */
 	utils.cache = s => {
 		cache_time = s * 1000
@@ -139,8 +150,8 @@ export default callback => {
 
 	/**
 	 * Enable debouncing for the decorated function.
-	 * @param {number} ms The debounce time in milliseconds.
-	 * @returns The Decorator with debouncing behavior applied.
+	 * @param {number} ms
+	 * @returns {ReturnType<typeof _default<T>>}
 	 */
 	utils.debounce = ms => {
 		debounce_time_ms = ms
@@ -150,10 +161,7 @@ export default callback => {
 	/**
 	 * Enable retries for the decorated function.
 	 * @param {(reason: Error, count: number) => void} checker
-	 * A function to determine whether to retry based on the rejection reason and the retry count.
-	 *
-	 * If no errors occur in the checker, proceed with the retry.
-	 * @returns The Decorator with retries behavior applied.
+	 * @returns {ReturnType<typeof _default<T>>}
 	 */
 	utils.retries = checker => {
 		retry_checker = checker
@@ -162,9 +170,9 @@ export default callback => {
 
 	/**
 	 * Enable throttling for the decorated function.
-	 * @param {number} n The throttle limit (maximum number of calls).
-	 * @param {number} ms The throttle time interval in milliseconds.
-	 * @returns The Decorator with throttling behavior applied.
+	 * @param {number} n
+	 * @param {number} ms
+	 * @returns {ReturnType<typeof _default<T>>}
 	 */
 	utils.throttle = (n, ms) => {
 		throttle_limit = n
@@ -173,3 +181,5 @@ export default callback => {
 	}
 	return utils
 }
+
+export default _default

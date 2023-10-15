@@ -1,22 +1,30 @@
-declare function _default(): {
-    (index?: number): Promise<any>;
-    /**
-     * Add a dag execution plan.
-     * @param {Function} callback A callback that runs when all dependencies are ready.
-     * @param {*[]} dependencies These are the values passed as parameters when executing the `callback`.
-     *
-     * If the value is a function,
-     * it waits for the function to be executed by dag and is replaced by the resulting value.
-     * @returns The DAG instance with the added execution plan.
-     *
-     * This method allows you to build the DAG by specifying each job and its dependencies.
-     *
-     * You can chain this method to add multiple jobs and their respective dependencies to the DAG.
-     *
-     * The DAG execution plan is specified as a `callback` function
-     * that receives resolved dependency values as arguments.
-     */
-    add(callback: Function, ...dependencies: any[]): any;
-};
 export default _default;
+/**
+ * Create a new Directed Acyclic Graph (DAG).
+ * @returns
+ * ```
+ * type Dag = {
+ *   // Run dag.
+ *   (index?): Promise<any>
+ *   // Add a dag execution plan.
+ *   add(callback: Function, ...dependencies: any[]): Dag
+ * }
+ * ```
+ */
+declare function _default(): {
+    (index?: number | undefined): Promise<Awaited<ReturnType<typeof run_dag>>>;
+    /**
+     * @template {(...args: *[]) => *} T
+     * @param {T} callback
+     * @param {import("../../private.js").Dependencies<T>} dependencies
+     * @returns {ReturnType<typeof _default>}
+     */
+    add<T extends (...args: any[]) => any>(callback: T, ...dependencies: import("../../private.js").Dependencies<T>): ReturnType<typeof _default>;
+};
+/**
+ * @param {Map<*[], Function>} nodes
+ * @param {number} index
+ * @returns {Promise<*>}
+ */
+declare function run_dag(nodes: Map<any[], Function>, index: number): Promise<any>;
 //# sourceMappingURL=dag.d.ts.map

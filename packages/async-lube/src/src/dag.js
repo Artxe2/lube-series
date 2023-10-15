@@ -1,5 +1,5 @@
 /**
- * @param {(value: *) => void} resolve
+ * @param {(value?: *) => void} resolve
  * @param {(reason?: Error) => void} reject
  * @param {Map<*[], Function>} jobs
  * @param {Map<Function, *[][]>} dependents
@@ -7,6 +7,7 @@
  * @param {*[]} dependencies
  * @param {Function} callback
  * @param {number} index
+ * @returns {Promise<*>}
  */
 const run_node = async (resolve, reject, jobs, dependents, count, dependencies, callback, index) => {
 	const value = await callback(
@@ -31,9 +32,7 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 						dependents,
 						count,
 						p,
-						/** @type {Function} */(
-							jobs.get(p)
-						),
+						/** @type {Function} */(jobs.get(p)/**/),
 						index
 					).catch(reject)
 				}
@@ -45,6 +44,7 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 /**
  * @param {Map<*[], Function>} nodes
  * @param {number} index
+ * @returns {Promise<*>}
  */
 const run_dag = (nodes, index) =>
 	new Promise(
@@ -66,53 +66,44 @@ const run_dag = (nodes, index) =>
 						else dependents.set(p, [ clone ])
 					}
 			}
-			for (const [dependencies, callback] of jobs)
+			for (const [dependencies, callback] of jobs) {
 				if (
-					dependencies.every(
-						/** @type {*} */(p) => typeof p != "function"
-					)
+					dependencies.every(/** @type {*} */(p)/**/ => typeof p != "function")
 				) {
 					run_node(resolve, reject, jobs, dependents, count, dependencies, callback, index)
 						.catch(reject)
 				}
+			}
 		}
 	)
 
 /**
  * Create a new Directed Acyclic Graph (DAG).
- * @returns The DAG instance with methods to add execution plans and run the DAG asynchronously.
+ * @returns
+ * ```
+ * type Dag = {
+ *   // Run dag.
+ *   (index?): Promise<any>
+ *   // Add a dag execution plan.
+ *   add(callback: Function, ...dependencies: any[]): Dag
+ * }
+ * ```
  */
-export default () => {
+const _default = () => {
 	/** @type {Map<*[], Function>} */
 	const nodes = new Map()
 
 	/**
-	 * Run dag.
-	 * @param {number} index
-	 * The index of the job that will be passed as a result of Promise after all dag jobs have been completed.
-	 *
-	 * Default value is node.size - 1(lastly added).
-	 * @returns A Promise that resolves to the result of the DAG execution.
-  	 *
-	 * The resolved value corresponds to the result of the job at the specified `index` (if provided).
+	 * @param {number=} index
+	 * @returns {Promise<Awaited<ReturnType<typeof run_dag>>>}
 	 */
 	const utils = (index = nodes.size - 1) => run_dag(nodes, index)
 
 	/**
-	 * Add a dag execution plan.
-	 * @param {Function} callback A callback that runs when all dependencies are ready.
-	 * @param {*[]} dependencies These are the values passed as parameters when executing the `callback`.
-	 *
-	 * If the value is a function,
-	 * it waits for the function to be executed by dag and is replaced by the resulting value.
-	 * @returns The DAG instance with the added execution plan.
-	 *
-	 * This method allows you to build the DAG by specifying each job and its dependencies.
-	 *
-	 * You can chain this method to add multiple jobs and their respective dependencies to the DAG.
-	 *
-	 * The DAG execution plan is specified as a `callback` function
-	 * that receives resolved dependency values as arguments.
+	 * @template {(...args: *[]) => *} T
+	 * @param {T} callback
+	 * @param {import("../../private.js").Dependencies<T>} dependencies
+	 * @returns {ReturnType<typeof _default>}
 	 */
 	utils.add = (callback, ...dependencies) => {
 		nodes.set(dependencies, callback)
@@ -120,3 +111,5 @@ export default () => {
 	}
 	return utils
 }
+
+export default _default

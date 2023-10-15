@@ -18,7 +18,7 @@ describe(
 						Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
 					})
 				const json = await value.json()
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					json,
 					{
 						"limit": 2,
@@ -101,12 +101,8 @@ describe(
 						username: "kminchelle",
 						password: "0lelplR"
 					})
-					.then(
-						() => assert.fail("No error occurred")
-					)
-					.catch(
-						reason => assert.equal(reason.name, "AbortError")
-					)
+					.then(() => assert.fail("No error occurred"))
+					.catch(reason => assert.equal(reason.name, "AbortError"))
 				queueMicrotask(stop)
 				await api
 			}

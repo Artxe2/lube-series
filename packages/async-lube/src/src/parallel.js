@@ -1,21 +1,25 @@
 /**
  * Run multiple functions in parallel with a specified limit on the number of parallel executions.
- * @param {number} size The maximum number of functions to run in parallel.
- * @param {Function[]} callbacks The array of functions to run in parallel.
- * @returns A Promise that resolves to an array of objects containing the result or rejection reason of each function.
+ * @template {[((...args: []) => *), ...((...args: []) => *)[]]} T
+ * @param {import("../../private.js").Between<2, readonly T["length"]>} size
+ * @param {T} callbacks
+ * @returns {Promise<import("../../private.js").ParallelResult<T>>}
  */
-export default (size, ...callbacks) => {
-	/** @type {*[]} */
-	const result = []
+const _default = (size, ...callbacks) => {
+	/** @type {import("../../private.js").ParallelResult<T>} */
+	const result = /** @type {import("../../private.js").ParallelResult<T>} */([])/**/
 	return new Promise(resolve => {
-		const length = callbacks.length
+		const length = /** @type {import("../../private.js").Between<2, readonly T["length"]>} */(callbacks.length)/**/
 		if (length < size) size = length
 		let index = 0
 		const finally_callback = () => {
 			if (index < length) run(index++)
 			else if (++index == length + size) resolve(result)
 		}
-		/** @param {number} i */
+		/**
+		 * @param {number} i
+		 * @returns {Promise<{ value: * } | { reason: * }>}
+		 */
 		const run = (i) =>
 			Promise.resolve(callbacks[i]())
 				.then(value => result[i] = { value }, reason => result[i] = { reason })
@@ -23,3 +27,5 @@ export default (size, ...callbacks) => {
 		while (index < size) run(index++)
 	})
 }
+
+export default _default

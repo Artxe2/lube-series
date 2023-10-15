@@ -1,33 +1,54 @@
-declare function _default<T>(callback: (...args: any[]) => T): {
-    (...args: any[]): Promise<any>;
+export default _default;
+/**
+ * Create a function decorator with added behaviors such as caching, debouncing, retries, and throttling.
+ * @template {(...args: *[]) => *} T
+ * @param {T} callback
+ * @returns
+ * ```
+ * type Decorator<T extends Function> = {
+ *   // Run decorator.
+ *   (...args): Promise<ReturnType<typeof callback>>
+ * }
+ * ```
+ * @throws
+ * ```
+ * Error("Request already in progress") // If you call the function again before the previous operation finishes.
+ * ```
+ * @throws
+ * ```
+ * Error("Request be debounced") // If the operation is cancelled by the debounce.
+ * ```
+ * @throws
+ * ```
+ * Error("Too many requests") // f the operation is cancelled by the throttle.
+ * ```
+ */
+declare function _default<T extends (...args: any[]) => any>(callback: T): {
+    (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>>;
     /**
      * Enable caching for the decorated function.
-     * @param {number} s The cache duration in seconds.
-     * @returns The Decorator with caching behavior applied.
+     * @param {number} s
+     * @returns {ReturnType<typeof _default<T>>}
      */
-    cache(s: number): any;
+    cache(s: number): ReturnType<typeof _default<T>>;
     /**
      * Enable debouncing for the decorated function.
-     * @param {number} ms The debounce time in milliseconds.
-     * @returns The Decorator with debouncing behavior applied.
+     * @param {number} ms
+     * @returns {ReturnType<typeof _default<T>>}
      */
-    debounce(ms: number): any;
+    debounce(ms: number): ReturnType<typeof _default<T>>;
     /**
      * Enable retries for the decorated function.
      * @param {(reason: Error, count: number) => void} checker
-     * A function to determine whether to retry based on the rejection reason and the retry count.
-     *
-     * If no errors occur in the checker, proceed with the retry.
-     * @returns The Decorator with retries behavior applied.
+     * @returns {ReturnType<typeof _default<T>>}
      */
-    retries(checker: (reason: Error, count: number) => void): any;
+    retries(checker: (reason: Error, count: number) => void): ReturnType<typeof _default<T>>;
     /**
      * Enable throttling for the decorated function.
-     * @param {number} n The throttle limit (maximum number of calls).
-     * @param {number} ms The throttle time interval in milliseconds.
-     * @returns The Decorator with throttling behavior applied.
+     * @param {number} n
+     * @param {number} ms
+     * @returns {ReturnType<typeof _default<T>>}
      */
-    throttle(n: number, ms: number): any;
+    throttle(n: number, ms: number): ReturnType<typeof _default<T>>;
 };
-export default _default;
 //# sourceMappingURL=decorator.d.ts.map

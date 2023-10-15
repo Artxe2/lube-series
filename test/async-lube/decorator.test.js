@@ -7,16 +7,11 @@ describe(
 	() => {
 		const resolve = () =>
 			() => Promise.resolve("resolve")
-				.then(
-					() => "resolve"
-				)
+				.then(() => "resolve")
 		/**
 		 * @param {number} ms
 		 */
-		const sleep = ms =>
-			new Promise(
-				resolve => setTimeout(resolve, ms)
-			)
+		const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 		const get_result = (
 			() => {
 				let count = 0
@@ -30,16 +25,10 @@ describe(
 				const already_test = decorator(resolve)
 				await Promise.all([
 					already_test()
-						.catch(
-							reason => assert.fail(reason.message)
-						),
+						.catch(reason => assert.fail(reason.message)),
 					already_test()
-						.then(
-							() => assert.fail("No error occurred")
-						)
-						.catch(
-							reason => assert.equal(reason.message, "Request already in progress")
-						)
+						.then(() => assert.fail("No error occurred"))
+						.catch(reason => assert.equal(reason.message, "Request already in progress"))
 				])
 			}
 		)
@@ -50,18 +39,10 @@ describe(
 					.debounce(500)
 				await Promise.all([
 					debounce_test()
-						.then(
-							() => assert.fail("No error occurred")
-						)
-						.catch(
-							/** @param {*} reason */
-							reason => assert.equal(reason.message, "Request be debounced")
-						),
+						.then(() => assert.fail("No error occurred"))
+						.catch(reason => assert.equal(reason.message, "Request be debounced")),
 					debounce_test()
-						.catch(
-							/** @param {*} reason */
-							reason => assert.fail(reason.message)
-						)
+						.catch(reason => assert.fail(reason.message))
 				])
 			}
 		)
@@ -72,23 +53,12 @@ describe(
 					.throttle(2, 1000)
 				await Promise.all([
 					await throttle_test()
-						.catch(
-							/** @param {*} reason */
-							reason => assert.fail(reason.message)
-						),
+						.catch(reason => assert.fail(reason.message)),
 					await throttle_test()
-						.catch(
-							/** @param {*} reason */
-							reason => assert.fail(reason.message)
-						),
+						.catch(reason => assert.fail(reason.message)),
 					throttle_test()
-						.then(
-							() => assert.fail("No error occurred")
-						)
-						.catch(
-							/** @param {*} reason */
-							reason => assert.equal(reason.message, "Too many requests")
-						)
+						.then(() => assert.fail("No error occurred"))
+						.catch(reason => assert.equal(reason.message, "Too many requests"))
 				])
 			}
 		)
@@ -109,22 +79,11 @@ describe(
 				})
 				await Promise.all([
 					await retry_test()
-						.then(
-							() => assert.fail("No error occurred")
-						)
-						.catch(
-							/** @param {*} reason */
-							reason => assert.equal(reason.message, "FAIL 3")
-						),
+						.then(() => assert.fail("No error occurred"))
+						.catch(reason => assert.equal(reason.message, "FAIL 3")),
 					retry_test()
-						.then(
-							/** @param {*} value */
-							value => assert.equal(value, "OK")
-						)
-						.catch(
-							/** @param {*} reason */
-							reason => assert.fail(reason.message)
-						)
+						.then(value => assert.equal(value, "OK"))
+						.catch(reason => assert.fail(reason.message))
 				])
 			}
 		)
