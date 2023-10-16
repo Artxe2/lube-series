@@ -4,14 +4,21 @@
 		"url": "https://github.com/Artxe2/lube-series/issues"
 	},
 	"description": "Simplify Date Manipulation in JavaScript",
+	"exports": {
+		".": {
+			"default": "./src/index.js",
+			"types": "./types/index.d.ts"
+		},
+		"./@types": "./public.d.ts"
+	},
 	"keywords": ["date", "lube", "date-lube", "syntax sugar"],
 	"license": "MIT",
 	"main": "src/index.js",
 	"name": "date-lube",
 	"repository": {
+		"directory": "packages/date-lube",
 		"type": "git",
-		"url": "https://github.com/Artxe2/lube-series",
-		"directory": "packages/date-lube"
+		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"scripts": {
 		"dts": "tsc",
@@ -21,9 +28,9 @@
 	"types": "types/index.d.ts",
 	"typesVersions": {
 		"*": {
-			"*": ["types/index.d.ts"],
-			"@types": ["public.d.ts"]
+			"@types": ["public.d.ts"],
+			"*": ["types/index.d.ts"]
 		}
 	},
-	"version": "1.4.0"
+	"version": "1.4.1"
 }
