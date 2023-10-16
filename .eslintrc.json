@@ -13,7 +13,7 @@ VSCE: JavaScript and TypeScript Nightly
 	"globals": {
 		"RequestInit": true
 	},
-	"ignorePatterns": ["**/types/**/*.d.ts", "**/public.d.ts", "**/private.d.ts"],
+	"ignorePatterns": ["**/types/**/*.d.ts", "**/public.d.ts", "**/private.d.ts", "**/*.cjs"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",

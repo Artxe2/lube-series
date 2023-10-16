@@ -15,4 +15,5 @@
 		"strict": true,
 		"target": "ESNext"
 	},
+	"include": ["**/*.js"]
 }
