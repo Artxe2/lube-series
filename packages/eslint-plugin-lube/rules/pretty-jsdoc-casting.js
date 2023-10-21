@@ -32,7 +32,7 @@ module.exports = {
 		const text_indexes = get_indexed_array(text_length)
 		const left_space_regex = /\s+$/
 		const right_space_regex = /^\s+/
-		const type_regex = /(?<=(?:^|.*\s*)@type\s*\{).+?(?=\}.*?$)/
+		const type_regex = /(?<=(?:^|.*\s*)@type\s*\{).+(?=\}.*?$)/
 		/** @type {import("../private").Comment[]} */
 		const comments = []
 		for (const comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments().reverse())/**/) {

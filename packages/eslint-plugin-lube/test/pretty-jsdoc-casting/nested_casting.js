@@ -10,6 +10,9 @@ exports.module = (valid, invalid) => {
 			)`
 		},
 		{
+			code: "var v = /** @type {{}} */(a)/**/"
+		},
+		{
 			code: "var v = /** @type {A} */(/** @type {B} */(/** @type {C} */(a)/**/)/**/)/**/"
 		},
 		{
