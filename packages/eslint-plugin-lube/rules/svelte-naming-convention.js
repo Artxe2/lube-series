@@ -5,7 +5,7 @@ module.exports = {
 		docs: {
 			description: "Enforces snake_case with some symbols for variable declaration.",
 			recommended: true,
-			url: "https://github.com/sveltejs/svelte/blob/master/CONTRIBUTING.md#code-conventions"
+			url: "https://github.com/Artxe2/lube-series/blob/master/packages/eslint-plugin-lube/docs/svelte-naming-convention.md"
 		},
 		fixable: "code",
 		messages: {
@@ -20,10 +20,10 @@ module.exports = {
 			},
 			type: "object"
 		}],
-		type: "suggestion"
+		type: "layout"
 	},
 	create(context) {
-		const fix_same_names = /** @type {boolean} */ (context.options[0]?.fixSameNames) ?? true
+		const fix_same_names = /** @type {boolean} */(context.options[0]?.fixSameNames)/**/ ?? true
 
 		// let name | const name | class name
 		const allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
@@ -31,23 +31,17 @@ module.exports = {
 		const fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
 		const camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
 
-		/**
-		 * @param {string} _
-		 * @param {string} a
-		 * @param {string} b
-		 */
-		function fix_callback(_, a, b) {
-			return a + (a ? "_" : "") + b.toLowerCase()
-		}
-
 		/** @type {Set<string>} */
 		const reported_declarations = new Set()
-		/** @type {Map<string, import("../private").ASTNode[]>} */
+		/** @type {Map<string, import("../private").AstNode[]>} */
 		const pending_usages = new Map()
-		/** @type {Set<import("../private").ASTNode>} */
+		/** @type {Set<import("../private").AstNode>} */
 		const shortand_properties = new Set()
 
-		/** @param {import("../private").ASTNode & import("estree").Identifier} node */
+		/**
+		 * @param {import("../private").AstNode & import("estree").Identifier} node
+		 * @returns {void}
+		 */
 		function defer(node) {
 			if (fix_same_names) {
 				const name = node.name
@@ -63,7 +57,20 @@ module.exports = {
 			}
 		}
 
-		/** @param {import("../private").ASTNode & import("estree").Identifier} node */
+		/**
+		 * @param {string} _
+		 * @param {string} a
+		 * @param {string} b
+		 * @returns {string}
+		 */
+		function fix_callback(_, a, b) {
+			return a + (a ? "_" : "") + b.toLowerCase()
+		}
+
+		/**
+		 * @param {import("../private").AstNode & import("estree").Identifier} node
+		 * @returns {void}
+		 */
 		function report(node) {
 			const name = node.name
 			context.report({
@@ -79,313 +86,270 @@ module.exports = {
 					return null
 				},
 				messageId: "not_match",
-				node: /** @type {import("estree").Node} */(node)
+				node: /** @type {import("estree").Node} */(node)/**/
 			})
 			if (fix_same_names) {
 				const usages = pending_usages.get(name)
 				while (usages?.length) {
-					report(/** @type {import("../private").ASTNode & import("estree").Identifier} */(
-						usages.pop()
-					))
+					report(/** @type {import("../private").AstNode & import("estree").Identifier} */(usages.pop())/**/)
 				}
 				reported_declarations.add(name)
 			}
 		}
 
 		return {
-			/** @param {import("../private").ASTNode & import("estree").Identifier} node */
+			/** @param {import("../private").AstNode & import("estree").Identifier} node */
 			Identifier(node) {
 				const name = node.name
 				if (allow_regex.test(name)) return
 				const parent = node.parent
 				const type = parent.type
-				// var value = [ camelCase ]
-				if ("ArrayExpression" == type) {
+				switch (type) {
+				case "ArrayExpression":
+					// var value = [ camelCase ]
 					defer(node)
-					return
-				}
-				// var [ camelCase ] = value
-				if ("ArrayPattern" == type) {
+					break
+				case "ArrayPattern":
+					// var [ camelCase ] = value
 					report(node)
-					return
-				}
-				// (camelCase) => {}
-				if ("ArrowFunctionExpression" == type) {
+					break
+				case "ArrowFunctionExpression":
+					// (camelCase) => {}
 					report(node)
-					return
-				}
-				// left = right
-				if ("AssignmentExpression" == type) {
+					break
+				case "AssignmentExpression":
+					// left = right
 					defer(node)
-					return
-				}
-				// (left = right) => {}
-				if ("AssignmentPattern" == type) {
+					break
+				case "AssignmentPattern":
+					// (left = right) => {}
 					if (parent.left == node) {
-						// function func({ camelCase = true }) {}
 						if (parent.parent?.type != "Property") {
+							// function func({ camelCase = true }) {}
 							report(node)
 						}
 					} else {
 						defer(node)
 					}
-					return
-				}
-				// await camelCase
-				if ("AwaitExpression" == type) {
+					break
+				case "AwaitExpression":
+					// await camelCase
 					defer(node)
-					return
-				}
-				// left +-*/&| right
-				if ("BinaryExpression" == type) {
+					break
+				case "BinaryExpression":
+					// left +-*/&| right
 					defer(node)
-					return
-				}
-				/* BlockStatement */
-				/* BreakStatement */
-				// camelCase()
-				if ("CallExpression" == type) {
+					break
+					/* BlockStatement */
+					/* BreakStatement */
+				case "CallExpression":
+					// camelCase()
 					defer(node)
-					return
-				}
+					break
 				/* CatchClause */
 				/* ChainExpression */
 				/* ClassBody */
-				// class camelCase {}
-				if ("ClassDeclaration" == type) {
+				case "ClassDeclaration":
+					// class camelCase {}
 					report(node)
-					return
-				}
+					break
 				/* ClassExpression */
-				// test ? alternate : consequent
-				if ("ConditionalExpression" == type) {
+				case "ConditionalExpression":
+					// test ? alternate : consequent
 					defer(node)
-					return
-				}
+					break
 				/* ContinueStatement */
 				/* DebuggerStatement */
 				/* DoWhileStatement */
 				/* EmptyStatement */
-				// export * as camelCase from "module"
-				if ("ExportAllDeclaration" == type) {
-					return
-				}
-				// export default camelCase
-				if ("ExportDefaultDeclaration" == type) {
+				case "ExportAllDeclaration":
+					// export * as camelCase from "module"
+					break
+				case "ExportDefaultDeclaration":
+					// export default camelCase
 					defer(node)
-					return
-				}
+					break
 				/* ExportNamedDeclaration */
-				// export { default as camelCase, camelCase2 } from "module"
-				if ("ExportSpecifier" == type) {
-					return
-				}
-				// camelCase
-				if ("ExpressionStatement" == type) {
+				case "ExportSpecifier":
+					// export { default as camelCase, camelCase2 } from "module"
+					break
+				case "ExpressionStatement":
+					// camelCase
 					defer(node)
-					return
-				}
-				// for (left in right) {}
-				if ("ForInStatement" == type) {
+					break
+				case "ForInStatement":
+					// for (left in right) {}
 					if (parent.left == node) {
 						report(node)
 					} else {
 						defer(node)
 					}
-					return
-				}
-				// for (left of right) {}
-				if ("ForOfStatement" == type) {
+					break
+				case "ForOfStatement":
+					// for (left of right) {}
 					if (parent.left == node) {
 						report(node)
 					} else {
 						defer(node)
 					}
-					return
-				}
-				// for (init; test; update) {}
-				if ("ForStatement" == type) {
+					break
+				case "ForStatement":
+					// for (init; test; update) {}
 					defer(node)
-					return
-				}
-				// function camelCase() {}
-				if ("FunctionDeclaration" == type) {
-					if (
+					break
+				case "FunctionDeclaration":
+					// function camelCase() {}
+					if ( 
 						parent.parent?.type != "ExportNamedDeclaration"
 						|| !camel_case_regex.test(name)
 					) {
 						report(node)
 					}
 					// export function camelCase() {}
-					return
-				}
+					break
 				/* FunctionExpression */
 				/* Identifier */
-				// if (camelCase) {}
-				if ("IfStatement" == type) {
+				case "IfStatement":
+					// if (camelCase) {}
 					defer(node)
-					return
-				}
+					break
 				/* ImportDeclaration */
-				// import camelCase from "module"
-				if ("ImportDefaultSpecifier" == type) {
+				case "ImportDefaultSpecifier":
+					// import camelCase from "module"
 					report(node)
-					return
-				}
-				/* ImportExpression */
-				// import * as camelCase from "module"
-				if ("ImportNamespaceSpecifier" == type) {
+					break
+					/* ImportExpression */
+				case "ImportNamespaceSpecifier":
 					report(node)
-					return
-				}
-				// import { imported as local, local2 } from "module"
-				if ("ImportSpecifier" == type) {
-					// import { imported as camelCase } from "module"
+					// import * as camelCase from "module"
+					break
+				case "ImportSpecifier":
+					// import { imported as local, local2 } from "module"
 					if (parent.local == node && parent.imported.name != parent.local.name) {
+						// import { imported as camelCase } from "module"
 						report(node)
 					}
-					return
-				}
+					break
 				/* LabeledStatement */
 				/* Literal */
-				// left &&||?? right
-				if ("LogicalExpression" == type) {
+				case "LogicalExpression":
+					// left &&||?? right
 					defer(node)
-					return
-				}
-				// object.property
-				if ("MemberExpression" == type) {
+					break
+				case "MemberExpression":
+					// object.property
 					if (parent.object == node) {
 						defer(node)
 					}
-					// object[camelCase]
-					// camelCase[key]
 					else if (parent.computed) {
+						// object[camelCase]
+						// camelCase[key]
 						defer(node)
 					}
-					return
-				}
+					break
 				/* MetaProperty */
-				// class Object { camelCase() {} }
-				if ("MethodDefinition" == type) {
-					return
-				}
-				// new camelCase
-				if ("NewExpression" == type) {
+				case "MethodDefinition":
+					// class Object { camelCase() {} }
+					break
+				case "NewExpression":
+					// new camelCase
 					defer(node)
-					return
-				}
+					break
 				/* ObjectExpression */
 				/* ObjectPattern */
 				/* PrivateIdentifier */
 				/* Program */
-				// var value = { key: value }
-				// var { key: value } = value
-				if ("Property" == type) {
+				case "Property":
+					// var value = { key: value }
+					// var { key: value } = value
 					if (parent.value == node) {
 						if (parent.key.name == parent.value.name) {
 							shortand_properties.add(node)
 						}
 						defer(node)
 					}
-					return
-				}
-				// class Object { camelCase = value }
-				if ("PropertyDefinition" == type) {
-					return
-				}
-				// var [ ...camelCase ] = value
-				// var { ...camelCase } = value
-				if ("RestElement" == type) {
+					break
+				case "PropertyDefinition":
+					// class Object { camelCase = value }
+					break
+				case "RestElement":
+					// var [ ...camelCase ] = value
+					// var { ...camelCase } = value
 					report(node)
-					return
-				}
-				// function func() { return camelCase }
-				if ("ReturnStatement" == type) {
+					break
+				case "ReturnStatement":
+					// function func() { return camelCase }
 					defer(node)
-					return
-				}
-				// a, b, camelCase
-				if ("SequenceExpression" == type) {
+					break
+				case "SequenceExpression":
+					// a, b, camelCase
 					defer(node)
-					return
-				}
-				// var value = [ ...camelCase ]
-				// var value = { ...camelCase }
-				if ("SpreadElement" == type) {
+					break
+				case "SpreadElement":
+					// var value = [ ...camelCase ]
+					// var value = { ...camelCase }
 					defer(node)
-					return
-				}
+					break
 				/* StaticBlock */
 				/* Super */
-				// switch (camelCase) {}
-				if ("SwitchCase" == type) {
+				case "SwitchCase":
+					// switch (camelCase) {}
 					defer(node)
-					return
-				}
-				// switch (cond) { case camelCase: break }
-				if ("SwitchStatement" == type) {
+					break
+				case "SwitchStatement":
+					// switch (cond) { case camelCase: break }
 					defer(node)
-					return
-				}
-				// camelCase`quasis${expression}quasis`
-				if ("TaggedTemplateExpression" == type) {
+					break
+				case "TaggedTemplateExpression":
+					// camelCase`quasis${expression}quasis`
 					defer(node)
-					return
-				}
+					break
 				/* TemplateElement */
-				// `quasis${camelCase}quasis`
-				if ("TemplateLiteral" == type) {
+				case "TemplateLiteral":
+					// `quasis${camelCase}quasis`
 					defer(node)
-					return
-				}
+					break
 				/* ThisExpression */
-				// throw camelCase
-				if ("ThrowStatement" == type) {
+				case "ThrowStatement":
+					// throw camelCase
 					defer(node)
-					return
-				}
+					break
 				/* TryStatement */
-				// +-!~ camelCase
-				if ("UnaryExpression" == type) {
+				case "UnaryExpression":
+					// +-!~ camelCase
 					defer(node)
-					return
-				}
-				// ++--camelCase++--
-				if ("UpdateExpression" == type) {
+					break
+				case "UpdateExpression":
+					// ++--camelCase++--
 					defer(node)
-					return
-				}
+					break
 				/* VariableDeclaration */
-				// var id = init
-				if ("VariableDeclarator" == type) {
+				case "VariableDeclarator":
+					// var id = init
 					if (parent.id == node) {
-						if (
+						if ( 
 							parent.parent?.parent?.type != "ExportNamedDeclaration"
 							|| !camel_case_regex.test(name)
 						) {
 							report(node)
 						}
-						// export var camelCase
 					} else {
+						// export var camelCase
 						defer(node)
 					}
-					return
-				}
-				// while (camelCase) {}
-				if ("WhileStatement" == type) {
+					break
+				case "WhileStatement":
+					// while (camelCase) {}
 					defer(node)
-					return
-				}
-				// with (camelCase) {}
-				if ("WithStatement" == type) {
+					break
+				case "WithStatement":
+					// with (camelCase) {}
 					defer(node)
-					return
-				}
-				// function* func() { yield camelCase }
-				if ("YieldExpression" == type) {
+					break
+				case "YieldExpression":
+					// function* func() { yield camelCase }
 					defer(node)
-					return
+					break
 				}
 			}
 		}

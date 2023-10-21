@@ -1,26 +1,34 @@
 import * as estree from "estree"
 
-export type ASTNode = {
-	parent: ASTNode
+export type BaseAstNode = {
+	parent: AstNode
 	range: [number, number]
-} & (
+}
+
+export type AstNode = BaseAstNode & (
 	estree.ArrayExpression & {
-		elements: ASTNode[]
+		elements: AstNode[]
 	}
 	| estree.ArrayPattern & {
-		elements: ASTNode[]
+		elements: AstNode[]
 	}
 	| estree.ArrowFunctionExpression & {
-		body: ASTNode
-		params: ASTNode[]
+		body: AstNode
+		params: AstNode[]
 	}
-	| estree.AssignmentExpression
+	| estree.AssignmentExpression & {
+		left: AstNode
+		right: AstNode
+	}
 	| estree.AssignmentPattern
 	| estree.AwaitExpression
 	| estree.BinaryExpression
 	| estree.BlockStatement
 	| estree.BreakStatement
-	| estree.CallExpression
+	| estree.CallExpression & {
+		callee: AstNode
+		arguments: AstNode[]
+	}
 	| estree.CatchClause
 	| estree.ChainExpression
 	| estree.ClassBody
@@ -39,7 +47,7 @@ export type ASTNode = {
 			raw: string
 			value: string
 		}
-		specifiers: ASTNode[]
+		specifiers: AstNode[]
 	}
 	| estree.ExportSpecifier
 	| estree.ExpressionStatement
@@ -47,12 +55,12 @@ export type ASTNode = {
 	| estree.ForOfStatement
 	| estree.ForStatement
 	| estree.FunctionDeclaration & {
-		body: ASTNode
-		params: ASTNode[]
+		body: AstNode
+		params: AstNode[]
 	}
 	| estree.FunctionExpression & {
-		body: ASTNode
-		params: ASTNode[]
+		body: AstNode
+		params: AstNode[]
 	}
 	| estree.Identifier
 	| estree.IfStatement
@@ -62,7 +70,7 @@ export type ASTNode = {
 			raw: string
 			value: string
 		}
-		specifiers: ASTNode[]
+		specifiers: AstNode[]
 	}
 	| estree.ImportDefaultSpecifier
 	| estree.ImportExpression
@@ -74,21 +82,29 @@ export type ASTNode = {
 	| estree.MemberExpression
 	| estree.MetaProperty
 	| estree.MethodDefinition
-	| estree.NewExpression
+	| estree.NewExpression & {
+		callee: AstNode
+		arguments: AstNode[]
+	}
 	| estree.ObjectExpression & {
-		properties: ASTNode[]
+		properties: AstNode[]
 	}
 	| estree.ObjectPattern & {
-		properties: ASTNode[]
+		properties: AstNode[]
 	}
 	| estree.PrivateIdentifier
 	| estree.Program
-	| estree.Property & { key: estree.Identifier }
+	| estree.Property & {
+		key: AstNode & estree.Identifier
+		value: AstNode
+	}
 	| estree.PropertyDefinition
 	| estree.RestElement
 	| estree.ReturnStatement
 	| estree.SequenceExpression
-	| estree.SpreadElement
+	| estree.SpreadElement & {
+		argument: AstNode
+	}
 	| estree.StaticBlock
 	| estree.Super
 	| estree.SwitchCase
@@ -102,8 +118,13 @@ export type ASTNode = {
 	| estree.UnaryExpression
 	| estree.UpdateExpression
 	| estree.VariableDeclaration
-	| estree.VariableDeclarator
+	| estree.VariableDeclarator & {
+		id: AstNode
+		init: AstNode
+	}
 	| estree.WhileStatement
 	| estree.WithStatement
 	| estree.YieldExpression
 )
+
+export type Comment = BaseAstNode & estree.Comment

@@ -1,7 +1,3 @@
-const error = {
-	messageId: "not_match",
-	type: "Identifier" 
-}
 /**
  * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
@@ -21,7 +17,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "var __camelCase$$ = 'Hello'",
 			errors: [{
-				...error,
 				line: 1,
 				column: 5
 			}],
@@ -30,7 +25,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "var ___ = 'Hello'",
 			errors: [{
-				...error,
 				line: 1,
 				column: 5
 			}],
@@ -39,7 +33,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "var $$$ = 'Hello'",
 			errors: [{
-				...error,
 				line: 1,
 				column: 5
 			}],
@@ -48,7 +41,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "var $snake$case$ = 'Hello'",
 			errors: [{
-				...error,
 				line: 1,
 				column: 5
 			}],

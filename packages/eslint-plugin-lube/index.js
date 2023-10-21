@@ -19,8 +19,6 @@ module.exports = {
 					"after": true,
 					"before": true
 				}],
-				"lube/svelte-naming-convention": "error",
-				"lube/pretty-imports": "error",
 				"max-len": ["warn", 120],
 				"max-nested-callbacks": ["error", 3],
 				"no-console": "warn",
@@ -42,12 +40,16 @@ module.exports = {
 				}],
 				"space-in-parens": ["error", "never"],
 				"space-infix-ops": "error",
-				"space-unary-ops": "error"
+				"space-unary-ops": "error",
+				"lube/pretty-imports": "error",
+				"lube/pretty-jsdoc-casting": "error",
+				"lube/svelte-naming-convention": "error",
 			}
 		}
 	},
 	rules: {
 		"pretty-imports": require("./rules/pretty-imports"),
+		"pretty-jsdoc-casting": require("./rules/pretty-jsdoc-casting"),
 		"svelte-naming-convention": require("./rules/svelte-naming-convention")
 	}
 }

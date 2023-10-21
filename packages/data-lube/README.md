@@ -23,12 +23,12 @@ bun i data-lube
 import { deepCopy } from "data-lube"
 
 var origin = {
-	a: [ 1, 2 ],
+    a: [ 1, 2 ],
     d: new Date
-	n: null,
-	o: { k: "v" },
-	s: "string",
-	u: void 0
+    n: null,
+    o: { k: "v" },
+    s: "string",
+    u: void 0
 }
 var clone: typeof origin = deepCopy(origin)
 ```
@@ -38,10 +38,10 @@ var clone: typeof origin = deepCopy(origin)
 import { deepEqual } from "data-lube"
 
 var origin = {
-	a: [ 1, 2 ],
-	n: null,
-	o: { k: "v" },
-	s: "string"
+    a: [ 1, 2 ],
+    n: null,
+    o: { k: "v" },
+    s: "string"
 } as const
 var clone: any = JSON.parse(JSON.stringify(origin))
 if (deepEqual(origin, clone)) {
@@ -54,10 +54,10 @@ if (deepEqual(origin, clone)) {
 import { deepFreeze } from "data-lube"
 
 var freezed = deepFreeze({
-	a: [ 1, 2 ],
-	n: null,
-	o: { k: "v" },
-	s: "string"
+    a: [ 1, 2 ],
+    n: null,
+    o: { k: "v" },
+    s: "string"
 })
 freezed.a = [] // Cannot assign to 'a' because it is a read-only property.ts(2540)
 

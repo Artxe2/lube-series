@@ -5,10 +5,10 @@
 	},
 	"description": "Eslint rules expand options",
 	"devDependencies": {
-		"@types/eslint": "^8.44.2",
-		"@types/estree": "^1.0.1",
-		"@typescript-eslint/parser": "^6.3.0",
-		"eslint": "^8.47.0",
+		"@types/eslint": "^8.44.6",
+		"@types/estree": "^1.0.3",
+		"@typescript-eslint/parser": "^6.8.0",
+		"eslint": "^8.52.0",
 		"mocha": "^10.2.0"
 	},
 	"license": "MIT",
@@ -22,5 +22,5 @@
 		"test": "mocha"
 	},
 	"type": "commonjs",
-	"version": "0.2.5"
+	"version": "0.3.0"
 }

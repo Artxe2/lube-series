@@ -39,7 +39,10 @@ const _default = callback => {
 
 	const decrease_throttle = () => throttle_count--
 
-	/** @param {Parameters<T>} args */
+	/** 
+	 * @param {Parameters<T>} args
+	 * @returns {Promise<ReturnType<T>>}
+	 */
 	const throttle_impl = async args => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
@@ -55,10 +58,10 @@ const _default = callback => {
 
 	/**
 	 * @param {Parameters<T>} args
-	 * @param {(value?: ReturnType<T>) => void} resolve
+	 * @param {(value: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {number} count
-	 * @returns
+	 * @returns {Promise<void>}
 	 */
 	const retries_impl = (args, resolve, reject, count) =>
 		throttle_impl(args)
@@ -88,6 +91,7 @@ const _default = callback => {
 	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {Promise<ReturnType<T>>} promise
+	 * @returns {void}
 	 */
 	const handle_debounce_timeout = (args, resolve, reject, promise) => {
 		if (debounce_promise == promise) {
@@ -103,6 +107,7 @@ const _default = callback => {
 	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {Promise<ReturnType<T>>} promise
+	 * @returns {void}
 	 */
 	const debounce_impl = (args, resolve, reject, promise) => {
 		if (debounce_time_ms) {

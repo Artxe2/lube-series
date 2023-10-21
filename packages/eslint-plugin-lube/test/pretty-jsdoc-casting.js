@@ -6,12 +6,12 @@ const valid = []
 /** @type {RuleTester.InvalidTestCase[]} */
 const invalid = []
 
-require("./pretty-imports/ExportNamedDeclaration").module(valid, invalid)
-require("./pretty-imports/ImportDeclaration").module(valid, invalid)
+require("./pretty-jsdoc-casting/case_by_expression").module(valid, invalid)
+require("./pretty-jsdoc-casting/nested_casting").module(valid, invalid)
 
 new RuleTester().run(
-	"pretty-imports",
-	require("../rules/pretty-imports"),
+	"pretty-jsdoc-casting",
+	require("../rules/pretty-jsdoc-casting"),
 	{ 
 		valid,
 		invalid

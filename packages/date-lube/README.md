@@ -82,7 +82,7 @@ var d: Date = timeZone(new Date, "America/New_York", true)
 
 var arr: TimeZone[] = ["America/New_York", "Zulu"]
 for (var tz of arr) {
-	timeZone(new Date, tz)
+    timeZone(new Date, tz)
 }
 ```
 
@@ -91,9 +91,9 @@ for (var tz of arr) {
 import { timeUnit } from "date-lube"
 
 typeof timeUnit == {
-	DD: 86400000// 1day = 86400000ms
-	HH: 3600000// 1hour = 3600000ms
-	mm: 60000// 1minute = 60000ms
-	ss: 1000// 1second = 1000ms
+    DD: 86400000// 1day = 86400000ms
+    HH: 3600000// 1hour = 3600000ms
+    mm: 60000// 1minute = 60000ms
+    ss: 1000// 1second = 1000ms
 }
 ```

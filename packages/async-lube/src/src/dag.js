@@ -32,7 +32,7 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 						dependents,
 						count,
 						p,
-						/** @type {Function} */(jobs.get(p)/**/),
+						/** @type {Function} */(jobs.get(p))/**/,
 						index
 					).catch(reject)
 				}

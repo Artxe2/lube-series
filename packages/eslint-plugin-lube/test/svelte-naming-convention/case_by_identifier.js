@@ -1,7 +1,3 @@
-const error = {
-	messageId: "not_match",
-	type: "Identifier" 
-}
 /**
  * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
@@ -18,17 +14,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 18
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 18
 				}
@@ -44,7 +37,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "var [ camelCase ] = value",
 			errors: [{
-				...error,
 				line: 1,
 				column: 7
 			}],
@@ -55,7 +47,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "(camelCase) => {}",
 			errors: [{
-				...error,
 				line: 1,
 				column: 2
 			}],
@@ -73,32 +64,26 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 3,
 					column: 15
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 18
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				},
 				{
-					...error,
 					line: 5,
 					column: 15
 				}
@@ -122,22 +107,18 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 5
 				},
 				{
-					...error,
 					line: 3,
 					column: 18
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 18
 				}
@@ -160,17 +141,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 10
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 10
 				}
@@ -196,32 +174,26 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 3,
 					column: 15
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 18
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				},
 				{
-					...error,
 					line: 5,
 					column: 15
 				}
@@ -243,17 +215,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				}
@@ -269,7 +238,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "class camelCase {}",
 			errors: [{
-				...error,
 				line: 1,
 				column: 7
 			}],
@@ -286,32 +254,26 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 11
 				},
 				{
-					...error,
 					line: 3,
 					column: 22
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 18
 				},
 				{
-					...error,
 					line: 5,
 					column: 11
 				},
 				{
-					...error,
 					line: 5,
 					column: 22
 				}
@@ -330,7 +292,6 @@ exports.module = (valid, invalid) => {
 			var camelCase
 			`,
 			errors: [{
-				...error,
 				line: 3,
 				column: 8
 			}],
@@ -350,7 +311,6 @@ exports.module = (valid, invalid) => {
 			var camelCase
 			`,
 			errors: [{
-				...error,
 				line: 3,
 				column: 8
 			}],
@@ -371,12 +331,10 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 19
 				},
 				{
-					...error,
 					line: 3,
 					column: 8
 				},
@@ -398,12 +356,10 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 8
 				},
 				{
-					...error,
 					line: 3,
 					column: 19
 				},
@@ -427,17 +383,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				}
@@ -459,22 +412,18 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 9
 				},
 				{
-					...error,
 					line: 3,
 					column: 23
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 23
 				}
@@ -497,47 +446,38 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 9
 				},
 				{
-					...error,
 					line: 3,
 					column: 19
 				},
 				{
-					...error,
 					line: 3,
 					column: 29
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 18
 				},
 				{
-					...error,
 					line: 4,
 					column: 28
 				},
 				{
-					...error,
 					line: 5,
 					column: 9
 				},
 				{
-					...error,
 					line: 5,
 					column: 19
 				},
 				{
-					...error,
 					line: 5,
 					column: 29
 				}
@@ -559,12 +499,10 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 13
 				},
 				{
-					...error,
 					line: 4,
 					column: 20
 				}
@@ -589,17 +527,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 8
 				}
@@ -615,7 +550,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "import camelCase from 'module'",
 			errors: [{
-				...error,
 				line: 1,
 				column: 8
 			}],
@@ -629,7 +563,6 @@ exports.module = (valid, invalid) => {
 		{
 			code: "import * as camelCase from 'module'",
 			errors: [{
-				...error,
 				line: 1,
 				column: 13
 			}],
@@ -648,12 +581,10 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 25
 				},
 				{
-					...error,
 					line: 3,
 					column: 4
 				}
@@ -678,32 +609,26 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 3,
 					column: 16
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 18
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				},
 				{
-					...error,
 					line: 5,
 					column: 16
 				}
@@ -730,32 +655,26 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				},
 				{
-					...error,
 					line: 7,
 					column: 11
 				},
 				{
-					...error,
 					line: 8,
 					column: 8
 				},
 				{
-					...error,
 					line: 9,
 					column: 11
 				}
@@ -778,7 +697,6 @@ exports.module = (valid, invalid) => {
 			var camelCase
 			`,
 			errors: [{
-				...error,
 				line: 3,
 				column: 8
 			}],
@@ -798,17 +716,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column:8
 				},
 				{
-					...error,
 					line: 5,
 					column: 8
 				}
@@ -831,22 +746,18 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 23
 				},
 				{
-					...error,
 					line: 4,
 					column:8
 				},
 				{
-					...error,
 					line: 5,
 					column: 23
 				},
 				{
-					...error,
 					line: 6,
 					column: 18
 				}
@@ -868,12 +779,10 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 8
 				},
 				{
-					...error,
 					line: 3,
 					column: 19
 				}
@@ -892,12 +801,10 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 13
 				},
 				{
-					...error,
 					line: 3,
 					column: 13
 				}
@@ -918,17 +825,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 31
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 31
 				}
@@ -950,17 +854,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 10
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 10
 				}
@@ -982,32 +883,26 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 21
 				},
 				{
-					...error,
 					line: 3,
 					column: 31
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 4,
 					column: 18
 				},
 				{
-					...error,
 					line: 5,
 					column: 21
 				},
 				{
-					...error,
 					line: 5,
 					column: 31
 				}
@@ -1030,17 +925,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 12
 				},
 				{
-					...error,
 					line: 4,
 					column:8
 				},
 				{
-					...error,
 					line: 5,
 					column: 12
 				}
@@ -1062,17 +954,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 25
 				},
 				{
-					...error,
 					line: 4,
 					column:8
 				},
 				{
-					...error,
 					line: 5,
 					column: 25
 				}
@@ -1094,17 +983,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 4
 				},
 				{
-					...error,
 					line: 4,
 					column:8
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				}
@@ -1127,17 +1013,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 10
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 10
 				}
@@ -1159,17 +1042,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 5
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 5
 				}
@@ -1191,17 +1071,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 6
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 4
 				}
@@ -1225,27 +1102,22 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 2,
 					column: 8
 				},
 				{
-					...error,
 					line: 3,
 					column: 21
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 21
 				},
 				{
-					...error,
 					line: 7,
 					column: 15
 				}
@@ -1273,17 +1145,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 11
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 11
 				}
@@ -1305,17 +1174,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 10
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 10
 				}
@@ -1337,17 +1203,14 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					...error,
 					line: 3,
 					column: 31
 				},
 				{
-					...error,
 					line: 4,
 					column: 8
 				},
 				{
-					...error,
 					line: 5,
 					column: 31
 				}

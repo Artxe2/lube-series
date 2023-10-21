@@ -37,13 +37,13 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					messageId: "not_match",
+					messageId: "exports",
 					type: "ExportNamedDeclaration",
 					line: 3,
 					column: 4
 				},
 				{
-					messageId: "not_match",
+					messageId: "exports",
 					type: "ExportNamedDeclaration",
 					line: 4,
 					column: 7
@@ -79,13 +79,13 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					messageId: "not_match",
+					messageId: "exports",
 					type: "ExportNamedDeclaration",
 					line: 3,
 					column: 4
 				},
 				{
-					messageId: "not_match",
+					messageId: "exports",
 					type: "ExportNamedDeclaration",
 					line: 4,
 					column: 7

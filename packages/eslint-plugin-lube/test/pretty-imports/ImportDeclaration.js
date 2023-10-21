@@ -39,13 +39,13 @@ import {
 			`,
 			errors: [
 				{
-					messageId: "not_match",
+					messageId: "imports",
 					type: "ImportDeclaration",
 					line: 3,
 					column: 4
 				},
 				{
-					messageId: "not_match",
+					messageId: "imports",
 					type: "ImportDeclaration",
 					line: 4,
 					column: 7
@@ -81,13 +81,13 @@ import {
 			`,
 			errors: [
 				{
-					messageId: "not_match",
+					messageId: "imports",
 					type: "ImportDeclaration",
 					line: 3,
 					column: 4
 				},
 				{
-					messageId: "not_match",
+					messageId: "imports",
 					type: "ImportDeclaration",
 					line: 4,
 					column: 7
