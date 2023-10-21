@@ -25,6 +25,9 @@ exports.module = (valid, invalid) => {
 			code: "var v = { b: /** @type {A} */(a)/**/ }"
 		},
 		{
+			code: "a = /** @type {A} */((b.c || d).e(f))/**/"
+		},
+		{
 			code: `var v = /** @type {V} */({
 				a: /** @type {A} */([/** @type {B} */(b)/**/, /** @type {C} */(c)/**/, /** @type {D} */(d)/**/])/**/,
 				e: /** @type {F} */(f)/**/(/** @type {G} */(g)/**/, /** @type {E} */(E)/**/, /** @type {I} */(i)/**/),

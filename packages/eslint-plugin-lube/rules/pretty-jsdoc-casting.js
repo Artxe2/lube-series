@@ -54,6 +54,8 @@ module.exports = {
 			const temp_indexes = [...text_indexes]
 			/** @type {(string | undefined)[]} */
 			const types = []
+			/** @type {true[]} */
+			const extras = []
 			/**
 			 * @param {number} start
 			 * @param {number} end
@@ -105,6 +107,7 @@ module.exports = {
 										temp_text_changes(left, left + 1)
 										close++
 										if (temp_text.slice(temp_indexes[right + 1], temp_indexes[right + 5]) == "/**/") {
+											extras[right] = true
 											temp_text_changes(right, right += 5)
 										} else {
 											temp_text_changes(right, ++right)
@@ -128,7 +131,7 @@ module.exports = {
 			}
 			const start = temp_indexes[node.range[0]]
 			let end = temp_indexes[node.range[1]]
-			if (temp_text.slice(end, end + 4) == "/**/") {
+			if (extras[end] || open && temp_text.slice(end, end + 4) == "/**/") {
 				end += 4
 			}
 			let corrected_text = temp_text.slice(start, end)
