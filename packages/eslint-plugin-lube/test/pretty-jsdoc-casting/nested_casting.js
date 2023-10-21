@@ -5,9 +5,12 @@
 exports.module = (valid, invalid) => {
 	valid.push(
 		{
-			code: `var v = func(
+			code: `func(
 				a
 			)`
+		},
+		{
+			code: "a((b - c) / d)"
 		},
 		{
 			code: "var v = /** @type {{}} */(a)/**/"

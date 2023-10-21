@@ -72,6 +72,7 @@ module.exports = {
 			let open = 0
 			let close = 0
 			let prev_open = 0
+			let prev_close = 0
 			let [left, right] = node.range
 			W: while (left > 0) {
 				if (comments[left - 1]) {
@@ -100,6 +101,7 @@ module.exports = {
 								} else {
 									if (origin_text[right] == ")") {
 										prev_open = left--
+										prev_close = right
 										temp_text_changes(left, left + 1)
 										close++
 										if (temp_text.slice(temp_indexes[right + 1], temp_indexes[right + 5]) == "/**/") {
@@ -122,7 +124,7 @@ module.exports = {
 			if (close && !types[close - 1]) {
 				close--
 				temp_text_changes(prev_open, prev_open, "(")
-				temp_text_changes(right, right, ")")
+				temp_text_changes(prev_close, prev_close, ")")
 			}
 			const start = temp_indexes[node.range[0]]
 			let end = temp_indexes[node.range[1]]
