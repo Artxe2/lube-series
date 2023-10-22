@@ -1,5 +1,5 @@
 /**
- * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
+ * @param {import("eslint").RuleTester.ValidTestCase[]} valid
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
  */
 exports.module = (valid, invalid) => {
@@ -14,32 +14,38 @@ exports.module = (valid, invalid) => {
 		{ code: "camelCase = 'Hello'" },
 		{ code: "var snake_case = camelCase" },
 		{ code: "var PascalCase = 'Hello'" },
-		{ code: "var P1ascal2Case345 = 'Hello'" },
+		{ code: "var P1ascal2Case345 = 'Hello'" }
 	)
 	invalid.push(
 		{
 			code: "var camelCase = 'Hello'",
-			errors: [{
-				line: 1,
-				column: 5
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 5
+				}
+			],
 			output: "var camel_case = 'Hello'"
 		},
 		{
 			code: "var NO_SNAKE__CASE = 'Hello'",
-			errors: [{
-				line: 1,
-				column: 5
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 5
+				}
+			],
 			output: "var NO_SNAKE__CASE = 'Hello'"
 		},
 		{
 			code: "var NO_SNAKE_CASE_ = 'Hello'",
-			errors: [{
-				line: 1,
-				column: 5
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 5
+				}
+			],
 			output: "var NO_SNAKE_CASE_ = 'Hello'"
-		},
+		}
 	)
 }

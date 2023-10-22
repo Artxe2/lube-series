@@ -20,11 +20,7 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 		if (queue) {
 			for (const p of queue) {
 				p[p.indexOf(callback)] = value
-				if (
-					p.every(
-						p => typeof p != "function"
-					)
-				) {
+				if (p.every(v => typeof v != "function")) {
 					run_node(
 						resolve,
 						reject,
@@ -68,7 +64,7 @@ const run_dag = (nodes, index) =>
 			}
 			for (const [dependencies, callback] of jobs) {
 				if (
-					dependencies.every(/** @type {*} */(p)/**/ => typeof p != "function")
+					dependencies.every(/** @type {*} */p/**/ => typeof p != "function")
 				) {
 					run_node(resolve, reject, jobs, dependents, count, dependencies, callback, index)
 						.catch(reject)

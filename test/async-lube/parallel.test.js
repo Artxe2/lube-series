@@ -56,8 +56,8 @@ describe(
 						value: {
 							ms: 1,
 							start: 0,
-							end: 1 
-						} 
+							end: 1
+						}
 					}
 				)
 				assert.deepStrictEqual(
@@ -66,8 +66,8 @@ describe(
 						reason: {
 							ms: 3,
 							start: 0,
-							end: 3 
-						} 
+							end: 3
+						}
 					}
 				)
 				assert.deepStrictEqual(
@@ -76,8 +76,8 @@ describe(
 						value: {
 							ms: 5,
 							start: 0,
-							end: 5 
-						} 
+							end: 5
+						}
 					}
 				)
 				assert.deepStrictEqual(
@@ -86,8 +86,8 @@ describe(
 						reason: {
 							ms: 1,
 							start: 1,
-							end: 2 
-						} 
+							end: 2
+						}
 					}
 				)
 				assert.deepStrictEqual(
@@ -96,8 +96,8 @@ describe(
 						value: {
 							ms: 2,
 							start: 2,
-							end: 4 
-						} 
+							end: 4
+						}
 					}
 				)
 				assert.deepStrictEqual(
@@ -106,8 +106,8 @@ describe(
 						reason: {
 							ms: 3,
 							start: 3,
-							end: 6 
-						} 
+							end: 6
+						}
 					}
 				)
 				assert.deepStrictEqual(
@@ -116,8 +116,8 @@ describe(
 						value: {
 							ms: 4,
 							start: 4,
-							end: 8 
-						} 
+							end: 8
+						}
 					}
 				)
 			}

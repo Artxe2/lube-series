@@ -1,5 +1,5 @@
 /**
- * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
+ * @param {import("eslint").RuleTester.ValidTestCase[]} valid
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
  */
 exports.module = (valid, invalid) => {
@@ -45,34 +45,42 @@ exports.module = (valid, invalid) => {
 	invalid.push(
 		{
 			code: "var v = /**@type {A}*/(a)/**/",
-			errors: [{
-				column: 8,
-				line: 1
-			}],
+			errors: [
+				{
+					column: 8,
+					line: 1
+				}
+			],
 			output: "var v = /** @type {A} */(a)/**/"
 		},
 		{
 			code: "var v = /** @type {A} */(  /** @type {B} */(/** @type {C} */((a) /* block... */))) // line...",
-			errors: [{
-				column: 8,
-				line: 1
-			}],
+			errors: [
+				{
+					column: 8,
+					line: 1
+				}
+			],
 			output: "var v =   /** @type {A} */(/** @type {B} */(/** @type {C} */((a))/**/)/**/)/**/ /* block... */ // line..."
 		},
 		{
 			code: "var v = { b: /** @type {A} */(a) }",
-			errors: [{
-				column: 13,
-				line: 1
-			}],
+			errors: [
+				{
+					column: 13,
+					line: 1
+				}
+			],
 			output: "var v = { b: /** @type {A} */(a)/**/ }"
 		},
 		{
 			code: "var v = { b: /** @type {A} */(a) }",
-			errors: [{
-				column: 13,
-				line: 1
-			}],
+			errors: [
+				{
+					column: 13,
+					line: 1
+				}
+			],
 			output: "var v = { b: /** @type {A} */(a)/**/ }"
 		},
 		{

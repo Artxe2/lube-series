@@ -20,7 +20,7 @@ const _default = (size, ...callbacks) => {
 		 * @param {number} i
 		 * @returns {Promise<{ value: * } | { reason: * }>}
 		 */
-		const run = (i) =>
+		const run = i =>
 			Promise.resolve(callbacks[i]())
 				.then(value => result[i] = { value }, reason => result[i] = { reason })
 				.finally(finally_callback)

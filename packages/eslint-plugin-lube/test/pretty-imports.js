@@ -12,7 +12,7 @@ require("./pretty-imports/ImportDeclaration").module(valid, invalid)
 new RuleTester().run(
 	"pretty-imports",
 	require("../rules/pretty-imports"),
-	{ 
+	{
 		valid,
 		invalid
 	}

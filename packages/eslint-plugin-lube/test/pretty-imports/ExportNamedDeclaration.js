@@ -1,5 +1,5 @@
 /**
- * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
+ * @param {import("eslint").RuleTester.ValidTestCase[]} valid
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
  */
 exports.module = (valid, invalid) => {
@@ -49,10 +49,12 @@ exports.module = (valid, invalid) => {
 					column: 7
 				}
 			],
-			options: [{
-				maxLength: 10,
-				semicolon: true
-			}],
+			options: [
+				{
+					maxLength: 10,
+					semicolon: true
+				}
+			],
 			output: `
 
 			export { a, b as c, d } from 'module';
@@ -91,10 +93,12 @@ exports.module = (valid, invalid) => {
 					column: 7
 				}
 			],
-			options: [{
-				indent: "  ",
-				maxLength: 10
-			}],
+			options: [
+				{
+					indent: "  ",
+					maxLength: 10
+				}
+			],
 			output: `
 
 			export { a, b as c, d } from 'module'

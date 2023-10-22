@@ -1,4 +1,4 @@
-/** 
+/**
  * @param {Record<string, string | number>=} data
  * @returns {string}
  */
@@ -12,7 +12,7 @@ const to_query = data => {
 	return query
 }
 
-/** 
+/**
  * @param {Record<string, string | number | Blob>=} data
  * @returns {FormData | undefined}
  */
@@ -220,28 +220,28 @@ export default (url, set_abort) =>
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		head: options => set_options_body(url, "HEAD", set_abort, options),
-		
+
 		/**
 		 * HTTP OPTIONS method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		options: options => set_options_body(url, "OPTIONS", set_abort, options),
-		
+
 		/**
 		 * HTTP PATCH method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		patch: options => set_options_body(url, "PATCH", set_abort, options),
-		
+
 		/**
 		 * HTTP POST method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		post: options => set_options_body(url, "POST", set_abort, options),
-		
+
 		/**
 		 * HTTP PUT method.
 		 * @param {RequestInit=} options

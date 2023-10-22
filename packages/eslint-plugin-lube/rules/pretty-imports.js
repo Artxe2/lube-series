@@ -12,31 +12,33 @@ module.exports = {
 			exports: "This exports is not pretty",
 			imports: "This imports is not pretty"
 		},
-		schema: [{
-			properties: {
-				checkExports: {
-					type: "boolean",
-					default: true
+		schema: [
+			{
+				properties: {
+					checkExports: {
+						type: "boolean",
+						default: true
+					},
+					checkImports: {
+						type: "boolean",
+						default: true
+					},
+					indent: {
+						type: "string",
+						default: "\t"
+					},
+					maxLength: {
+						type: "number",
+						default: 30
+					},
+					semicolon: {
+						type: "boolean",
+						default: false
+					}
 				},
-				checkImports: {
-					type: "boolean",
-					default: true
-				},
-				indent: {
-					type: "string",
-					default: "\t"
-				},
-				maxLength: {
-					type: "number",
-					default: 30
-				},
-				semicolon: {
-					type: "boolean",
-					default: false
-				}
-			},
-			type: "object"
-		}],
+				type: "object"
+			}
+		],
 		type: "layout"
 	},
 	create(context) {
@@ -110,12 +112,12 @@ module.exports = {
 					}
 					let corrected_text = length > max_length
 						? `export {\n${line_indent + indent}${
-							
+
 							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text)
 								.join(",\n" + line_indent + indent)
 						}\n${line_indent}}`
 						: `export { ${
-							
+
 							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text).join(", ")
 						} }`
 					if (node.source) {
@@ -140,12 +142,12 @@ module.exports = {
 					}
 					let corrected_text = length > max_length
 						? `import {\n${line_indent + indent}${
-							
+
 							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text)
 								.join(",\n" + line_indent + indent)
 						}\n${line_indent}} from ${node.source.raw}`
 						: `import { ${
-							
+
 							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text).join(", ")
 						} } from ${node.source.raw}`
 					if (semicolon) {

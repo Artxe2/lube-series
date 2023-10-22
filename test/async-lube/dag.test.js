@@ -54,7 +54,9 @@ describe(
 			() =>
 				Promise.resolve()
 					.then(
-						() => { throw Error("b") }
+						() => {
+							throw Error("b")
+						}
 					),
 			() =>
 				Promise.resolve()

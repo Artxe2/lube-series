@@ -3,8 +3,8 @@ import fs from "node:fs"
 const replace_any_type_regex = /(?<=@returns {(.+?)}\r?\n(?:.|[\r\n])+?: )any(?=;)/g
 
 /**
- * @param {string} _ 
- * @param {string} type 
+ * @param {string} _
+ * @param {string} type
  * @returns {string}
  */
 const replace_any_type_callback = (_, type) => type

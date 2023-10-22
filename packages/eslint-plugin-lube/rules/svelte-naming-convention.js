@@ -11,15 +11,17 @@ module.exports = {
 		messages: {
 			not_match: "Identifier '{{name}}' does not match for svelte's naming conventions."
 		},
-		schema: [{
-			properties: {
-				fixSameNames: {
-					type: "boolean",
-					default: true
+		schema: [
+			{
+				properties: {
+					fixSameNames: {
+						type: "boolean",
+						default: true
+					}
 				},
-			},
-			type: "object"
-		}],
+				type: "object"
+			}
+		],
 		type: "layout"
 	},
 	create(context) {
@@ -199,7 +201,7 @@ module.exports = {
 					break
 				case "FunctionDeclaration":
 					// function camelCase() {}
-					if ( 
+					if (
 						parent.parent?.type != "ExportNamedDeclaration"
 						|| !camel_case_regex.test(name)
 					) {
@@ -240,8 +242,7 @@ module.exports = {
 					// object.property
 					if (parent.object == node) {
 						defer(node)
-					}
-					else if (parent.computed) {
+					} else if (parent.computed) {
 						// object[camelCase]
 						// camelCase[key]
 						defer(node)
@@ -327,7 +328,7 @@ module.exports = {
 				case "VariableDeclarator":
 					// var id = init
 					if (parent.id == node) {
-						if ( 
+						if (
 							parent.parent?.parent?.type != "ExportNamedDeclaration"
 							|| !camel_case_regex.test(name)
 						) {

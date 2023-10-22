@@ -39,7 +39,7 @@ const _default = callback => {
 
 	const decrease_throttle = () => throttle_count--
 
-	/** 
+	/**
 	 * @param {Parameters<T>} args
 	 * @returns {Promise<ReturnType<T>>}
 	 */
@@ -76,9 +76,9 @@ const _default = callback => {
 				if (retry_checker) {
 					Promise.resolve(retry_checker(reason, ++count))
 						.then(() => retries_impl(args, resolve, reject, count))
-						.catch(reason => {
+						.catch(aborted => {
 							is_in_progress = false
-							reject(reason)
+							reject(aborted)
 						})
 				} else {
 					is_in_progress = false
@@ -98,8 +98,7 @@ const _default = callback => {
 			debounce_promise = null
 			is_in_progress = true
 			retries_impl(args, resolve, reject, 0)
-		}
-		else reject(Error("Request be debounced"))
+		} else reject(Error("Request be debounced"))
 	}
 
 	/**

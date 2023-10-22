@@ -88,18 +88,18 @@ module.exports = {
 						}
 					}
 				} else {
-					const space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
-					if (space) {
-						left -= space
+					const left_space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
+					if (left_space) {
+						left -= left_space
 					} else if (origin_text[left - 1] == "(") {
 						while (right < text_length) {
 							if (comments[right]) {
 								const comment = comments[right]
 								right = comment.range[1]
 							} else {
-								const space = right_space_regex.exec(origin_text.slice(right))?.[0].length
-								if (space) {
-									right += space
+								const right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
+								if (right_space) {
+									right += right_space
 								} else {
 									if (origin_text[right] == ")") {
 										prev_open = left--

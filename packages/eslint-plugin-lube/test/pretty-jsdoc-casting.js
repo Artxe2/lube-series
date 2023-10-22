@@ -12,7 +12,7 @@ require("./pretty-jsdoc-casting/nested_casting").module(valid, invalid)
 new RuleTester().run(
 	"pretty-jsdoc-casting",
 	require("../rules/pretty-jsdoc-casting"),
-	{ 
+	{
 		valid,
 		invalid
 	}

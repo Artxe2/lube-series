@@ -11,7 +11,7 @@ describe(
 		/**
 		 * @param {number} ms
 		 */
-		const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+		const sleep = ms => new Promise(res => setTimeout(res, ms))
 		const get_result = (
 			() => {
 				let count = 0

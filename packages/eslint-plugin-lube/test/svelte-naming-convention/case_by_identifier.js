@@ -1,5 +1,5 @@
 /**
- * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
+ * @param {import("eslint").RuleTester.ValidTestCase[]} valid
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
  */
 exports.module = (valid, invalid) => {
@@ -36,20 +36,24 @@ exports.module = (valid, invalid) => {
 		// ArrayPattern
 		{
 			code: "var [ camelCase ] = value",
-			errors: [{
-				line: 1,
-				column: 7
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 7
+				}
+			],
 			output: "var [ camel_case ] = value",
 			parserOptions: { ecmaVersion: "latest" }
 		},
 		// ArrowFunctionExpression
 		{
 			code: "(camelCase) => {}",
-			errors: [{
-				line: 1,
-				column: 2
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 2
+				}
+			],
 			output: "(camel_case) => {}",
 			parserOptions: { ecmaVersion: "latest" }
 		},
@@ -237,10 +241,12 @@ exports.module = (valid, invalid) => {
 		// ClassDeclaration
 		{
 			code: "class camelCase {}",
-			errors: [{
-				line: 1,
-				column: 7
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 7
+				}
+			],
 			output: "class camel_case {}",
 			parserOptions: { ecmaVersion: "latest" }
 		},
@@ -291,10 +297,12 @@ exports.module = (valid, invalid) => {
 			export * as camelCase from "module"
 			var camelCase
 			`,
-			errors: [{
-				line: 3,
-				column: 8
-			}],
+			errors: [
+				{
+					line: 3,
+					column: 8
+				}
+			],
 			output: `
 			export * as camelCase from "module"
 			var camel_case
@@ -310,10 +318,12 @@ exports.module = (valid, invalid) => {
 			export default camelCase
 			var camelCase
 			`,
-			errors: [{
-				line: 3,
-				column: 8
-			}],
+			errors: [
+				{
+					line: 3,
+					column: 8
+				}
+			],
 			options: [{ fixSameNames: false }],
 			output: `
 			export default camelCase
@@ -337,7 +347,7 @@ exports.module = (valid, invalid) => {
 				{
 					line: 3,
 					column: 8
-				},
+				}
 			],
 			output: `
 			export default camel_case
@@ -362,7 +372,7 @@ exports.module = (valid, invalid) => {
 				{
 					line: 3,
 					column: 19
-				},
+				}
 			],
 			output: `
 			export { default as camelCase, camelCase2 } from 'module'
@@ -549,10 +559,12 @@ exports.module = (valid, invalid) => {
 		// ImportDefaultSpecifier
 		{
 			code: "import camelCase from 'module'",
-			errors: [{
-				line: 1,
-				column: 8
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 8
+				}
+			],
 			output: "import camel_case from 'module'",
 			parserOptions: {
 				ecmaVersion: "latest",
@@ -562,10 +574,12 @@ exports.module = (valid, invalid) => {
 		// ImportNamespaceSpecifier
 		{
 			code: "import * as camelCase from 'module'",
-			errors: [{
-				line: 1,
-				column: 13
-			}],
+			errors: [
+				{
+					line: 1,
+					column: 13
+				}
+			],
 			output: "import * as camel_case from 'module'",
 			parserOptions: {
 				ecmaVersion: "latest",
@@ -696,10 +710,12 @@ exports.module = (valid, invalid) => {
 			class ObjectB { camelCase() {} }
 			var camelCase
 			`,
-			errors: [{
-				line: 3,
-				column: 8
-			}],
+			errors: [
+				{
+					line: 3,
+					column: 8
+				}
+			],
 			output: `
 			class ObjectB { camelCase() {} }
 			var camel_case
@@ -721,7 +737,7 @@ exports.module = (valid, invalid) => {
 				},
 				{
 					line: 4,
-					column:8
+					column: 8
 				},
 				{
 					line: 5,
@@ -751,7 +767,7 @@ exports.module = (valid, invalid) => {
 				},
 				{
 					line: 4,
-					column:8
+					column: 8
 				},
 				{
 					line: 5,
@@ -930,7 +946,7 @@ exports.module = (valid, invalid) => {
 				},
 				{
 					line: 4,
-					column:8
+					column: 8
 				},
 				{
 					line: 5,
@@ -959,7 +975,7 @@ exports.module = (valid, invalid) => {
 				},
 				{
 					line: 4,
-					column:8
+					column: 8
 				},
 				{
 					line: 5,
@@ -988,7 +1004,7 @@ exports.module = (valid, invalid) => {
 				},
 				{
 					line: 4,
-					column:8
+					column: 8
 				},
 				{
 					line: 5,
@@ -1222,6 +1238,6 @@ exports.module = (valid, invalid) => {
 			function* func_c() { yield pending_a }
 			`,
 			parserOptions: { ecmaVersion: "latest" }
-		},
+		}
 	)
 }

@@ -13,7 +13,7 @@ require("./svelte-naming-convention/snake_case_with_symbols").module(valid, inva
 new RuleTester().run(
 	"svelte-naming-convention",
 	require("../rules/svelte-naming-convention"),
-	{ 
+	{
 		valid,
 		invalid
 	}

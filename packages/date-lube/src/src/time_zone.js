@@ -14,7 +14,7 @@ const time_zone_regex = /T\+?(-?\d*):?(\d*)/
 const _default = (date, time_zone, inversion) => {
 	const array = /** @type {RegExpExecArray} */(time_zone_regex.exec(Intl.DateTimeFormat("ia", {
 		timeZone: time_zone,
-		timeZoneName: "short" 
+		timeZoneName: "short"
 	}).format()))/**/
 	const offset = date.getTimezoneOffset() + +(array[1] ?? 0) * 60 + +(array[2] ?? 0)
 	date.setMinutes(date.getMinutes() + (inversion ? -offset : offset))

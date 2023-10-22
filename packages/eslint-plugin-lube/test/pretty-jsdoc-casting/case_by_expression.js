@@ -1,6 +1,6 @@
 /**
- * @param {keyof import("estree").ExpressionMap} type 
- * @param {string} value 
+ * @param {keyof import("estree").ExpressionMap} type
+ * @param {string} value
  * @returns {import("eslint").RuleTester.InvalidTestCase}
  */
 const test_case = (type, value) => ({
@@ -53,7 +53,7 @@ const test_case = (type, value) => ({
 })
 
 /**
- * @param {import("eslint").RuleTester.ValidTestCase[]} valid 
+ * @param {import("eslint").RuleTester.ValidTestCase[]} valid
  * @param {import("eslint").RuleTester.InvalidTestCase[]} invalid
  */
 exports.module = (valid, invalid) => {

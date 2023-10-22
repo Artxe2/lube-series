@@ -22,43 +22,45 @@ describe(
 					json,
 					{
 						"limit": 2,
-						"products": [{
-							"brand": "Apple",
-							"category": "smartphones",
-							"description": "An apple mobile which is nothing like apple",
-							"discountPercentage": 12.96,
-							"id": 1,
-							"images": [
-								"https://i.dummyjson.com/data/products/1/1.jpg",
-								"https://i.dummyjson.com/data/products/1/2.jpg",
-								"https://i.dummyjson.com/data/products/1/3.jpg",
-								"https://i.dummyjson.com/data/products/1/4.jpg",
-								"https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-							],
-							"price": 549,
-							"rating": 4.69,
-							"stock": 94,
-							"thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-							"title": "iPhone 9"
-						}, {
-							"brand": "Apple",
-							"category": "smartphones",
-							// eslint-disable-next-line max-len
-							"description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-							"discountPercentage": 17.94,
-							"id": 2,
-							"images": [
-								"https://i.dummyjson.com/data/products/2/1.jpg",
-								"https://i.dummyjson.com/data/products/2/2.jpg",
-								"https://i.dummyjson.com/data/products/2/3.jpg",
-								"https://i.dummyjson.com/data/products/2/thumbnail.jpg"
-							],
-							"price": 899,
-							"rating": 4.44,
-							"stock": 34,
-							"thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-							"title": "iPhone X"
-						}],
+						"products": [
+							{
+								"brand": "Apple",
+								"category": "smartphones",
+								"description": "An apple mobile which is nothing like apple",
+								"discountPercentage": 12.96,
+								"id": 1,
+								"images": [
+									"https://i.dummyjson.com/data/products/1/1.jpg",
+									"https://i.dummyjson.com/data/products/1/2.jpg",
+									"https://i.dummyjson.com/data/products/1/3.jpg",
+									"https://i.dummyjson.com/data/products/1/4.jpg",
+									"https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+								],
+								"price": 549,
+								"rating": 4.69,
+								"stock": 94,
+								"thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+								"title": "iPhone 9"
+							}, {
+								"brand": "Apple",
+								"category": "smartphones",
+								// eslint-disable-next-line max-len
+								"description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+								"discountPercentage": 17.94,
+								"id": 2,
+								"images": [
+									"https://i.dummyjson.com/data/products/2/1.jpg",
+									"https://i.dummyjson.com/data/products/2/2.jpg",
+									"https://i.dummyjson.com/data/products/2/3.jpg",
+									"https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+								],
+								"price": 899,
+								"rating": 4.44,
+								"stock": 34,
+								"thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+								"title": "iPhone X"
+							}
+						],
 						"skip": 0,
 						"total": 5
 					}
