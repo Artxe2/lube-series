@@ -65,7 +65,7 @@ module.exports = {
 						"ignoreChainWithDepth": 2
 					}
 				],
-				"no-await-in-loop": "error",
+				"no-await-in-loop": "warn",
 				"no-console": "warn",
 				"no-duplicate-imports": "error",
 				"no-lonely-if": "error",

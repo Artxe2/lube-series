@@ -1,5 +1,5 @@
-# pretty-imports
-Enforces proper indentation for import and export statements.
+# pretty-jsdoc-casting
+Enforces additional empty comment when type casting in JSDoc.
 
 ## options
 ```js
