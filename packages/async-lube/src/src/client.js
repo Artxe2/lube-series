@@ -164,7 +164,7 @@ const set_options_body = (url, method, set_abort, options) =>
 	})
 
 /**
- * Function that creates an HTTP client for a specific URL with optional abort callback.
+ * Function that creates an HTTP client for a specific URL with optional abort handler.
  * @param {string} url
  * @param {(abort: VoidFunction) => void=} set_abort
  * @returns

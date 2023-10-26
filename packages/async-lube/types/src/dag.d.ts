@@ -7,7 +7,7 @@ export default _default;
  *   // Run dag.
  *   (index?): Promise<any>
  *   // Add a dag execution plan.
- *   add(callback: Function, ...dependencies: any[]): Dag
+ *   add(handler: Function, ...dependencies: any[]): Dag
  * }
  * ```
  */
@@ -15,11 +15,11 @@ declare function _default(): {
     (index?: number | undefined): Promise<Awaited<ReturnType<typeof run_dag>>>;
     /**
      * @template {(...args: *[]) => *} T
-     * @param {T} callback
+     * @param {T} handler
      * @param {import("../../private.js").Dependencies<T>} dependencies
      * @returns {ReturnType<typeof _default>}
      */
-    add<T extends (...args: any[]) => any>(callback: T, ...dependencies: import("../../private.js").Dependencies<T>): ReturnType<typeof _default>;
+    add<T extends (...args: any[]) => any>(handler: T, ...dependencies: import("../../private.js").Dependencies<T>): ReturnType<typeof _default>;
 };
 /**
  * @param {Map<*[], Function>} nodes

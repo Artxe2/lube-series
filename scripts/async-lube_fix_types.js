@@ -7,7 +7,7 @@ const replace_any_type_regex = /(?<=@returns {(.+?)}\r?\n(?:.|[\r\n])+?: )any(?=
  * @param {string} type
  * @returns {string}
  */
-const replace_any_type_callback = (_, type) => type
+const replace_any_type_handler = (_, type) => type
 
 const decorator_d_ts = "packages/async-lube/types/src/decorator.d.ts"
 const text = fs.readFileSync(decorator_d_ts)
@@ -15,5 +15,5 @@ const text = fs.readFileSync(decorator_d_ts)
 
 fs.writeFileSync(
 	decorator_d_ts,
-	text.replace(replace_any_type_regex, replace_any_type_callback)
+	text.replace(replace_any_type_regex, replace_any_type_handler)
 )

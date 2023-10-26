@@ -5,21 +5,21 @@
  * @param {Map<Function, *[][]>} dependents
  * @param {[number]} count
  * @param {*[]} dependencies
- * @param {Function} callback
+ * @param {Function} handler
  * @param {number} index
  * @returns {Promise<*>}
  */
-const run_node = async (resolve, reject, jobs, dependents, count, dependencies, callback, index) => {
-	const value = await callback(
+const run_node = async (resolve, reject, jobs, dependents, count, dependencies, handler, index) => {
+	const value = await handler(
 		...(dependencies.length ? await Promise.all(dependencies) : dependencies)
 	)
 	jobs.set(dependencies, value)
 	if (!--count[0]) resolve([...jobs.values()][index])
 	else {
-		const queue = dependents.get(callback)
+		const queue = dependents.get(handler)
 		if (queue) {
 			for (const p of queue) {
-				p[p.indexOf(callback)] = value
+				p[p.indexOf(handler)] = value
 				if (p.every(v => typeof v != "function")) {
 					run_node(
 						resolve,
@@ -52,9 +52,9 @@ const run_dag = (nodes, index) =>
 			/** @type {[number]} */
 			const count = [ nodes.size ]
 
-			for (const [dependencies, callback] of nodes) {
+			for (const [dependencies, handler] of nodes) {
 				const clone = [...dependencies]
-				jobs.set(clone, callback)
+				jobs.set(clone, handler)
 				for (const p of clone)
 					if (typeof p == "function") {
 						const array = dependents.get(p)
@@ -62,11 +62,11 @@ const run_dag = (nodes, index) =>
 						else dependents.set(p, [ clone ])
 					}
 			}
-			for (const [dependencies, callback] of jobs) {
+			for (const [dependencies, handler] of jobs) {
 				if (
 					dependencies.every(/** @type {*} */p/**/ => typeof p != "function")
 				) {
-					run_node(resolve, reject, jobs, dependents, count, dependencies, callback, index)
+					run_node(resolve, reject, jobs, dependents, count, dependencies, handler, index)
 						.catch(reject)
 				}
 			}
@@ -81,7 +81,7 @@ const run_dag = (nodes, index) =>
  *   // Run dag.
  *   (index?): Promise<any>
  *   // Add a dag execution plan.
- *   add(callback: Function, ...dependencies: any[]): Dag
+ *   add(handler: Function, ...dependencies: any[]): Dag
  * }
  * ```
  */
@@ -97,12 +97,12 @@ const _default = () => {
 
 	/**
 	 * @template {(...args: *[]) => *} T
-	 * @param {T} callback
+	 * @param {T} handler
 	 * @param {import("../../private.js").Dependencies<T>} dependencies
 	 * @returns {ReturnType<typeof _default>}
 	 */
-	utils.add = (callback, ...dependencies) => {
-		nodes.set(dependencies, callback)
+	utils.add = (handler, ...dependencies) => {
+		nodes.set(dependencies, handler)
 		return utils
 	}
 	return utils

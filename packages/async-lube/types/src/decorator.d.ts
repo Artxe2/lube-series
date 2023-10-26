@@ -2,12 +2,12 @@ export default _default;
 /**
  * Create a function decorator with added behaviors such as caching, debouncing, retries, and throttling.
  * @template {(...args: *[]) => *} T
- * @param {T} callback
+ * @param {T} handler
  * @returns
  * ```
  * type Decorator<T extends Function> = {
  *   // Run decorator.
- *   (...args): Promise<ReturnType<typeof callback>>
+ *   (...args): Promise<ReturnType<typeof handler>>
  * }
  * ```
  * @throws
@@ -23,7 +23,7 @@ export default _default;
  * Error("Too many requests") // f the operation is cancelled by the throttle.
  * ```
  */
-declare function _default<T extends (...args: any[]) => any>(callback: T): {
+declare function _default<T extends (...args: any[]) => any>(handler: T): {
     (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>>;
     /**
      * Enable caching for the decorated function.

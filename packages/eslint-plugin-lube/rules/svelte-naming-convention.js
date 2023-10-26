@@ -65,7 +65,7 @@ module.exports = {
 		 * @param {string} b
 		 * @returns {string}
 		 */
-		function fix_callback(_, a, b) {
+		function fix_handler(_, a, b) {
 			return a + (a ? "_" : "") + b.toLowerCase()
 		}
 
@@ -82,7 +82,7 @@ module.exports = {
 						return fixer.replaceTextRange(
 							node.range,
 							(shortand_properties.has(node) ? node.name + ": " : "")
-								+ node.name.replace(fix_regex, fix_callback)
+								+ node.name.replace(fix_regex, fix_handler)
 						)
 					}
 					return null

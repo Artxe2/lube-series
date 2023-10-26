@@ -1,12 +1,12 @@
 /**
  * Create a function decorator with added behaviors such as caching, debouncing, retries, and throttling.
  * @template {(...args: *[]) => *} T
- * @param {T} callback
+ * @param {T} handler
  * @returns
  * ```
  * type Decorator<T extends Function> = {
  *   // Run decorator.
- *   (...args): Promise<ReturnType<typeof callback>>
+ *   (...args): Promise<ReturnType<typeof handler>>
  * }
  * ```
  * @throws
@@ -22,7 +22,7 @@
  * Error("Too many requests") // f the operation is cancelled by the throttle.
  * ```
  */
-const _default = callback => {
+const _default = handler => {
 	let cache_time = 0
 	/** @type {ReturnType<T>?} */
 	let cached_value
@@ -49,7 +49,7 @@ const _default = callback => {
 				throttle_count++
 				setTimeout(decrease_throttle, throttle_time_ms)
 			}
-			return callback(...args)
+			return handler(...args)
 		}
 		throw Error("Too many requests")
 	}

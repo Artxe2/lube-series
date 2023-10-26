@@ -166,7 +166,7 @@ const set_options_body = (url, method, set_abort, options) =>
 	});
 
 /**
- * Function that creates an HTTP client for a specific URL with optional abort callback.
+ * Function that creates an HTTP client for a specific URL with optional abort handler.
  * @param {string} url
  * @param {(abort: VoidFunction) => void=} set_abort
  * @returns
@@ -259,21 +259,21 @@ var client = (url, set_abort) =>
  * @param {Map<Function, *[][]>} dependents
  * @param {[number]} count
  * @param {*[]} dependencies
- * @param {Function} callback
+ * @param {Function} handler
  * @param {number} index
  * @returns {Promise<*>}
  */
-const run_node = async (resolve, reject, jobs, dependents, count, dependencies, callback, index) => {
-	const value = await callback(
+const run_node = async (resolve, reject, jobs, dependents, count, dependencies, handler, index) => {
+	const value = await handler(
 		...(dependencies.length ? await Promise.all(dependencies) : dependencies)
 	);
 	jobs.set(dependencies, value);
 	if (!--count[0]) resolve([...jobs.values()][index]);
 	else {
-		const queue = dependents.get(callback);
+		const queue = dependents.get(handler);
 		if (queue) {
 			for (const p of queue) {
-				p[p.indexOf(callback)] = value;
+				p[p.indexOf(handler)] = value;
 				if (
 					p.every(
 						p => typeof p != "function"
@@ -310,9 +310,9 @@ const run_dag = (nodes, index) =>
 			/** @type {[number]} */
 			const count = [ nodes.size ];
 
-			for (const [dependencies, callback] of nodes) {
+			for (const [dependencies, handler] of nodes) {
 				const clone = [...dependencies];
-				jobs.set(clone, callback);
+				jobs.set(clone, handler);
 				for (const p of clone)
 					if (typeof p == "function") {
 						const array = dependents.get(p);
@@ -320,11 +320,11 @@ const run_dag = (nodes, index) =>
 						else dependents.set(p, [ clone ]);
 					}
 			}
-			for (const [dependencies, callback] of jobs) {
+			for (const [dependencies, handler] of jobs) {
 				if (
 					dependencies.every(/** @type {*} */(p)/**/ => typeof p != "function")
 				) {
-					run_node(resolve, reject, jobs, dependents, count, dependencies, callback, index)
+					run_node(resolve, reject, jobs, dependents, count, dependencies, handler, index)
 						.catch(reject);
 				}
 			}
@@ -339,7 +339,7 @@ const run_dag = (nodes, index) =>
  *   // Run dag.
  *   (index?): Promise<any>
  *   // Add a dag execution plan.
- *   add(callback: Function, ...dependencies: any[]): Dag
+ *   add(handler: Function, ...dependencies: any[]): Dag
  * }
  * ```
  */
@@ -355,12 +355,12 @@ const _default$2 = () => {
 
 	/**
 	 * @template {(...args: *[]) => *} T
-	 * @param {T} callback
+	 * @param {T} handler
 	 * @param {import("../../private.js").Dependencies<T>} dependencies
 	 * @returns {ReturnType<typeof _default>}
 	 */
-	utils.add = (callback, ...dependencies) => {
-		nodes.set(dependencies, callback);
+	utils.add = (handler, ...dependencies) => {
+		nodes.set(dependencies, handler);
 		return utils
 	};
 	return utils
@@ -369,12 +369,12 @@ const _default$2 = () => {
 /**
  * Create a function decorator with added behaviors such as caching, debouncing, retries, and throttling.
  * @template {(...args: *[]) => *} T
- * @param {T} callback
+ * @param {T} handler
  * @returns
  * ```
  * type Decorator<T extends Function> = {
  *   // Run decorator.
- *   (...args): Promise<ReturnType<typeof callback>>
+ *   (...args): Promise<ReturnType<typeof handler>>
  * }
  * ```
  * @throws
@@ -390,7 +390,7 @@ const _default$2 = () => {
  * Error("Too many requests") // f the operation is cancelled by the throttle.
  * ```
  */
-const _default$1 = callback => {
+const _default$1 = handler => {
 	let cache_time = 0;
 	/** @type {ReturnType<T>?} */
 	let cached_value;
@@ -414,7 +414,7 @@ const _default$1 = callback => {
 				throttle_count++;
 				setTimeout(decrease_throttle, throttle_time_ms);
 			}
-			return callback(...args)
+			return handler(...args)
 		}
 		throw Error("Too many requests")
 	};
@@ -554,17 +554,17 @@ const _default$1 = callback => {
  * Run multiple functions in parallel with a specified limit on the number of parallel executions.
  * @template {[((...args: []) => *), ...((...args: []) => *)[]]} T
  * @param {import("../../private.js").Between<2, readonly T["length"]>} size
- * @param {T} callbacks
+ * @param {T} handlers
  * @returns {Promise<import("../../private.js").ParallelResult<T>>}
  */
-const _default = (size, ...callbacks) => {
+const _default = (size, ...handlers) => {
 	/** @type {import("../../private.js").ParallelResult<T>} */
 	const result = /** @type {import("../../private.js").ParallelResult<T>} */([]);/**/
 	return new Promise(resolve => {
-		const length = /** @type {import("../../private.js").Between<2, readonly T["length"]>} */(callbacks.length);/**/
+		const length = /** @type {import("../../private.js").Between<2, readonly T["length"]>} */(handlers.length);/**/
 		if (length < size) size = length;
 		let index = 0;
-		const finally_callback = () => {
+		const finally_handler = () => {
 			if (index < length) run(index++);
 			else if (++index == length + size) resolve(result);
 		};
@@ -573,9 +573,9 @@ const _default = (size, ...callbacks) => {
 		 * @returns {Promise<{ value: * } | { reason: * }>}
 		 */
 		const run = (i) =>
-			Promise.resolve(callbacks[i]())
+			Promise.resolve(handlers[i]())
 				.then(value => result[i] = { value }, reason => result[i] = { reason })
-				.finally(finally_callback);
+				.finally(finally_handler);
 		while (index < size) run(index++);
 	})
 };
