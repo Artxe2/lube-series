@@ -24,7 +24,8 @@
 	"scripts": {
 		"cjs": "pnpm -r cjs",
 		"dts": "pnpm -r dts",
-		"lint": "tsc && eslint --fix .",
+		"lint": "eslint --fix .",
+		"pre": "pnpm test && pnpm lint && pnpm dts && pnpm cjs && tsc",
 		"test": "vitest run"
 	},
 	"type": "module",

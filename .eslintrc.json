@@ -19,6 +19,5 @@ VSCE: JavaScript and TypeScript Nightly
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["lube"],
-	"rules": {}
+	"plugins": ["lube"]
 }

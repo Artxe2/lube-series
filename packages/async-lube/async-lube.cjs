@@ -1,6 +1,6 @@
 'use strict';
 
-/** 
+/**
  * @param {Record<string, string | number>=} data
  * @returns {string}
  */
@@ -14,7 +14,7 @@ const to_query = data => {
 	return query
 };
 
-/** 
+/**
  * @param {Record<string, string | number | Blob>=} data
  * @returns {FormData | undefined}
  */
@@ -222,28 +222,28 @@ var client = (url, set_abort) =>
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		head: options => set_options_body(url, "HEAD", set_abort, options),
-		
+
 		/**
 		 * HTTP OPTIONS method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		options: options => set_options_body(url, "OPTIONS", set_abort, options),
-		
+
 		/**
 		 * HTTP PATCH method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		patch: options => set_options_body(url, "PATCH", set_abort, options),
-		
+
 		/**
 		 * HTTP POST method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		post: options => set_options_body(url, "POST", set_abort, options),
-		
+
 		/**
 		 * HTTP PUT method.
 		 * @param {RequestInit=} options
@@ -274,11 +274,7 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 		if (queue) {
 			for (const p of queue) {
 				p[p.indexOf(handler)] = value;
-				if (
-					p.every(
-						p => typeof p != "function"
-					)
-				) {
+				if (p.every(v => typeof v != "function")) {
 					run_node(
 						resolve,
 						reject,
@@ -286,7 +282,7 @@ const run_node = async (resolve, reject, jobs, dependents, count, dependencies, 
 						dependents,
 						count,
 						p,
-						/** @type {Function} */(jobs.get(p)/**/),
+						/** @type {Function} */(jobs.get(p))/**/,
 						index
 					).catch(reject);
 				}
@@ -322,7 +318,7 @@ const run_dag = (nodes, index) =>
 			}
 			for (const [dependencies, handler] of jobs) {
 				if (
-					dependencies.every(/** @type {*} */(p)/**/ => typeof p != "function")
+					dependencies.every(/** @type {*} */p/**/ => typeof p != "function")
 				) {
 					run_node(resolve, reject, jobs, dependents, count, dependencies, handler, index)
 						.catch(reject);
@@ -407,7 +403,10 @@ const _default$1 = handler => {
 
 	const decrease_throttle = () => throttle_count--;
 
-	/** @param {Parameters<T>} args */
+	/**
+	 * @param {Parameters<T>} args
+	 * @returns {Promise<ReturnType<T>>}
+	 */
 	const throttle_impl = async args => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
@@ -423,10 +422,10 @@ const _default$1 = handler => {
 
 	/**
 	 * @param {Parameters<T>} args
-	 * @param {(value?: ReturnType<T>) => void} resolve
+	 * @param {(value: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {number} count
-	 * @returns
+	 * @returns {Promise<void>}
 	 */
 	const retries_impl = (args, resolve, reject, count) =>
 		throttle_impl(args)
@@ -441,9 +440,9 @@ const _default$1 = handler => {
 				if (retry_checker) {
 					Promise.resolve(retry_checker(reason, ++count))
 						.then(() => retries_impl(args, resolve, reject, count))
-						.catch(reason => {
+						.catch(aborted => {
 							is_in_progress = false;
-							reject(reason);
+							reject(aborted);
 						});
 				} else {
 					is_in_progress = false;
@@ -456,14 +455,14 @@ const _default$1 = handler => {
 	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {Promise<ReturnType<T>>} promise
+	 * @returns {void}
 	 */
 	const handle_debounce_timeout = (args, resolve, reject, promise) => {
 		if (debounce_promise == promise) {
 			debounce_promise = null;
 			is_in_progress = true;
 			retries_impl(args, resolve, reject, 0);
-		}
-		else reject(Error("Request be debounced"));
+		} else reject(Error("Request be debounced"));
 	};
 
 	/**
@@ -471,6 +470,7 @@ const _default$1 = handler => {
 	 * @param {(value?: ReturnType<T>) => void} resolve
 	 * @param {(reason?: Error) => void} reject
 	 * @param {Promise<ReturnType<T>>} promise
+	 * @returns {void}
 	 */
 	const debounce_impl = (args, resolve, reject, promise) => {
 		if (debounce_time_ms) {
@@ -572,7 +572,7 @@ const _default = (size, ...handlers) => {
 		 * @param {number} i
 		 * @returns {Promise<{ value: * } | { reason: * }>}
 		 */
-		const run = (i) =>
+		const run = i =>
 			Promise.resolve(handlers[i]())
 				.then(value => result[i] = { value }, reason => result[i] = { reason })
 				.finally(finally_handler);

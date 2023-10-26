@@ -15,7 +15,7 @@ const first_consonant_letters = {
 	ㅋ: "[카-킿]",
 	ㅌ: "[타-팋]",
 	ㅍ: "[파-핗]",
-	ㅎ: "[하-힣]",
+	ㅎ: "[하-힣]"
 };
 
 /**
@@ -40,7 +40,7 @@ const get_letter_range = letter => {
  *
  * pattern("특수문자 test 1234!@#$") //=> "특[수-숳]문[자-잫] test 1234!@#$"
  */
-const _default = (text) => {
+const _default = text => {
 	let regex = "";
 	const len = text.length - 1;
 	for (let i = 0; i < len; i++) {

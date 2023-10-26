@@ -53,7 +53,6 @@ module.exports = {
 					}
 				],
 				"max-len": ["warn", 120],
-				"max-nested-handlers": ["error", 3],
 				"max-statements-per-line": [
 					"error", {
 						"max": 1
