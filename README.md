@@ -1,14 +1,31 @@
 # Lube Series
-Simplify ~ ~ JavaScript Librarys in NPM
 
-### **[/async-lube](https://www.npmjs.com/package/async-lube)**: Async Lube
+### **[/eslint-plugin-lube](packages/eslint-plugin-lube/README.md)**
+Full fixable rules for auto-formatting with ESLint only without Prettier
+```bash
+npm i -D eslint-plugin-lube
+```
+
+### **[/async-lube](packages/async-lube/README.md)**
 Simplify Asynchronous Operations in JavaScript
+```bash
+npm i async-lube
+```
 
-### **[/data-lube](https://www.npmjs.com/package/data-lube)**: Data Lube
+### **[/data-lube](packages/data-lube/README.md)**
 Simplify Data Manipulation in JavaScript
+```bash
+npm i data-lube
+```
 
-### **[/date-lube](https://www.npmjs.com/package/date-lube)**: Date Lube
+### **[/date-lube](packages/date-lube/README.md)**
 Simplify Date Manipulation in JavaScript
+```bash
+npm i date-lube
+```
 
-### **[/hangle-lube](https://www.npmjs.com/package/hangle-lube)**: Hangle Lube
+### **[/hangle-lube](packages/hangle-lube/README.md)**
 Simplify Korean Consonant Search in JavaScript
+```bash
+npm i hangle-lube
+```

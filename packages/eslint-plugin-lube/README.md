@@ -1,4 +1,5 @@
 # Eslint plugin lube
+## Full fixable rules for auto-formatting with ESLint only without Prettier
 
 | Rule | Docs | Code | Test |
 |---|---|---|---|

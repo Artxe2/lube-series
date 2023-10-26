@@ -11,6 +11,11 @@
 		"eslint": "^8.52.0",
 		"mocha": "^10.2.0"
 	},
+	"keywords": [
+		"eslint-plugin",
+		"lube",
+		"eslint-plugin-lube"
+	],
 	"license": "MIT",
 	"name": "eslint-plugin-lube",
 	"repository": {
