@@ -1,7 +1,7 @@
 export type Dependencies<T extends (...args: any[]) => any> = T extends (...args: infer P) => any
 	? {
 		[K in keyof P]: P[K] extends infer V
-			? V | ((...args: any[]) => V |  Promise<V>) | Promise<V>
+			? V | ((...args: any[]) => V | Promise<V>) | Promise<V>
 			: never
 	}
 	: never
@@ -18,7 +18,7 @@ type LengthArray<L extends number, A extends 0[] = [0]> = A["length"] extends L
 
 type NumericRange<Arr extends 0[], X extends number> =
 	Arr["length"]
-	| (Arr["length"] extends X 
+	| (Arr["length"] extends X
 		? never
 		: NumericRange<[...Arr, 0], X>)
 

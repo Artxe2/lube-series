@@ -63,15 +63,15 @@ decorator((a: number) => a)
 	.throttle(3, 500)(1)
 decorator((a: number, b?: string) => a + (b || ""))(1, "2")
 
-var result = parallel(2, () => ({ a: "a", b: "b" }), () => 123, () => {})
-result.then(result => {
-	if ("value" in result[0]) {
-		result[0].value.a
-	}
-	if ("value" in result[1]) {
-		result[1].value.toFixed()
-	}
-	if ("value" in result[2]) {
-		// result[2].value[""]
-	}
-})
+parallel(2, () => ({ a: "a", b: "b" }), () => 123, () => {})
+	.then(result => {
+		if ("value" in result[0]) {
+			result[0].value.a
+		}
+		if ("value" in result[1]) {
+			result[1].value.toFixed()
+		}
+		if ("value" in result[2]) {
+			// result[2].value[""]
+		}
+	})

@@ -10,8 +10,8 @@
 		"strict": true,
 		"target": "ESNext"
 	},
-	"include": ["**/*.js"],
 	"ts-node": {
 		"esm": true
-	}
+	},
+	"exclude": ["**/*.cjs"]
 }
