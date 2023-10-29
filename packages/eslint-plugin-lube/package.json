@@ -11,17 +11,13 @@
 		"eslint": "^8.52.0",
 		"mocha": "^10.2.0"
 	},
-	"keywords": [
-		"eslint-plugin",
-		"lube",
-		"eslint-plugin-lube"
-	],
+	"keywords": ["eslint-plugin", "lube", "eslint-plugin-lube"],
 	"license": "MIT",
 	"name": "eslint-plugin-lube",
 	"repository": {
+		"directory": "packages/eslint-plugin-lube",
 		"type": "git",
-		"url": "https://github.com/Artxe2/lube-series",
-		"directory": "packages/eslint-plugin-lube"
+		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"scripts": {
 		"test": "mocha"

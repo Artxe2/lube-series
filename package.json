@@ -9,6 +9,7 @@
 		"async-lube": "workspace:^",
 		"data-lube": "workspace:^",
 		"date-lube": "workspace:^",
+		"dom-eater": "workspace:^",
 		"eslint": "^8.52.0",
 		"eslint-plugin-lube": "workspace:^",
 		"hangul-lube": "workspace:^",

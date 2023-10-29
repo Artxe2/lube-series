@@ -1,11 +1,5 @@
 # Lube Series
 
-### **[/eslint-plugin-lube](packages/eslint-plugin-lube/README.md)**
-Full fixable rules for auto-formatting with ESLint only without Prettier
-```bash
-npm i -D eslint-plugin-lube
-```
-
 ### **[/async-lube](packages/async-lube/README.md)**
 Simplify Asynchronous Operations in JavaScript
 ```bash
@@ -22,6 +16,18 @@ npm i data-lube
 Simplify Date Manipulation in JavaScript
 ```bash
 npm i date-lube
+```
+
+### **[/dom-eater](packages/dom-eater/README.md)**
+AST parser for HTML that quotes JS statements using curly braces
+```bash
+npm i dom-eater
+```
+
+### **[/eslint-plugin-lube](packages/eslint-plugin-lube/README.md)**
+Full fixable rules for auto-formatting with ESLint only without Prettier
+```bash
+npm i -D eslint-plugin-lube
 ```
 
 ### **[/hangle-lube](packages/hangle-lube/README.md)**
