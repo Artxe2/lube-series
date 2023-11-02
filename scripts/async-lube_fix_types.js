@@ -15,5 +15,8 @@ const text = fs.readFileSync(decorator_d_ts)
 
 fs.writeFileSync(
 	decorator_d_ts,
-	text.replace(replace_any_type_regex, replace_any_type_handler)
+	text.replace(
+		replace_any_type_regex,
+		replace_any_type_handler
+	)
 )

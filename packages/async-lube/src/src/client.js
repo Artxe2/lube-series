@@ -19,7 +19,10 @@ const to_query = data => {
 const to_form_data = data => {
 	if (data) {
 		const form_data = new FormData()
-		for (const key in data) form_data.append(key, /** @type {string} */(data[key])/**/)
+		for (const key in data) form_data.append(
+			key,
+			/** @type {string} */(data[key])/**/
+		)
 		return form_data
 	}
 }
@@ -53,17 +56,23 @@ const set_path_variables_in_url = (url, data) => {
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-const get_fetch_query = (url, set_abort, options, query, headers) => {
-	options = {
-		headers,
-		...options
-	}
+const get_fetch_query = (
+	url,
+	set_abort,
+	options,
+	query,
+	headers
+) => {
+	options = { headers, ...options }
 	if (set_abort) {
 		const controller = new AbortController()
 		set_abort(() => controller.abort())
 		options.signal = controller.signal
 	}
-	return fetch(url + (query ? "?" + query : ""), options)
+	return fetch(
+		url + (query ? "?" + query : ""),
+		options
+	)
 }
 
 /**
@@ -76,17 +85,20 @@ const get_fetch_query = (url, set_abort, options, query, headers) => {
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-const get_fetch_body = (url, method, content_type, set_abort, options, body, headers) => {
+const get_fetch_body = (
+	url,
+	method,
+	content_type,
+	set_abort,
+	options,
+	body,
+	headers
+) => {
 	headers = {
 		"Content-Type": content_type,
 		...headers
 	}
-	options = {
-		method,
-		body,
-		headers,
-		...options
-	}
+	options = { method, body, headers, ...options }
 	if (set_abort) {
 		const controller = new AbortController()
 		set_abort(() => controller.abort())
@@ -127,7 +139,6 @@ const set_options_body = (url, method, set_abort, options) =>
 				JSON.stringify(data),
 				headers
 			),
-
 		/**
 		 * Function for making a multipart fetch request with optional data and headers.
 		 * @param {Record<string, string | number | Blob>=} data
@@ -144,7 +155,6 @@ const set_options_body = (url, method, set_abort, options) =>
 				to_form_data(data),
 				headers
 			),
-
 		/**
 		 * Function for making a URL-encoded fetch request with optional data and headers.
 		 * @param  {Record<string, string | number>=} data
@@ -189,7 +199,6 @@ export default (url, set_abort) =>
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		delete: options => set_options_body(url, "DELETE", set_abort, options),
-
 		/**
 		 * HTTP GET method.
 		 * @param {RequestInit=} options
@@ -213,35 +222,30 @@ export default (url, set_abort) =>
 					headers
 				)
 		}),
-
 		/**
 		 * HTTP HEAD method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		head: options => set_options_body(url, "HEAD", set_abort, options),
-
 		/**
 		 * HTTP OPTIONS method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		options: options => set_options_body(url, "OPTIONS", set_abort, options),
-
 		/**
 		 * HTTP PATCH method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		patch: options => set_options_body(url, "PATCH", set_abort, options),
-
 		/**
 		 * HTTP POST method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		post: options => set_options_body(url, "POST", set_abort, options),
-
 		/**
 		 * HTTP PUT method.
 		 * @param {RequestInit=} options

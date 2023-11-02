@@ -10,12 +10,10 @@ describe(
 				"dimensions": [
 					{
 						"runtime": {
-							"common": {
-								"client": 1,
-								"server": "a"
-							}
+							"common": { "client": 1, "server": "a" }
 						}
-					}, {
+					},
+					{
 						"device": {
 							"android": null,
 							"blackberry": null,
@@ -26,18 +24,14 @@ describe(
 							"opera-mini": null,
 							"palm": null
 						}
-					}, {
+					},
+					{
 						"environment": {
-							"development": {
-								"dev": null,
-								"test": null
-							},
-							"production": {
-								"prod": null,
-								"stage": null
-							}
+							"development": { "dev": null, "test": null },
+							"production": { "prod": null, "stage": null }
 						}
-					}, {
+					},
+					{
 						"lang": {
 							"ar": {
 								"ar-EG": null,
@@ -49,10 +43,7 @@ describe(
 							"ca": { "ca-ES": null },
 							"cs": { "cs-CZ": null },
 							"da": { "da-DK": null },
-							"de": {
-								"de-AT": null,
-								"de-DE": null
-							},
+							"de": { "de-AT": null, "de-DE": null },
 							"el": { "el-GR": null },
 							"en": {
 								"en-AU": null,
@@ -141,14 +132,20 @@ describe(
 				assert.isTrue(deepEqual({}, {}))
 				assert.isTrue(deepEqual([], []))
 
-				assert.isFalse(deepEqual({ a: void 0 }, { b: 1 }))
-				assert.isFalse(deepEqual({ a: 1 }, { b: void 0 }))
+				assert.isFalse(
+					deepEqual({ a: void 0 }, { b: 1 })
+				)
+				assert.isFalse(
+					deepEqual({ a: 1 }, { b: void 0 })
+				)
 				assert.isFalse(deepEqual(null, undefined))
 				assert.isFalse(deepEqual(true, false))
 				assert.isFalse(deepEqual(123, 456))
 				assert.isFalse(deepEqual("abc", "xyz"))
 				assert.isFalse(deepEqual("123", 123))
-				assert.isFalse(deepEqual("abc", ["a", "b", "c"]))
+				assert.isFalse(
+					deepEqual("abc", [ "a", "b", "c" ])
+				)
 				assert.isFalse(deepEqual({}, null))
 				assert.isFalse(deepEqual({}, []))
 			}
@@ -157,9 +154,7 @@ describe(
 		it(
 			"check with JSON.stringify",
 			() => {
-				const copy = JSON.parse(
-					JSON.stringify(dimensions)
-				)
+				const copy = JSON.parse(JSON.stringify(dimensions))
 				assert.deepStrictEqual(dimensions, copy)
 				copy.push("extra")
 				assert.notDeepEqual(dimensions, copy)

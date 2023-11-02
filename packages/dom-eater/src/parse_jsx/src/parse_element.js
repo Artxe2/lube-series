@@ -63,7 +63,11 @@ const parse_open_tag = (text, errors, start) => {
 				child_pre_index = node.end
 			} else {
 				errors.push(
-					AstSyntaxError("parse_element is incomplete.", start, text.length)
+					AstSyntaxError(
+						"parse_element is incomplete.",
+						start,
+						text.length
+					)
 				)
 				return {
 					attributes,
@@ -78,7 +82,11 @@ const parse_open_tag = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_element is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_element is incomplete.",
+			start,
+			text.length
+		)
 	)
 	return {
 		attributes: [],
@@ -103,7 +111,11 @@ const parse_element = (text, errors, start) => {
 	if (errors.length > err || node.subType == "closed") return node
 	if (node.subType == "close") {
 		errors.push(
-			AstSyntaxError(`unopened Element "${node.name}" cannot be closed.`, node.start, node.end)
+			AstSyntaxError(
+				`unopened Element "${node.name}" cannot be closed.`,
+				node.start,
+				node.end
+			)
 		)
 		return node
 	}
@@ -113,19 +125,28 @@ const parse_element = (text, errors, start) => {
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index
 			if (child_index) {
-				node.children.push({
-					end: index,
-					start: child_pre_index,
-					type: "Text"
-				})
+				node.children.push(
+					{
+						end: index,
+						start: child_pre_index,
+						type: "Text"
+					}
+				)
 			}
 			if (text[index] == "<") {
 				if (text[index + 1] == "/") {
-					if (text.slice(index, index + node.name.length + 3) == `</${node.name}>`) {
+					if (text.slice(
+						index,
+						index + node.name.length + 3
+					) == `</${node.name}>`) {
 						node.end = index + node.name.length + 3
 					} else {
 						errors.push(
-							AstSyntaxError(`close tag is different from open tag "${node.name}".`, start, text.length)
+							AstSyntaxError(
+								`close tag is different from open tag "${node.name}".`,
+								start,
+								text.length
+							)
 						)
 						node.end = text.length
 					}
@@ -142,7 +163,11 @@ const parse_element = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_element is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_element is incomplete.",
+					start,
+					text.length
+				)
 			)
 			node.end = text.length
 			return node

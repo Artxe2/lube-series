@@ -21,7 +21,10 @@ const to_query = data => {
 const to_form_data = data => {
 	if (data) {
 		const form_data = new FormData();
-		for (const key in data) form_data.append(key, /** @type {string} */(data[key])/**/);
+		for (const key in data) form_data.append(
+			key,
+			/** @type {string} */(data[key])/**/
+		);
 		return form_data
 	}
 };
@@ -55,17 +58,23 @@ const set_path_variables_in_url = (url, data) => {
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-const get_fetch_query = (url, set_abort, options, query, headers) => {
-	options = {
-		headers,
-		...options
-	};
+const get_fetch_query = (
+	url,
+	set_abort,
+	options,
+	query,
+	headers
+) => {
+	options = { headers, ...options };
 	if (set_abort) {
 		const controller = new AbortController();
 		set_abort(() => controller.abort());
 		options.signal = controller.signal;
 	}
-	return fetch(url + (query ? "?" + query : ""), options)
+	return fetch(
+		url + (query ? "?" + query : ""),
+		options
+	)
 };
 
 /**
@@ -78,17 +87,20 @@ const get_fetch_query = (url, set_abort, options, query, headers) => {
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-const get_fetch_body = (url, method, content_type, set_abort, options, body, headers) => {
+const get_fetch_body = (
+	url,
+	method,
+	content_type,
+	set_abort,
+	options,
+	body,
+	headers
+) => {
 	headers = {
 		"Content-Type": content_type,
 		...headers
 	};
-	options = {
-		method,
-		body,
-		headers,
-		...options
-	};
+	options = { method, body, headers, ...options };
 	if (set_abort) {
 		const controller = new AbortController();
 		set_abort(() => controller.abort());
@@ -129,7 +141,6 @@ const set_options_body = (url, method, set_abort, options) =>
 				JSON.stringify(data),
 				headers
 			),
-
 		/**
 		 * Function for making a multipart fetch request with optional data and headers.
 		 * @param {Record<string, string | number | Blob>=} data
@@ -146,7 +157,6 @@ const set_options_body = (url, method, set_abort, options) =>
 				to_form_data(data),
 				headers
 			),
-
 		/**
 		 * Function for making a URL-encoded fetch request with optional data and headers.
 		 * @param  {Record<string, string | number>=} data
@@ -191,7 +201,6 @@ var client = (url, set_abort) =>
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		delete: options => set_options_body(url, "DELETE", set_abort, options),
-
 		/**
 		 * HTTP GET method.
 		 * @param {RequestInit=} options
@@ -215,35 +224,30 @@ var client = (url, set_abort) =>
 					headers
 				)
 		}),
-
 		/**
 		 * HTTP HEAD method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		head: options => set_options_body(url, "HEAD", set_abort, options),
-
 		/**
 		 * HTTP OPTIONS method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		options: options => set_options_body(url, "OPTIONS", set_abort, options),
-
 		/**
 		 * HTTP PATCH method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		patch: options => set_options_body(url, "PATCH", set_abort, options),
-
 		/**
 		 * HTTP POST method.
 		 * @param {RequestInit=} options
 		 * @returns {ReturnType<typeof set_options_body>}
 		 */
 		post: options => set_options_body(url, "POST", set_abort, options),
-
 		/**
 		 * HTTP PUT method.
 		 * @param {RequestInit=} options
@@ -263,12 +267,21 @@ var client = (url, set_abort) =>
  * @param {number} index
  * @returns {Promise<*>}
  */
-const run_node = async (resolve, reject, jobs, dependents, count, dependencies, handler, index) => {
+const run_node = async (
+	resolve,
+	reject,
+	jobs,
+	dependents,
+	count,
+	dependencies,
+	handler,
+	index
+) => {
 	const value = await handler(
 		...(dependencies.length ? await Promise.all(dependencies) : dependencies)
 	);
 	jobs.set(dependencies, value);
-	if (!--count[0]) resolve([...jobs.values()][index]);
+	if (!--count[0]) resolve([ ...jobs.values() ][index]);
 	else {
 		const queue = dependents.get(handler);
 		if (queue) {
@@ -306,8 +319,8 @@ const run_dag = (nodes, index) =>
 			/** @type {[number]} */
 			const count = [ nodes.size ];
 
-			for (const [dependencies, handler] of nodes) {
-				const clone = [...dependencies];
+			for (const [ dependencies, handler ] of nodes) {
+				const clone = [ ...dependencies ];
 				jobs.set(clone, handler);
 				for (const p of clone)
 					if (typeof p == "function") {
@@ -316,11 +329,22 @@ const run_dag = (nodes, index) =>
 						else dependents.set(p, [ clone ]);
 					}
 			}
-			for (const [dependencies, handler] of jobs) {
+			for (const [ dependencies, handler ] of jobs) {
 				if (
-					dependencies.every(/** @type {*} */p/**/ => typeof p != "function")
+					dependencies.every(
+						/** @type {*} */p/**/ => typeof p != "function"
+					)
 				) {
-					run_node(resolve, reject, jobs, dependents, count, dependencies, handler, index)
+					run_node(
+						resolve,
+						reject,
+						jobs,
+						dependents,
+						count,
+						dependencies,
+						handler,
+						index
+					)
 						.catch(reject);
 				}
 			}
@@ -411,7 +435,10 @@ const _default$1 = handler => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
 				throttle_count++;
-				setTimeout(decrease_throttle, throttle_time_ms);
+				setTimeout(
+					decrease_throttle,
+					throttle_time_ms
+				);
 			}
 			return handler(...args)
 		}
@@ -429,26 +456,33 @@ const _default$1 = handler => {
 	 */
 	const retries_impl = (args, resolve, reject, count) =>
 		throttle_impl(args)
-			.then(value => {
-				if (cache_time) {
-					cached_value = value;
-					setTimeout(clear_cached_value, cache_time);
-				}
-				is_in_progress = false;
-				resolve(value);
-			}, reason => {
-				if (retry_checker) {
-					Promise.resolve(retry_checker(reason, ++count))
-						.then(() => retries_impl(args, resolve, reject, count))
-						.catch(aborted => {
-							is_in_progress = false;
-							reject(aborted);
-						});
-				} else {
+			.then(
+				value => {
+					if (cache_time) {
+						cached_value = value;
+						setTimeout(clear_cached_value, cache_time);
+					}
 					is_in_progress = false;
-					reject(reason);
+					resolve(value);
+				},
+				reason => {
+					if (retry_checker) {
+						Promise.resolve(retry_checker(reason, ++count))
+							.then(
+								() => retries_impl(args, resolve, reject, count)
+							)
+							.catch(
+								aborted => {
+									is_in_progress = false;
+									reject(aborted);
+								}
+							);
+					} else {
+						is_in_progress = false;
+						reject(reason);
+					}
 				}
-			});
+			);
 
 	/**
 	 * @param {Parameters<T>} args
@@ -475,7 +509,14 @@ const _default$1 = handler => {
 	const debounce_impl = (args, resolve, reject, promise) => {
 		if (debounce_time_ms) {
 			debounce_promise = promise;
-			setTimeout(handle_debounce_timeout, debounce_time_ms, args, resolve, reject, promise);
+			setTimeout(
+				handle_debounce_timeout,
+				debounce_time_ms,
+				args,
+				resolve,
+				reject,
+				promise
+			);
 		} else {
 			is_in_progress = true;
 			retries_impl(args, resolve, reject, 0);
@@ -500,7 +541,9 @@ const _default$1 = handler => {
 		// @ts-ignore: resolve is assigned in PromiseConstructor
 		if (cached_value != null) resolve(cached_value);
 		// @ts-ignore: reject is assigned in PromiseConstructor
-		else if (is_in_progress) reject(Error("Request already in progress"));
+		else if (is_in_progress) reject(
+			Error("Request already in progress")
+		);
 		// @ts-ignore: resolve & reject is assigned in PromiseConstructor
 		else debounce_impl(args, resolve, reject, promise);
 		return promise
@@ -560,24 +603,29 @@ const _default$1 = handler => {
 const _default = (size, ...handlers) => {
 	/** @type {import("../../private.js").ParallelResult<T>} */
 	const result = /** @type {import("../../private.js").ParallelResult<T>} */([]);/**/
-	return new Promise(resolve => {
-		const length = /** @type {import("../../private.js").Between<2, readonly T["length"]>} */(handlers.length);/**/
-		if (length < size) size = length;
-		let index = 0;
-		const finally_handler = () => {
-			if (index < length) run(index++);
-			else if (++index == length + size) resolve(result);
-		};
-		/**
-		 * @param {number} i
-		 * @returns {Promise<{ value: * } | { reason: * }>}
-		 */
-		const run = i =>
-			Promise.resolve(handlers[i]())
-				.then(value => result[i] = { value }, reason => result[i] = { reason })
-				.finally(finally_handler);
-		while (index < size) run(index++);
-	})
+	return new Promise(
+		resolve => {
+			const length = /** @type {import("../../private.js").Between<2, readonly T["length"]>} */(handlers.length);/**/
+			if (length < size) size = length;
+			let index = 0;
+			const finally_handler = () => {
+				if (index < length) run(index++);
+				else if (++index == length + size) resolve(result);
+			};
+			/**
+			 * @param {number} i
+			 * @returns {Promise<{ value: * } | { reason: * }>}
+			 */
+			const run = i =>
+				Promise.resolve(handlers[i]())
+					.then(
+						value => result[i] = { value },
+						reason => result[i] = { reason }
+					)
+					.finally(finally_handler);
+			while (index < size) run(index++);
+		}
+	)
 };
 
 exports.client = client;

@@ -20,7 +20,11 @@ export default (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_script_double_quotes is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_script_double_quotes is incomplete.",
+			start,
+			text.length
+		)
 	)
 	return {
 		end: text.length,

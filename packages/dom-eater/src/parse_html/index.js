@@ -50,11 +50,13 @@ export default (text, include_text) => {
 		const index = text.slice(start).search(stop_text_regex)
 		if (index >= 0) {
 			if (index) {
-				ast_nodes.push({
-					end: start + index,
-					start,
-					type: "Text"
-				})
+				ast_nodes.push(
+					{
+						end: start + index,
+						start,
+						type: "Text"
+					}
+				)
 			}
 			if (text[start + index] == "<") {
 				const node = parse_element(text, errors, start + index)
@@ -67,11 +69,13 @@ export default (text, include_text) => {
 			}
 		} else {
 			if (start < text.length) {
-				ast_nodes.push({
-					end: text.length,
-					start,
-					type: "Text"
-				})
+				ast_nodes.push(
+					{
+						end: text.length,
+						start,
+						type: "Text"
+					}
+				)
 			}
 			break
 		}
@@ -87,8 +91,5 @@ export default (text, include_text) => {
 			set_text(text, node)
 		}
 	}
-	return {
-		ast: ast_nodes,
-		errors
-	}
+	return { ast: ast_nodes, errors }
 }

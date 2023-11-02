@@ -14,17 +14,19 @@ describe(
 		 *   ms: number
 		 * }>}
 		 */
-		const wait = ms => new Promise((resolve, reject) => {
-			const start = Date.now() - now
-			setTimeout(
-				() => {
-					const end = Date.now() - now
-					if (ms % 2) resolve({ end, start, ms })
-					else reject({ end, start, ms })
-				},
-				ms
-			)
-		})
+		const wait = ms => new Promise(
+			(resolve, reject) => {
+				const start = Date.now() - now
+				setTimeout(
+					() => {
+						const end = Date.now() - now
+						if (ms % 2) resolve({ end, start, ms })
+						else reject({ end, start, ms })
+					},
+					ms
+				)
+			}
+		)
 
 		it(
 			"result order and duration",
@@ -53,71 +55,43 @@ describe(
 				assert.deepStrictEqual(
 					value[0],
 					{
-						value: {
-							ms: 1,
-							start: 0,
-							end: 1
-						}
+						value: { ms: 1, start: 0, end: 1 }
 					}
 				)
 				assert.deepStrictEqual(
 					value[1],
 					{
-						reason: {
-							ms: 3,
-							start: 0,
-							end: 3
-						}
+						reason: { ms: 3, start: 0, end: 3 }
 					}
 				)
 				assert.deepStrictEqual(
 					value[2],
 					{
-						value: {
-							ms: 5,
-							start: 0,
-							end: 5
-						}
+						value: { ms: 5, start: 0, end: 5 }
 					}
 				)
 				assert.deepStrictEqual(
 					value[3],
 					{
-						reason: {
-							ms: 1,
-							start: 1,
-							end: 2
-						}
+						reason: { ms: 1, start: 1, end: 2 }
 					}
 				)
 				assert.deepStrictEqual(
 					value[4],
 					{
-						value: {
-							ms: 2,
-							start: 2,
-							end: 4
-						}
+						value: { ms: 2, start: 2, end: 4 }
 					}
 				)
 				assert.deepStrictEqual(
 					value[5],
 					{
-						reason: {
-							ms: 3,
-							start: 3,
-							end: 6
-						}
+						reason: { ms: 3, start: 3, end: 6 }
 					}
 				)
 				assert.deepStrictEqual(
 					value[6],
 					{
-						value: {
-							ms: 4,
-							start: 4,
-							end: 8
-						}
+						value: { ms: 4, start: 4, end: 8 }
 					}
 				)
 			}

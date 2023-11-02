@@ -14,31 +14,11 @@ const test_case = (type, value) => ({
 	var value = ((/** @type {E} */(${value})))
 	`,
 	errors: [
-		{
-			line: 2,
-			column: 13,
-			type
-		},
-		{
-			line: 3,
-			column: 13,
-			type
-		},
-		{
-			line: 4,
-			column: 13,
-			type
-		},
-		{
-			line: 7,
-			column: 13,
-			type
-		},
-		{
-			line: 8,
-			column: 13,
-			type
-		}
+		{ line: 2, column: 13, type },
+		{ line: 3, column: 13, type },
+		{ line: 4, column: 13, type },
+		{ line: 7, column: 13, type },
+		{ line: 8, column: 13, type }
 	],
 	output: `
 	var value = /** @type {A} */(${value})/**/
@@ -59,7 +39,10 @@ const test_case = (type, value) => ({
 exports.module = (valid, invalid) => {
 	invalid.push(
 		test_case("ArrayExpression", "[a, b, c]"),
-		test_case("ArrowFunctionExpression", "(a, b) => c"),
+		test_case(
+			"ArrowFunctionExpression",
+			"(a, b) => c"
+		),
 		test_case("AssignmentExpression", "a = b"),
 		{
 			code: `
@@ -116,11 +99,23 @@ exports.module = (valid, invalid) => {
 		test_case("BinaryExpression", "a / b"),
 		test_case("CallExpression", "a(b, c)"),
 		test_case("ChainExpression", "a?.b?.c"),
-		test_case("ClassExpression", "class { b = c }"),
-		test_case("ConditionalExpression", "a ? b : c"),
-		test_case("FunctionExpression", "function(a, b) { return c }"),
+		test_case(
+			"ClassExpression",
+			"class { b = c }"
+		),
+		test_case(
+			"ConditionalExpression",
+			"a ? b : c"
+		),
+		test_case(
+			"FunctionExpression",
+			"function(a, b) { return c }"
+		),
 		test_case("Identifier", "a"),
-		test_case("ImportExpression", "import('a')"),
+		test_case(
+			"ImportExpression",
+			"import('a')"
+		),
 		test_case("Literal", "'a'"),
 		test_case("LogicalExpression", "a ?? b"),
 		test_case("MemberExpression", "a.b"),
@@ -177,9 +172,15 @@ exports.module = (valid, invalid) => {
 			parserOptions: { ecmaVersion: "latest" }
 		},
 		test_case("NewExpression", "new a(b, c)"),
-		test_case("ObjectExpression", "{ a: b, c }"),
+		test_case(
+			"ObjectExpression",
+			"{ a: b, c }"
+		),
 		test_case("SequenceExpression", "a, b, c"),
-		test_case("TaggedTemplateExpression", "a`b${c}`"),
+		test_case(
+			"TaggedTemplateExpression",
+			"a`b${c}`"
+		),
 		test_case("TemplateLiteral", "`a${b}c`"),
 		test_case("ThisExpression", "this"),
 		test_case("UnaryExpression", "!a"),

@@ -85,7 +85,11 @@ export default (text, errors, start) => {
 				child_pre_index = node.end
 			} else {
 				errors.push(
-					AstSyntaxError("parse_element is incomplete.", start, text.length)
+					AstSyntaxError(
+						"parse_element is incomplete.",
+						start,
+						text.length
+					)
 				)
 				return {
 					attributes,
@@ -100,7 +104,11 @@ export default (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_element is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_element is incomplete.",
+			start,
+			text.length
+		)
 	)
 	return {
 		attributes: [],

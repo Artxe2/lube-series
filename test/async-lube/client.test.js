@@ -8,15 +8,20 @@ describe(
 		it(
 			"get",
 			async () => {
-				const value = await client("https://dummyjson.com/products/category/:ca_teGory123")
+				const value = await client(
+					"https://dummyjson.com/products/category/:ca_teGory123"
+				)
 					.get()
-					.query({
-						ca_teGory123: "smartphones",
-						limit: 2
-					}, {
-						// eslint-disable-next-line max-len
-						Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
-					})
+					.query(
+						{
+							ca_teGory123: "smartphones",
+							limit: 2
+						},
+						{
+							// eslint-disable-next-line max-len
+							Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
+						}
+					)
 				const json = await value.json()
 				assert.deepStrictEqual(
 					json,
@@ -41,7 +46,8 @@ describe(
 								"stock": 94,
 								"thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
 								"title": "iPhone 9"
-							}, {
+							},
+							{
 								"brand": "Apple",
 								"category": "smartphones",
 								// eslint-disable-next-line max-len
@@ -70,16 +76,27 @@ describe(
 		it(
 			"post",
 			async () => {
-				let value = await client("https://dummyjson.com/auth/login")
+				let value = await client(
+					"https://dummyjson.com/auth/login"
+				)
 					.post()
-					.json({
-						username: "kminchelle",
-						password: "0lelplR"
-					})
+					.json(
+						{
+							username: "kminchelle",
+							password: "0lelplR"
+						}
+					)
 				let json = await value.json()
-				value = await client("https://dummyjson.com/auth/users/1")
+				value = await client(
+					"https://dummyjson.com/auth/users/1"
+				)
 					.get()
-					.query({}, { Authorization: "Bearer " + json.token })
+					.query(
+						{},
+						{
+							Authorization: "Bearer " + json.token
+						}
+					)
 				json = await value.json()
 				assert.equal(json.email, "atuny0@sohu.com")
 			}
@@ -87,7 +104,9 @@ describe(
 		it(
 			"http status",
 			async () => {
-				const value = await client("https://dummyjson.com/auth/login")
+				const value = await client(
+					"https://dummyjson.com/auth/login"
+				)
 					.post()
 					.json({ username: "kminchelle" })
 				assert.equal(value.status, 400)
@@ -97,14 +116,23 @@ describe(
 			"abort",
 			async () => {
 				let stop = () => {}
-				const api = client("https://dummyjson.com/auth/login", abort => stop = abort)
+				const api = client(
+					"https://dummyjson.com/auth/login",
+					abort => stop = abort
+				)
 					.post()
-					.json({
-						username: "kminchelle",
-						password: "0lelplR"
-					})
-					.then(() => assert.fail("No error occurred"))
-					.catch(reason => assert.equal(reason.name, "AbortError"))
+					.json(
+						{
+							username: "kminchelle",
+							password: "0lelplR"
+						}
+					)
+					.then(
+						() => assert.fail("No error occurred")
+					)
+					.catch(
+						reason => assert.equal(reason.name, "AbortError")
+					)
 				queueMicrotask(stop)
 				await api
 			}

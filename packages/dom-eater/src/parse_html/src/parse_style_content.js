@@ -18,7 +18,11 @@ export default (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_style_content is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_style_content is incomplete.",
+			start,
+			text.length
+		)
 	)
 	return {
 		end: text.length,

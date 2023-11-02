@@ -9,12 +9,21 @@
  * @param {number} index
  * @returns {Promise<*>}
  */
-const run_node = async (resolve, reject, jobs, dependents, count, dependencies, handler, index) => {
+const run_node = async (
+	resolve,
+	reject,
+	jobs,
+	dependents,
+	count,
+	dependencies,
+	handler,
+	index
+) => {
 	const value = await handler(
 		...(dependencies.length ? await Promise.all(dependencies) : dependencies)
 	)
 	jobs.set(dependencies, value)
-	if (!--count[0]) resolve([...jobs.values()][index])
+	if (!--count[0]) resolve([ ...jobs.values() ][index])
 	else {
 		const queue = dependents.get(handler)
 		if (queue) {
@@ -52,8 +61,8 @@ const run_dag = (nodes, index) =>
 			/** @type {[number]} */
 			const count = [ nodes.size ]
 
-			for (const [dependencies, handler] of nodes) {
-				const clone = [...dependencies]
+			for (const [ dependencies, handler ] of nodes) {
+				const clone = [ ...dependencies ]
 				jobs.set(clone, handler)
 				for (const p of clone)
 					if (typeof p == "function") {
@@ -62,11 +71,22 @@ const run_dag = (nodes, index) =>
 						else dependents.set(p, [ clone ])
 					}
 			}
-			for (const [dependencies, handler] of jobs) {
+			for (const [ dependencies, handler ] of jobs) {
 				if (
-					dependencies.every(/** @type {*} */p/**/ => typeof p != "function")
+					dependencies.every(
+						/** @type {*} */p/**/ => typeof p != "function"
+					)
 				) {
-					run_node(resolve, reject, jobs, dependents, count, dependencies, handler, index)
+					run_node(
+						resolve,
+						reject,
+						jobs,
+						dependents,
+						count,
+						dependencies,
+						handler,
+						index
+					)
 						.catch(reject)
 				}
 			}

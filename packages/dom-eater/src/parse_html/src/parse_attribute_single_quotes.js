@@ -14,7 +14,9 @@ export default (text, errors, start) => {
 	/** @type {import("../../../public.js").Script[]} */
 	const scripts = []
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_attribute_single_quotes_regex)
+		const child_index = text.slice(child_pre_index).search(
+			stop_attribute_single_quotes_regex
+		)
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index
 			if (text[index] == "'") {
@@ -31,7 +33,11 @@ export default (text, errors, start) => {
 			child_pre_index = node.end
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute_single_quotes is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute_single_quotes is incomplete.",
+					start,
+					text.length
+				)
 			)
 			return {
 				end: text.length,

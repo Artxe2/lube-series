@@ -9,9 +9,7 @@ exports.module = (valid, invalid) => {
 				a
 			)`
 		},
-		{
-			code: "a((b - c) / d)"
-		},
+		{ code: "a((b - c) / d)" },
 		{
 			code: "var v = /** @type {{}} */(a)/**/"
 		},
@@ -45,42 +43,22 @@ exports.module = (valid, invalid) => {
 	invalid.push(
 		{
 			code: "var v = /**@type {A}*/(a)/**/",
-			errors: [
-				{
-					column: 8,
-					line: 1
-				}
-			],
+			errors: [ { column: 8, line: 1 } ],
 			output: "var v = /** @type {A} */(a)/**/"
 		},
 		{
 			code: "var v = /** @type {A} */(  /** @type {B} */(/** @type {C} */((a) /* block... */))) // line...",
-			errors: [
-				{
-					column: 8,
-					line: 1
-				}
-			],
+			errors: [ { column: 8, line: 1 } ],
 			output: "var v =   /** @type {A} */(/** @type {B} */(/** @type {C} */((a))/**/)/**/)/**/ /* block... */ // line..."
 		},
 		{
 			code: "var v = { b: /** @type {A} */(a) }",
-			errors: [
-				{
-					column: 13,
-					line: 1
-				}
-			],
+			errors: [ { column: 13, line: 1 } ],
 			output: "var v = { b: /** @type {A} */(a)/**/ }"
 		},
 		{
 			code: "var v = { b: /** @type {A} */(a) }",
-			errors: [
-				{
-					column: 13,
-					line: 1
-				}
-			],
+			errors: [ { column: 13, line: 1 } ],
 			output: "var v = { b: /** @type {A} */(a)/**/ }"
 		},
 		{
@@ -95,7 +73,7 @@ exports.module = (valid, invalid) => {
 				.../** @type {X} */(x)
 			});
 			/** @type {Y} */(y, /** @type {Z} */(z[/** @type {123} */(123)]))`,
-			errors: [...new Array(21).fill({})],
+			errors: [ ...new Array(21).fill({}) ],
 			output: `var v = /** @type {V} */({
 				a: /** @type {A} */([/** @type {B} */(b)/**/, /** @type {C} */(c)/**/, /** @type {D} */(d)/**/])/**/,
 				e: /** @type {F} */(f)/**/(/** @type {G} */(g)/**/, /** @type {E} */(E)/**/, /** @type {I} */(i)/**/),

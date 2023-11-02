@@ -5,7 +5,7 @@
 	},
 	"description": "Simple tools to lubricate JavaScript",
 	"devDependencies": {
-		"@typescript-eslint/parser": "^6.8.0",
+		"@typescript-eslint/parser": "^6.9.0",
 		"async-lube": "workspace:^",
 		"data-lube": "workspace:^",
 		"date-lube": "workspace:^",

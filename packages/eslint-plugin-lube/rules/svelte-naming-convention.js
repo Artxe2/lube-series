@@ -14,10 +14,7 @@ module.exports = {
 		schema: [
 			{
 				properties: {
-					fixSameNames: {
-						type: "boolean",
-						default: true
-					}
+					fixSameNames: { type: "boolean", default: true }
 				},
 				type: "object"
 			}
@@ -25,7 +22,9 @@ module.exports = {
 		type: "layout"
 	},
 	create(context) {
-		const fix_same_names = /** @type {boolean} */(context.options[0]?.fixSameNames)/**/ ?? true
+		/** @type {import("../private").RuleOptions["svelte-naming-convention"]} */
+		const option = context.options[0]
+		const fix_same_names = option?.fixSameNames ?? true
 
 		// let name | const name | class name
 		const allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
@@ -33,10 +32,10 @@ module.exports = {
 		const fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
 		const camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
 
-		/** @type {Set<string>} */
-		const reported_declarations = new Set()
 		/** @type {Map<string, import("../private").AstNode[]>} */
 		const pending_usages = new Map()
+		/** @type {Set<string>} */
+		const reported_declarations = new Set()
 		/** @type {Set<import("../private").AstNode>} */
 		const shortand_properties = new Set()
 
@@ -58,7 +57,6 @@ module.exports = {
 				}
 			}
 		}
-
 		/**
 		 * @param {string} _
 		 * @param {string} a
@@ -68,32 +66,35 @@ module.exports = {
 		function fix_handler(_, a, b) {
 			return a + (a ? "_" : "") + b.toLowerCase()
 		}
-
 		/**
 		 * @param {import("../private").AstNode & import("estree").Identifier} node
 		 * @returns {void}
 		 */
 		function report(node) {
 			const name = node.name
-			context.report({
-				data: { name },
-				fix(fixer) {
-					if (fixable_name_regex.test(name)) {
-						return fixer.replaceTextRange(
-							node.range,
-							(shortand_properties.has(node) ? node.name + ": " : "")
-								+ node.name.replace(fix_regex, fix_handler)
-						)
-					}
-					return null
-				},
-				messageId: "not_match",
-				node: /** @type {import("estree").Node} */(node)/**/
-			})
+			context.report(
+				{
+					data: { name },
+					fix(fixer) {
+						if (fixable_name_regex.test(name)) {
+							return fixer.replaceTextRange(
+								node.range,
+								(shortand_properties.has(node) ? node.name + ": " : "")
+									+ node.name.replace(fix_regex, fix_handler)
+							)
+						}
+						return null
+					},
+					messageId: "not_match",
+					node: /** @type {import("estree").Node} */(node)/**/
+				}
+			)
 			if (fix_same_names) {
 				const usages = pending_usages.get(name)
 				while (usages?.length) {
-					report(/** @type {import("../private").AstNode & import("estree").Identifier} */(usages.pop())/**/)
+					report(
+						/** @type {import("../private").AstNode & import("estree").Identifier} */(usages.pop())/**/
+					)
 				}
 				reported_declarations.add(name)
 			}
@@ -264,7 +265,10 @@ module.exports = {
 					// var value = { key: value }
 					// var { key: value } = value
 					if (parent.value == node) {
-						if (parent.key.name == parent.value.name) {
+						if (
+							parent.key.type == "Identifier"
+							&& parent.key.name == parent.value.name
+						) {
 							shortand_properties.add(node)
 						}
 						defer(node)

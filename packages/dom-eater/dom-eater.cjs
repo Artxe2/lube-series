@@ -26,7 +26,7 @@ const self_closing_element_regex = /^(?:area|base|br|col|embed|hr|img|input|link
  * @param {import("../../../public.js").Element} element
  * @returns {void}
  */
-var normalize_element_childs = (text, ast_nodes, errors, element) => {
+var normalize_element_children = (text, ast_nodes, errors, element) => {
 	const name = element.name;
 	if (self_closing_element_regex.test(name)) return
 	const length = ast_nodes.length;
@@ -43,14 +43,22 @@ var normalize_element_childs = (text, ast_nodes, errors, element) => {
 				}
 			} else {
 				errors.push(
-					AstSyntaxError(`The "${name}" Element is not closed.`, element.start, element.end)
+					AstSyntaxError(
+						`The "${name}" Element is not closed.`,
+						element.start,
+						element.end
+					)
 				);
 			}
 			return
 		}
 	}
 	errors.push(
-		AstSyntaxError(`The "${name}" Element is not closed.`, element.start, element.end)
+		AstSyntaxError(
+			`The "${name}" Element is not closed.`,
+			element.start,
+			element.end
+		)
 	);
 };
 
@@ -69,10 +77,14 @@ var normalize_nodes = (text, ast_nodes, errors) => {
 		if (node.type == "Element" && node.name != "script" && node.name != "style") {
 			if (node.subType == "close") {
 				errors.push(
-					AstSyntaxError(`unopened Element "${node.name}" cannot be closed.`, node.start, node.end)
+					AstSyntaxError(
+						`unopened Element "${node.name}" cannot be closed.`,
+						node.start,
+						node.end
+					)
 				);
 			} else if (node.subType == "open") {
-				normalize_element_childs(text, ast_nodes, errors, node);
+				normalize_element_children(text, ast_nodes, errors, node);
 			}
 		}
 	}
@@ -99,7 +111,11 @@ var parse_script_double_quotes$1 = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_script_double_quotes is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_script_double_quotes is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -130,7 +146,11 @@ var parse_script_single_quotes$1 = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_script_single_quotes is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_script_single_quotes is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -186,7 +206,11 @@ var parse_script_template$1 = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_template is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_template is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -229,7 +253,11 @@ var parse_script_backticks$1 = (text, errors, start) => {
 			child_pre_index = node.end;
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_backticks is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_backticks is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -287,7 +315,11 @@ const parse_script_block$1 = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_block is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_block is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -313,7 +345,9 @@ var parse_attribute_double_quotes$1 = (text, errors, start) => {
 	/** @type {import("../../../public.js").Script[]} */
 	const scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_attribute_single_quotes_regex$3);
+		const child_index = text.slice(child_pre_index).search(
+			stop_attribute_single_quotes_regex$3
+		);
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index;
 			if (text[index] == "\"") {
@@ -330,7 +364,11 @@ var parse_attribute_double_quotes$1 = (text, errors, start) => {
 			child_pre_index = node.end;
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute_double_quotes is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute_double_quotes is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -356,7 +394,9 @@ var parse_attribute_single_quotes$1 = (text, errors, start) => {
 	/** @type {import("../../../public.js").Script[]} */
 	const scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_attribute_single_quotes_regex$2);
+		const child_index = text.slice(child_pre_index).search(
+			stop_attribute_single_quotes_regex$2
+		);
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index;
 			if (text[index] == "'") {
@@ -373,7 +413,11 @@ var parse_attribute_single_quotes$1 = (text, errors, start) => {
 			child_pre_index = node.end;
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute_single_quotes is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute_single_quotes is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -419,7 +463,9 @@ var parse_attribute$1 = (text, errors, start) => {
 		};
 		const equals_sign_index = text.slice(start + name_index).search(stop_space_regex$1);
 		if (equals_sign_index < 0 || text[start + name_index + equals_sign_index] != "=") return node
-		const value_index = text.slice(start + name_index + equals_sign_index + 1).search(stop_space_regex$1) + 1;
+		const value_index = text.slice(
+			start + name_index + equals_sign_index + 1
+		).search(stop_space_regex$1) + 1;
 		if (value_index > 0) {
 			const index = start + name_index + equals_sign_index + value_index;
 			if (text[index] == "'") {
@@ -436,20 +482,32 @@ var parse_attribute$1 = (text, errors, start) => {
 				node.end = value.end;
 			} else {
 				errors.push(
-					AstSyntaxError(`parse_attribute value is not valid with "${text[index]}"`, start, index)
+					AstSyntaxError(
+						`parse_attribute value is not valid with "${text[index]}"`,
+						start,
+						index
+					)
 				);
 				node.end = index;
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute value is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute value is incomplete.",
+					start,
+					text.length
+				)
 			);
 			node.end = text.length;
 		}
 		return node
 	}
 	errors.push(
-		AstSyntaxError("parse_attribute name is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_attribute name is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -505,7 +563,11 @@ var parse_script_content = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_content is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_content is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -536,7 +598,11 @@ var parse_style_content = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_style_content is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_style_content is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -627,7 +693,11 @@ var parse_element$1 = (text, errors, start) => {
 				child_pre_index = node.end;
 			} else {
 				errors.push(
-					AstSyntaxError("parse_element is incomplete.", start, text.length)
+					AstSyntaxError(
+						"parse_element is incomplete.",
+						start,
+						text.length
+					)
 				);
 				return {
 					attributes,
@@ -642,7 +712,11 @@ var parse_element$1 = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_element is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_element is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		attributes: [],
@@ -703,11 +777,13 @@ var index$1 = (text, include_text) => {
 		const index = text.slice(start).search(stop_text_regex);
 		if (index >= 0) {
 			if (index) {
-				ast_nodes.push({
-					end: start + index,
-					start,
-					type: "Text"
-				});
+				ast_nodes.push(
+					{
+						end: start + index,
+						start,
+						type: "Text"
+					}
+				);
 			}
 			if (text[start + index] == "<") {
 				const node = parse_element$1(text, errors, start + index);
@@ -720,11 +796,13 @@ var index$1 = (text, include_text) => {
 			}
 		} else {
 			if (start < text.length) {
-				ast_nodes.push({
-					end: text.length,
-					start,
-					type: "Text"
-				});
+				ast_nodes.push(
+					{
+						end: text.length,
+						start,
+						type: "Text"
+					}
+				);
 			}
 			break
 		}
@@ -740,10 +818,7 @@ var index$1 = (text, include_text) => {
 			set_text$1(text, node);
 		}
 	}
-	return {
-		ast: ast_nodes,
-		errors
-	}
+	return { ast: ast_nodes, errors }
 };
 
 const end_double_quotes_regex = /(?<=(?<!\\)(\\\\)*)"/;
@@ -766,7 +841,11 @@ var parse_script_double_quotes = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_script_double_quotes is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_script_double_quotes is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -797,7 +876,11 @@ var parse_script_single_quotes = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_script_single_quotes is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_script_single_quotes is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -853,7 +936,11 @@ var parse_script_template = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_template is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_template is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -896,7 +983,11 @@ var parse_script_backticks = (text, errors, start) => {
 			child_pre_index = node.end;
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_backticks is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_backticks is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -961,7 +1052,11 @@ const parse_script_block = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_block is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_block is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				elements,
@@ -988,7 +1083,9 @@ var parse_attribute_double_quotes = (text, errors, start) => {
 	/** @type {import("../../../public.js").Script[]} */
 	const scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_attribute_single_quotes_regex$1);
+		const child_index = text.slice(child_pre_index).search(
+			stop_attribute_single_quotes_regex$1
+		);
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index;
 			if (text[index] == "\"") {
@@ -1005,7 +1102,11 @@ var parse_attribute_double_quotes = (text, errors, start) => {
 			child_pre_index = node.end;
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute_double_quotes is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute_double_quotes is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -1031,7 +1132,9 @@ var parse_attribute_single_quotes = (text, errors, start) => {
 	/** @type {import("../../../public.js").Script[]} */
 	const scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_attribute_single_quotes_regex);
+		const child_index = text.slice(child_pre_index).search(
+			stop_attribute_single_quotes_regex
+		);
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index;
 			if (text[index] == "'") {
@@ -1048,7 +1151,11 @@ var parse_attribute_single_quotes = (text, errors, start) => {
 			child_pre_index = node.end;
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute_single_quotes is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute_single_quotes is incomplete.",
+					start,
+					text.length
+				)
 			);
 			return {
 				end: text.length,
@@ -1094,7 +1201,9 @@ var parse_attribute = (text, errors, start) => {
 		};
 		const equals_sign_index = text.slice(start + name_index).search(stop_space_regex);
 		if (equals_sign_index < 0 || text[start + name_index + equals_sign_index] != "=") return node
-		const value_index = text.slice(start + name_index + equals_sign_index + 1).search(stop_space_regex) + 1;
+		const value_index = text.slice(
+			start + name_index + equals_sign_index + 1
+		).search(stop_space_regex) + 1;
 		if (value_index > 0) {
 			const index = start + name_index + equals_sign_index + value_index;
 			if (text[index] == "'") {
@@ -1111,20 +1220,32 @@ var parse_attribute = (text, errors, start) => {
 				node.end = value.end;
 			} else {
 				errors.push(
-					AstSyntaxError(`parse_attribute value is not valid with "${text[index]}"`, start, index)
+					AstSyntaxError(
+						`parse_attribute value is not valid with "${text[index]}"`,
+						start,
+						index
+					)
 				);
 				node.end = index;
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_attribute value is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_attribute value is incomplete.",
+					start,
+					text.length
+				)
 			);
 			node.end = text.length;
 		}
 		return node
 	}
 	errors.push(
-		AstSyntaxError("parse_attribute name is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_attribute name is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		end: text.length,
@@ -1196,7 +1317,11 @@ const parse_open_tag = (text, errors, start) => {
 				child_pre_index = node.end;
 			} else {
 				errors.push(
-					AstSyntaxError("parse_element is incomplete.", start, text.length)
+					AstSyntaxError(
+						"parse_element is incomplete.",
+						start,
+						text.length
+					)
 				);
 				return {
 					attributes,
@@ -1211,7 +1336,11 @@ const parse_open_tag = (text, errors, start) => {
 		}
 	}
 	errors.push(
-		AstSyntaxError("parse_element is incomplete.", start, text.length)
+		AstSyntaxError(
+			"parse_element is incomplete.",
+			start,
+			text.length
+		)
 	);
 	return {
 		attributes: [],
@@ -1236,7 +1365,11 @@ const parse_element = (text, errors, start) => {
 	if (errors.length > err || node.subType == "closed") return node
 	if (node.subType == "close") {
 		errors.push(
-			AstSyntaxError(`unopened Element "${node.name}" cannot be closed.`, node.start, node.end)
+			AstSyntaxError(
+				`unopened Element "${node.name}" cannot be closed.`,
+				node.start,
+				node.end
+			)
 		);
 		return node
 	}
@@ -1246,19 +1379,28 @@ const parse_element = (text, errors, start) => {
 		if (child_index >= 0) {
 			const index = child_pre_index + child_index;
 			if (child_index) {
-				node.children.push({
-					end: index,
-					start: child_pre_index,
-					type: "Text"
-				});
+				node.children.push(
+					{
+						end: index,
+						start: child_pre_index,
+						type: "Text"
+					}
+				);
 			}
 			if (text[index] == "<") {
 				if (text[index + 1] == "/") {
-					if (text.slice(index, index + node.name.length + 3) == `</${node.name}>`) {
+					if (text.slice(
+						index,
+						index + node.name.length + 3
+					) == `</${node.name}>`) {
 						node.end = index + node.name.length + 3;
 					} else {
 						errors.push(
-							AstSyntaxError(`close tag is different from open tag "${node.name}".`, start, text.length)
+							AstSyntaxError(
+								`close tag is different from open tag "${node.name}".`,
+								start,
+								text.length
+							)
 						);
 						node.end = text.length;
 					}
@@ -1275,7 +1417,11 @@ const parse_element = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_element is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_element is incomplete.",
+					start,
+					text.length
+				)
 			);
 			node.end = text.length;
 			return node
@@ -1363,10 +1509,7 @@ var index = (text, include_text) => {
 			set_text(text, node);
 		}
 	}
-	return {
-		ast: ast_nodes,
-		errors
-	}
+	return { ast: ast_nodes, errors }
 };
 
 exports.AstSyntaxError = AstSyntaxError;

@@ -23,13 +23,24 @@ describe(
 			"already error",
 			async () => {
 				const already_test = decorator(resolve)
-				await Promise.all([
-					already_test()
-						.catch(reason => assert.fail(reason.message)),
-					already_test()
-						.then(() => assert.fail("No error occurred"))
-						.catch(reason => assert.equal(reason.message, "Request already in progress"))
-				])
+				await Promise.all(
+					[
+						already_test()
+							.catch(
+								reason => assert.fail(reason.message)
+							),
+						already_test()
+							.then(
+								() => assert.fail("No error occurred")
+							)
+							.catch(
+								reason => assert.equal(
+									reason.message,
+									"Request already in progress"
+								)
+							)
+					]
+				)
 			}
 		)
 		it(
@@ -37,13 +48,24 @@ describe(
 			async () => {
 				const debounce_test = decorator(resolve)
 					.debounce(500)
-				await Promise.all([
-					debounce_test()
-						.then(() => assert.fail("No error occurred"))
-						.catch(reason => assert.equal(reason.message, "Request be debounced")),
-					debounce_test()
-						.catch(reason => assert.fail(reason.message))
-				])
+				await Promise.all(
+					[
+						debounce_test()
+							.then(
+								() => assert.fail("No error occurred")
+							)
+							.catch(
+								reason => assert.equal(
+									reason.message,
+									"Request be debounced"
+								)
+							),
+						debounce_test()
+							.catch(
+								reason => assert.fail(reason.message)
+							)
+					]
+				)
 			}
 		)
 		it(
@@ -51,15 +73,28 @@ describe(
 			async () => {
 				const throttle_test = decorator(resolve)
 					.throttle(2, 1000)
-				await Promise.all([
-					await throttle_test()
-						.catch(reason => assert.fail(reason.message)),
-					await throttle_test()
-						.catch(reason => assert.fail(reason.message)),
-					throttle_test()
-						.then(() => assert.fail("No error occurred"))
-						.catch(reason => assert.equal(reason.message, "Too many requests"))
-				])
+				await Promise.all(
+					[
+						await throttle_test()
+							.catch(
+								reason => assert.fail(reason.message)
+							),
+						await throttle_test()
+							.catch(
+								reason => assert.fail(reason.message)
+							),
+						throttle_test()
+							.then(
+								() => assert.fail("No error occurred")
+							)
+							.catch(
+								reason => assert.equal(
+									reason.message,
+									"Too many requests"
+								)
+							)
+					]
+				)
 			}
 		)
 		it(
@@ -73,18 +108,30 @@ describe(
 							return "OK"
 						}
 					})()
-				).retries(async (reason, count) => {
-					await sleep(100)
-					if (count == 3) throw reason
-				})
-				await Promise.all([
-					await retry_test()
-						.then(() => assert.fail("No error occurred"))
-						.catch(reason => assert.equal(reason.message, "FAIL 3")),
-					retry_test()
-						.then(value => assert.equal(value, "OK"))
-						.catch(reason => assert.fail(reason.message))
-				])
+				).retries(
+					async (reason, count) => {
+						await sleep(100)
+						if (count == 3) throw reason
+					}
+				)
+				await Promise.all(
+					[
+						await retry_test()
+							.then(
+								() => assert.fail("No error occurred")
+							)
+							.catch(
+								reason => assert.equal(reason.message, "FAIL 3")
+							),
+						retry_test()
+							.then(
+								value => assert.equal(value, "OK")
+							)
+							.catch(
+								reason => assert.fail(reason.message)
+							)
+					]
+				)
 			}
 		)
 		it(

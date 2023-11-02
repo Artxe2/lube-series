@@ -46,7 +46,10 @@ const _default$1 = (object, another) => {
 	for (const key of o_key) {
 		if (
 			!a_key.includes(key)
-			|| !_default$1(/** @type {Record<string, *>} */(object)/**/[key], another[key])
+			|| !_default$1(
+				/** @type {Record<string, *>} */(object)/**/[key],
+				another[key]
+			)
 		) return false
 	}
 	return true

@@ -22,7 +22,7 @@ const time_regex = /(-?\d+)([YMDHms]+)/g;
  * @example add(new Date, "-1D") //=> Date { yesterday }
  */
 const _default$3 = (date, sum) => {
-	for (const [, n, unit] of sum.matchAll(time_regex)) {
+	for (const [ , n, unit ] of sum.matchAll(time_regex)) {
 		const number = +n;
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number);
 		else if (unit == "M") date.setMonth(date.getMonth() + number);
@@ -30,7 +30,9 @@ const _default$3 = (date, sum) => {
 		else if (unit == "H") date.setHours(date.getHours() + number);
 		else if (unit == "m") date.setMinutes(date.getMinutes() + number);
 		else if (unit == "s") date.setSeconds(date.getSeconds() + number);
-		else if (unit == "sss") date.setMilliseconds(date.getMilliseconds() + number);
+		else if (unit == "sss") date.setMilliseconds(
+			date.getMilliseconds() + number
+		);
 	}
 	return date
 };
@@ -53,14 +55,38 @@ const _default$3 = (date, sum) => {
  * - "sss": Milliseconds
  * @returns {string}
  */
-const _default$2 = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") =>
-	format.replace("YYYY", `${date.getFullYear()}`.padStart(4, "0"))
-		.replace("MM", `${date.getMonth() + 1}`.padStart(2, "0"))
-		.replace("DD", `${date.getDate()}`.padStart(2, "0"))
-		.replace("HH", `${date.getHours()}`.padStart(2, "0"))
-		.replace("mm", `${date.getMinutes()}`.padStart(2, "0"))
-		.replace("ss", `${date.getSeconds()}`.padStart(2, "0"))
-		.replace("sss", `${date.getMilliseconds()}`.padStart(3, "0"));
+const _default$2 = (
+	date,
+	format = "YYYY-MM-DDTHH:mm:ss.sss"
+) =>
+	format.replace(
+		"YYYY",
+		`${date.getFullYear()}`.padStart(4, "0")
+	)
+		.replace(
+			"MM",
+			`${date.getMonth() + 1}`.padStart(2, "0")
+		)
+		.replace(
+			"DD",
+			`${date.getDate()}`.padStart(2, "0")
+		)
+		.replace(
+			"HH",
+			`${date.getHours()}`.padStart(2, "0")
+		)
+		.replace(
+			"mm",
+			`${date.getMinutes()}`.padStart(2, "0")
+		)
+		.replace(
+			"ss",
+			`${date.getSeconds()}`.padStart(2, "0")
+		)
+		.replace(
+			"sss",
+			`${date.getMilliseconds()}`.padStart(3, "0")
+		);
 
 /**
  * Converts a date string to a Date object based on the provided format.
@@ -80,7 +106,10 @@ const _default$2 = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") =>
  * - "sss": Milliseconds
  * @returns {Date}
  */
-const _default$1 = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
+const _default$1 = (
+	date,
+	format = "YYYY-MM-DDTHH:mm:ss.sss"
+) => {
 	let x = format.indexOf("YYYY");
 	const year = x < 0 ? "0000" : date.slice(x, x + 4);
 	x = format.indexOf("MM");
@@ -95,7 +124,9 @@ const _default$1 = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
 	const seconds = x < 0 ? "00" : date.slice(x, x + 2);
 	x = format.indexOf("sss");
 	const milliseconds = x < 0 ? "000" : date.slice(x, x + 3);
-	return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`)
+	return new Date(
+		`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`
+	)
 };
 
 var timeUnit = /** @type {const} */({
@@ -119,12 +150,19 @@ const time_zone_regex = /T\+?(-?\d*):?(\d*)/;
  * ```
  */
 const _default = (date, time_zone, inversion) => {
-	const array = /** @type {RegExpExecArray} */(time_zone_regex.exec(Intl.DateTimeFormat("ia", {
-		timeZone: time_zone,
-		timeZoneName: "short"
-	}).format()));/**/
+	const array = /** @type {RegExpExecArray} */(time_zone_regex.exec(
+		Intl.DateTimeFormat(
+			"ia",
+			{
+				timeZone: time_zone,
+				timeZoneName: "short"
+			}
+		).format()
+	));/**/
 	const offset = date.getTimezoneOffset() + +(array[1] ?? 0) * 60 + +(array[2] ?? 0);
-	date.setMinutes(date.getMinutes() + (inversion ? -offset : offset));
+	date.setMinutes(
+		date.getMinutes() + (inversion ? -offset : offset)
+	);
 	return date
 };
 

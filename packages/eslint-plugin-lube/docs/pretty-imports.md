@@ -3,31 +3,18 @@ Enforces proper indentation for import and export statements.
 
 ## options
 ```js
-schema: [{
-    properties: {
-        checkExports: {
-            type: "boolean",
-            default: true
+schema: [
+    {
+        properties: {
+            checkExports: { type: "boolean", default: true },
+            checkImports: { type: "boolean", default: true },
+            indent: { type: "string", default: "\t" },
+            maxLength: { type: "number", default: 30 },
+            semicolon: { type: "boolean", default: false }
         },
-        checkImports: {
-            type: "boolean",
-            default: true
-        },
-        indent: {
-            type: "string",
-            default: "\t"
-        },
-        maxLength: {
-            type: "number",
-            default: 30
-        },
-        semicolon: {
-            type: "boolean",
-            default: false
-        }
-    },
-    type: "object"
-}]
+        type: "object"
+    }
+]
 ```
 ### checkExports
 If it is `true`, it checks the export statement.

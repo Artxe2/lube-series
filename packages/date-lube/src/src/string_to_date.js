@@ -16,7 +16,10 @@
  * - "sss": Milliseconds
  * @returns {Date}
  */
-const _default = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
+const _default = (
+	date,
+	format = "YYYY-MM-DDTHH:mm:ss.sss"
+) => {
 	let x = format.indexOf("YYYY")
 	const year = x < 0 ? "0000" : date.slice(x, x + 4)
 	x = format.indexOf("MM")
@@ -31,7 +34,9 @@ const _default = (date, format = "YYYY-MM-DDTHH:mm:ss.sss") => {
 	const seconds = x < 0 ? "00" : date.slice(x, x + 2)
 	x = format.indexOf("sss")
 	const milliseconds = x < 0 ? "000" : date.slice(x, x + 3)
-	return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`)
+	return new Date(
+		`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`
+	)
 }
 
 export default _default

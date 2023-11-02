@@ -27,13 +27,21 @@ export default (text, ast_nodes, errors, element) => {
 				}
 			} else {
 				errors.push(
-					AstSyntaxError(`The "${name}" Element is not closed.`, element.start, element.end)
+					AstSyntaxError(
+						`The "${name}" Element is not closed.`,
+						element.start,
+						element.end
+					)
 				)
 			}
 			return
 		}
 	}
 	errors.push(
-		AstSyntaxError(`The "${name}" Element is not closed.`, element.start, element.end)
+		AstSyntaxError(
+			`The "${name}" Element is not closed.`,
+			element.start,
+			element.end
+		)
 	)
 }

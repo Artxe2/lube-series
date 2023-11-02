@@ -31,45 +31,121 @@ describe(
 				)
 				assert.deepStrictEqual(
 					JSON.parse(
-						JSON.stringify(ast.ast, [ "subType", "text", "type" ])
+						JSON.stringify(
+							ast.ast,
+							[ "subType", "text", "type" ]
+						)
 					),
 					[
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<area>", type: "Element" },
+						{
+							subType: "open",
+							text: "<area>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<base>", type: "Element" },
+						{
+							subType: "open",
+							text: "<base>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<br>", type: "Element" },
+						{
+							subType: "open",
+							text: "<br>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<col>", type: "Element" },
+						{
+							subType: "open",
+							text: "<col>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<embed>", type: "Element" },
+						{
+							subType: "open",
+							text: "<embed>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<hr>", type: "Element" },
+						{
+							subType: "open",
+							text: "<hr>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<img>", type: "Element" },
+						{
+							subType: "open",
+							text: "<img>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<input>", type: "Element" },
+						{
+							subType: "open",
+							text: "<input>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<link>", type: "Element" },
+						{
+							subType: "open",
+							text: "<link>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<meta>", type: "Element" },
+						{
+							subType: "open",
+							text: "<meta>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<param>", type: "Element" },
+						{
+							subType: "open",
+							text: "<param>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<source>", type: "Element" },
+						{
+							subType: "open",
+							text: "<source>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<track>", type: "Element" },
+						{
+							subType: "open",
+							text: "<track>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<wbr>", type: "Element" },
+						{
+							subType: "open",
+							text: "<wbr>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<!DOCTYPE text>", type: "Element" },
+						{
+							subType: "open",
+							text: "<!DOCTYPE text>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<a>", type: "Element" },
+						{
+							subType: "open",
+							text: "<a>",
+							type: "Element"
+						},
 						{ text: "\n", type: "Text" }
 					]
 				)
-				assert.deepStrictEqual(ast.errors, [ AstSyntaxError("The \"a\" Element is not closed.", 0, 0) ])
+				assert.deepStrictEqual(
+					ast.errors,
+					[
+						AstSyntaxError(
+							"The \"a\" Element is not closed.",
+							0,
+							0
+						)
+					]
+				)
 			}
 		)// self-closing
 
@@ -96,13 +172,20 @@ func()
 				)
 				assert.deepStrictEqual(
 					JSON.parse(
-						JSON.stringify(ast.ast, [ "children", "scripts", "strings", "subType", "text", "type" ])
+						JSON.stringify(
+							ast.ast,
+							[
+								"children",
+								"scripts",
+								"strings",
+								"subType",
+								"text",
+								"type"
+							]
+						)
 					),
 					[
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"children": [
 								{
@@ -161,40 +244,25 @@ func()
 							"text": "<script>\nimport { Component } from \"module\"\nconst single = 'single'\nlet double = \"double\"\nfunction func() {\n\tvar str = `str ${1 == 1 ? \"true\" + single : 'false' + double}`\n}\nfunc()\n</script>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"children": [
-								{
-									"text": "\n",
-									"type": "Style"
-								}
+								{ "text": "\n", "type": "Style" }
 							],
 							"subType": "open",
 							"text": "<style>\n</style>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"children": [
-								{
-									"text": "\n",
-									"type": "Text"
-								}
+								{ "text": "\n", "type": "Text" }
 							],
 							"subType": "open",
 							"text": "<div>\n</div>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						}
+						{ "text": "\n", "type": "Text" }
 					]
 				)
 				assert.deepStrictEqual(ast.errors, [])
@@ -219,13 +287,18 @@ func()
 				)
 				assert.deepStrictEqual(
 					JSON.parse(
-						JSON.stringify(ast.ast, [ "children", "subType", "text", "type" ])
+						JSON.stringify(
+							ast.ast,
+							[
+								"children",
+								"subType",
+								"text",
+								"type"
+							]
+						)
 					),
 					[
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"children": [
 								{
@@ -238,10 +311,7 @@ func()
 							"text": "<script>\n</script>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"children": [
 								{
@@ -253,25 +323,16 @@ func()
 							"text": "<style>\n\t.header { color: red; }\n\t[class] main:after { background: blue; }\n</style>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"children": [
-								{
-									"text": "\n",
-									"type": "Text"
-								}
+								{ "text": "\n", "type": "Text" }
 							],
 							"subType": "open",
 							"text": "<div>\n</div>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						}
+						{ "text": "\n", "type": "Text" }
 					]
 				)
 				assert.deepStrictEqual(ast.errors, [])
@@ -292,13 +353,22 @@ func()
 				)
 				assert.deepStrictEqual(
 					JSON.parse(
-						JSON.stringify(ast.ast, [ "attributes", "children", "scripts", "strings", "subType", "text", "type", "value" ])
+						JSON.stringify(
+							ast.ast,
+							[
+								"attributes",
+								"children",
+								"scripts",
+								"strings",
+								"subType",
+								"text",
+								"type",
+								"value"
+							]
+						)
 					),
 					[
-						{
-							"text": "\n",
-							"type": "Text"
-						},
+						{ "text": "\n", "type": "Text" },
 						{
 							"attributes": [
 								{
@@ -390,45 +460,30 @@ func()
 								}
 							],
 							"children": [
-								{
-									"text": "\n",
-									"type": "Text"
-								},
+								{ "text": "\n", "type": "Text" },
 								{
 									"attributes": [],
 									"children": [
-										{
-											"text": "text",
-											"type": "Text"
-										}
+										{ "text": "text", "type": "Text" }
 									],
 									"subType": "open",
 									"text": "<span>text</span>",
 									"type": "Element"
 								},
-								{
-									"text": "\n",
-									"type": "Text"
-								},
+								{ "text": "\n", "type": "Text" },
 								{
 									"strings": [],
 									"subType": "block",
 									"text": "{func()}",
 									"type": "Script"
 								},
-								{
-									"text": "\n",
-									"type": "Text"
-								}
+								{ "text": "\n", "type": "Text" }
 							],
 							"subType": "open",
 							"text": "<div {var} script =  {\"double\"}{`${'single'}`} flag string=\"{true ?? \"true\"}\">\n<span>text</span>\n{func()}\n</div>",
 							"type": "Element"
 						},
-						{
-							"text": "\n",
-							"type": "Text"
-						}
+						{ "text": "\n", "type": "Text" }
 					]
 				)
 				assert.deepStrictEqual(ast.errors, [])
@@ -446,19 +501,38 @@ func()
 				)
 				assert.deepStrictEqual(
 					JSON.parse(
-						JSON.stringify(ast.ast, [ "subType", "text", "type" ])
+						JSON.stringify(
+							ast.ast,
+							[ "subType", "text", "type" ]
+						)
 					),
 					[
 						{ text: "\n", type: "Text" },
-						{ subType: "open", text: "<a {></a>\n", type: "Element" }
+						{
+							subType: "open",
+							text: "<a {></a>\n",
+							type: "Element"
+						}
 					]
 				)
 				assert.deepStrictEqual(
 					ast.errors,
 					[
-						AstSyntaxError("parse_script_block is incomplete.", 0, 0),
-						AstSyntaxError("parse_element is incomplete.", 0, 0),
-						AstSyntaxError("The \"a\" Element is not closed.", 0, 0)
+						AstSyntaxError(
+							"parse_script_block is incomplete.",
+							0,
+							0
+						),
+						AstSyntaxError(
+							"parse_element is incomplete.",
+							0,
+							0
+						),
+						AstSyntaxError(
+							"The \"a\" Element is not closed.",
+							0,
+							0
+						)
 					]
 				)
 			}

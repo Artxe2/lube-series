@@ -1,5 +1,9 @@
 "use strict"
 
+const left_space_regex = /\s+$/
+const right_space_regex = /^\s+/
+const type_regex = /(?<=(?:^|.*\s*)@type\s*\{).+(?=\}.*?$)/
+
 /**
  * @param {number} length
  * @returns {number[]}
@@ -30,15 +34,11 @@ module.exports = {
 		let fixed_text = origin_text
 		const text_length = fixed_text.length + 1
 		const text_indexes = get_indexed_array(text_length)
-		const left_space_regex = /\s+$/
-		const right_space_regex = /^\s+/
-		const type_regex = /(?<=(?:^|.*\s*)@type\s*\{).+(?=\}.*?$)/
 		/** @type {import("../private").Comment[]} */
 		const comments = []
-		for (const comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments().reverse())/**/) {
-			const [start, end] = comment.range
-			comments[start] = comment
-			comments[end - 1] = comment
+		for (const comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
+			let [ start, end ] = comment.range
+			while (start < end) comments[start++] = comment
 		}
 		/** @type {import("../private").AstNode[] & import("estree").Expression[]} */
 		const expressions = []
@@ -51,7 +51,7 @@ module.exports = {
 		 */
 		function verify_correct(node) {
 			let temp_text = fixed_text
-			const temp_indexes = [...text_indexes]
+			const temp_indexes = [ ...text_indexes ]
 			/** @type {(string | undefined)[]} */
 			const types = []
 			/** @type {true[]} */
@@ -75,7 +75,7 @@ module.exports = {
 			let close = 0
 			let prev_open = 0
 			let prev_close = 0
-			let [left, right] = node.range
+			let [ left, right ] = node.range
 			W: while (left > 0) {
 				if (comments[left - 1]) {
 					const comment = comments[left - 1]
@@ -106,7 +106,10 @@ module.exports = {
 										prev_close = right
 										temp_text_changes(left, left + 1)
 										close++
-										if (temp_text.slice(temp_indexes[right + 1], temp_indexes[right + 5]) == "/**/") {
+										if (temp_text.slice(
+											temp_indexes[right + 1],
+											temp_indexes[right + 5]
+										) == "/**/") {
 											extras[right] = true
 											temp_text_changes(right, right += 5)
 										} else {
@@ -143,7 +146,10 @@ module.exports = {
 			corrected_text = temp_text.slice(temp_indexes[left], start)
 				+ corrected_text
 				+ temp_text.slice(end, temp_indexes[right])
-			if (fixed_text.slice(text_indexes[left], text_indexes[right]) != corrected_text) {
+			if (fixed_text.slice(
+				text_indexes[left],
+				text_indexes[right]
+			) != corrected_text) {
 				report(node, left, right, corrected_text)
 			}
 		}
@@ -162,17 +168,19 @@ module.exports = {
 					text_indexes[i] += gap
 				}
 			}
-			context.report({
-				fix(fixer) {
-					return fixer.replaceTextRange([start, end], corrected_text)
-				},
-				loc: {
-					start: source_code.getLocFromIndex(start),
-					end: source_code.getLocFromIndex(end)
-				},
-				messageId: "not_match",
-				node
-			})
+			context.report(
+				{
+					fix(fixer) {
+						return fixer.replaceTextRange([ start, end ], corrected_text)
+					},
+					loc: {
+						start: source_code.getLocFromIndex(start),
+						end: source_code.getLocFromIndex(end)
+					},
+					messageId: "not_match",
+					node
+				}
+			)
 		}
 		/**
 		 * @param {import("../private").AstNode} node

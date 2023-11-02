@@ -83,8 +83,5 @@ export default (text, include_text) => {
 			set_text(text, node)
 		}
 	}
-	return {
-		ast: ast_nodes,
-		errors
-	}
+	return { ast: ast_nodes, errors }
 }

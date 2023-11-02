@@ -10,7 +10,7 @@ exports.module = (valid, invalid) => {
 			import { a, b as c, d } from 'module'
 			import { fff, ggg, hhh, iii, jjj, kkk, lll } from 'module/2'
 			`,
-			options: [{ maxLength: 30 }],
+			options: [ { maxLength: 30 } ],
 			parserOptions: {
 				ecmaVersion: "latest",
 				sourceType: "module"
@@ -23,7 +23,7 @@ import {
 	aaaaa_ccccc,
 	aaaaa_ddddd
 } from "module";`,
-			options: [{ semicolon: true }],
+			options: [ { semicolon: true } ],
 			parserOptions: {
 				ecmaVersion: "latest",
 				sourceType: "module"
@@ -52,10 +52,7 @@ import {
 				}
 			],
 			options: [
-				{
-					maxLength: 10,
-					semicolon: true
-				}
+				{ maxLength: 10, semicolon: true }
 			],
 			output: `
 
@@ -96,10 +93,7 @@ import {
 				}
 			],
 			options: [
-				{
-					indent: "  ",
-					maxLength: 10
-				}
+				{ indent: "  ", maxLength: 10 }
 			],
 			output: `
 

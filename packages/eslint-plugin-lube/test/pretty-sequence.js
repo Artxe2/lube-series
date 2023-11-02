@@ -7,14 +7,17 @@ const valid = []
 const invalid = []
 
 require(
-	"./pretty-imports/ExportNamedDeclaration"
+	"./pretty-sequence/case_by_node_type"
 ).module(valid, invalid)
 require(
-	"./pretty-imports/ImportDeclaration"
+	"./pretty-sequence/case_by_option"
+).module(valid, invalid)
+require(
+	"./pretty-sequence/various_situations"
 ).module(valid, invalid)
 
 new RuleTester().run(
-	"pretty-imports",
-	require("../rules/pretty-imports"),
+	"pretty-sequence",
+	require("../rules/pretty-sequence"),
 	{ valid, invalid }
 )

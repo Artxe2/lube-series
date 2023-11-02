@@ -31,7 +31,11 @@ export default (text, errors, start) => {
 			child_pre_index = node.end
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_backticks is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_backticks is incomplete.",
+					start,
+					text.length
+				)
 			)
 			return {
 				end: text.length,

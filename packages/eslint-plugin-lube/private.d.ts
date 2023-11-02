@@ -1,34 +1,30 @@
+import * as eslint from "eslint"
 import * as estree from "estree"
 
-export type BaseAstNode = {
-	parent: AstNode
-	range: [number, number]
-}
-
 export type AstNode = BaseAstNode & (
-	estree.ArrayExpression & {
+	{
 		elements: AstNode[]
-	}
-	| estree.ArrayPattern & {
+	} & estree.ArrayExpression
+	| {
 		elements: AstNode[]
-	}
-	| estree.ArrowFunctionExpression & {
+	} & estree.ArrayPattern
+	| {
 		body: AstNode
 		params: AstNode[]
-	}
-	| estree.AssignmentExpression & {
+	} & estree.ArrowFunctionExpression
+	| {
 		left: AstNode
 		right: AstNode
-	}
+	} & estree.AssignmentExpression
 	| estree.AssignmentPattern
 	| estree.AwaitExpression
 	| estree.BinaryExpression
 	| estree.BlockStatement
 	| estree.BreakStatement
-	| estree.CallExpression & {
+	| {
 		callee: AstNode
 		arguments: AstNode[]
-	}
+	} & estree.CallExpression
 	| estree.CatchClause
 	| estree.ChainExpression
 	| estree.ClassBody
@@ -41,37 +37,39 @@ export type AstNode = BaseAstNode & (
 	| estree.EmptyStatement
 	| estree.ExportAllDeclaration
 	| estree.ExportDefaultDeclaration
-	| estree.ExportNamedDeclaration & {
-		source?: estree.SimpleLiteral & {
+	| {
+		source?: {
 			range: [number, number]
 			raw: string
 			value: string
-		}
+		} & estree.SimpleLiteral
 		specifiers: AstNode[]
-	}
+	} & estree.ExportNamedDeclaration
 	| estree.ExportSpecifier
 	| estree.ExpressionStatement
 	| estree.ForInStatement
 	| estree.ForOfStatement
 	| estree.ForStatement
-	| estree.FunctionDeclaration & {
+	| {
 		body: AstNode
+		id: AstNode
 		params: AstNode[]
-	}
-	| estree.FunctionExpression & {
+	} & estree.FunctionDeclaration
+	| {
 		body: AstNode
+		id?: AstNode
 		params: AstNode[]
-	}
+	} & estree.FunctionExpression
 	| estree.Identifier
 	| estree.IfStatement
-	| estree.ImportDeclaration & {
-		source: estree.SimpleLiteral & {
+	| {
+		source: {
 			range: [number, number]
 			raw: string
 			value: string
-		}
+		} & estree.SimpleLiteral
 		specifiers: AstNode[]
-	}
+	} & estree.ImportDeclaration
 	| estree.ImportDefaultSpecifier
 	| estree.ImportExpression
 	| estree.ImportNamespaceSpecifier
@@ -82,29 +80,34 @@ export type AstNode = BaseAstNode & (
 	| estree.MemberExpression
 	| estree.MetaProperty
 	| estree.MethodDefinition
-	| estree.NewExpression & {
+	| {
 		callee: AstNode
 		arguments: AstNode[]
-	}
-	| estree.ObjectExpression & {
+	} & estree.NewExpression
+	| {
 		properties: AstNode[]
-	}
-	| estree.ObjectPattern & {
+	} & estree.ObjectExpression
+	| {
 		properties: AstNode[]
-	}
+	} & estree.ObjectPattern
 	| estree.PrivateIdentifier
 	| estree.Program
-	| estree.Property & {
-		key: AstNode & estree.Identifier
+	| {
+		key: AstNode & (
+			estree.Identifier
+			| estree.Literal
+		)
 		value: AstNode
-	}
+	} & estree.Property
 	| estree.PropertyDefinition
 	| estree.RestElement
 	| estree.ReturnStatement
-	| estree.SequenceExpression
-	| estree.SpreadElement & {
+	| {
+		expressions: AstNode[]
+	} & estree.SequenceExpression
+	| {
 		argument: AstNode
-	}
+	} & estree.SpreadElement
 	| estree.StaticBlock
 	| estree.Super
 	| estree.SwitchCase
@@ -118,13 +121,47 @@ export type AstNode = BaseAstNode & (
 	| estree.UnaryExpression
 	| estree.UpdateExpression
 	| estree.VariableDeclaration
-	| estree.VariableDeclarator & {
+	| {
 		id: AstNode
 		init: AstNode
-	}
+	} & estree.VariableDeclarator
 	| estree.WhileStatement
 	| estree.WithStatement
 	| estree.YieldExpression
 )
 
+export type BaseAstNode = {
+	parent: AstNode
+	range: [number, number]
+}
+
 export type Comment = BaseAstNode & estree.Comment
+
+export type RuleListener = {
+	[K in keyof eslint.Rule.NodeListener]: (node: import("../private").AstNode) => void
+}
+
+export type RuleOptions = {
+	"pretty-imports"?: {
+		checkExports?: boolean
+		checkImports?: boolean
+		indent?: string
+		maxLength?: number
+		semicolon?: boolean
+	}
+	"pretty-jsdoc-casting": never
+	"pretty-sequence"?: {
+		arrayBracketSpacing?: boolean
+		checkArray?: boolean
+		checkCall?: boolean
+		checkObject?: boolean
+		checkSequence?: boolean
+		funcCallSpacing?: boolean
+		indent?: string
+		maxLength?: number
+		objectCurlySpacing?: boolean
+	}
+	"svelte-naming-convention"?: {
+		fixSameNames?: boolean
+	}
+}

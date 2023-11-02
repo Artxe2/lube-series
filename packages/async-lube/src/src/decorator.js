@@ -47,7 +47,10 @@ const _default = handler => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
 				throttle_count++
-				setTimeout(decrease_throttle, throttle_time_ms)
+				setTimeout(
+					decrease_throttle,
+					throttle_time_ms
+				)
 			}
 			return handler(...args)
 		}
@@ -65,26 +68,33 @@ const _default = handler => {
 	 */
 	const retries_impl = (args, resolve, reject, count) =>
 		throttle_impl(args)
-			.then(value => {
-				if (cache_time) {
-					cached_value = value
-					setTimeout(clear_cached_value, cache_time)
-				}
-				is_in_progress = false
-				resolve(value)
-			}, reason => {
-				if (retry_checker) {
-					Promise.resolve(retry_checker(reason, ++count))
-						.then(() => retries_impl(args, resolve, reject, count))
-						.catch(aborted => {
-							is_in_progress = false
-							reject(aborted)
-						})
-				} else {
+			.then(
+				value => {
+					if (cache_time) {
+						cached_value = value
+						setTimeout(clear_cached_value, cache_time)
+					}
 					is_in_progress = false
-					reject(reason)
+					resolve(value)
+				},
+				reason => {
+					if (retry_checker) {
+						Promise.resolve(retry_checker(reason, ++count))
+							.then(
+								() => retries_impl(args, resolve, reject, count)
+							)
+							.catch(
+								aborted => {
+									is_in_progress = false
+									reject(aborted)
+								}
+							)
+					} else {
+						is_in_progress = false
+						reject(reason)
+					}
 				}
-			})
+			)
 
 	/**
 	 * @param {Parameters<T>} args
@@ -111,7 +121,14 @@ const _default = handler => {
 	const debounce_impl = (args, resolve, reject, promise) => {
 		if (debounce_time_ms) {
 			debounce_promise = promise
-			setTimeout(handle_debounce_timeout, debounce_time_ms, args, resolve, reject, promise)
+			setTimeout(
+				handle_debounce_timeout,
+				debounce_time_ms,
+				args,
+				resolve,
+				reject,
+				promise
+			)
 		} else {
 			is_in_progress = true
 			retries_impl(args, resolve, reject, 0)
@@ -136,7 +153,9 @@ const _default = handler => {
 		// @ts-ignore: resolve is assigned in PromiseConstructor
 		if (cached_value != null) resolve(cached_value)
 		// @ts-ignore: reject is assigned in PromiseConstructor
-		else if (is_in_progress) reject(Error("Request already in progress"))
+		else if (is_in_progress) reject(
+			Error("Request already in progress")
+		)
 		// @ts-ignore: resolve & reject is assigned in PromiseConstructor
 		else debounce_impl(args, resolve, reject, promise)
 		return promise

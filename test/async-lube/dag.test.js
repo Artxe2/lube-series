@@ -9,48 +9,32 @@ describe(
 		const resolve_array = [
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "a"].join()
-					),
+					.then(() => [ ...str, "a" ].join()),
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "b"].join()
-					),
+					.then(() => [ ...str, "b" ].join()),
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "c"].join()
-					),
+					.then(() => [ ...str, "c" ].join()),
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "d"].join()
-					),
+					.then(() => [ ...str, "d" ].join()),
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "e"].join()
-					),
+					.then(() => [ ...str, "e" ].join()),
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "f"].join()
-					),
+					.then(() => [ ...str, "f" ].join()),
 			(...str) =>
 				Promise.resolve()
-					.then(
-						() => [...str, "g"].join()
-					)
+					.then(() => [ ...str, "g" ].join())
 		]
 
 		/** @type {((...str: string[]) => Promise<string>)[]} */
 		const reject_array = [
 			() =>
 				Promise.resolve()
-					.then(
-						() => "a"
-					),
+					.then(() => "a"),
 			() =>
 				Promise.resolve()
 					.then(
@@ -60,29 +44,19 @@ describe(
 					),
 			() =>
 				Promise.resolve()
-					.then(
-						() => "c"
-					),
+					.then(() => "c"),
 			() =>
 				Promise.resolve()
-					.then(
-						() => "d"
-					),
+					.then(() => "d"),
 			() =>
 				Promise.resolve()
-					.then(
-						() => "e"
-					),
+					.then(() => "e"),
 			() =>
 				Promise.resolve()
-					.then(
-						() => "f"
-					),
+					.then(() => "f"),
 			() =>
 				Promise.resolve()
-					.then(
-						() => "g"
-					)
+					.then(() => "g")
 		]
 
 		it(
@@ -90,15 +64,32 @@ describe(
 			async () => {
 				const my_dag = dag()
 					.add(resolve_array[0])
-					.add(resolve_array[1], resolve_array[0])
+					.add(
+						resolve_array[1],
+						resolve_array[0]
+					)
 					.add(resolve_array[2])
-					.add(resolve_array[3], resolve_array[5])
+					.add(
+						resolve_array[3],
+						resolve_array[5]
+					)
 					.add(resolve_array[4])
-					.add(resolve_array[5], resolve_array[0])
-					.add(resolve_array[6], resolve_array[5], resolve_array[3])
+					.add(
+						resolve_array[5],
+						resolve_array[0]
+					)
+					.add(
+						resolve_array[6],
+						resolve_array[5],
+						resolve_array[3]
+					)
 				await my_dag()
-					.then(value => assert.equal(value, "a,f,a,f,d,g"))
-					.catch(reason => assert.fail(reason.message))
+					.then(
+						value => assert.equal(value, "a,f,a,f,d,g")
+					)
+					.catch(
+						reason => assert.fail(reason.message)
+					)
 			}
 		)
 		it(
@@ -106,15 +97,32 @@ describe(
 			async () => {
 				const my_dag = dag()
 					.add(resolve_array[0])
-					.add(resolve_array[1], resolve_array[0])
+					.add(
+						resolve_array[1],
+						resolve_array[0]
+					)
 					.add(resolve_array[2])
-					.add(resolve_array[3], resolve_array[5])
+					.add(
+						resolve_array[3],
+						resolve_array[5]
+					)
 					.add(resolve_array[4])
-					.add(resolve_array[5], resolve_array[0])
-					.add(resolve_array[6], resolve_array[5], resolve_array[3])
+					.add(
+						resolve_array[5],
+						resolve_array[0]
+					)
+					.add(
+						resolve_array[6],
+						resolve_array[5],
+						resolve_array[3]
+					)
 				await my_dag(3)
-					.then(value => assert.equal(value, "a,f,d"))
-					.catch(reason => assert.fail(reason.message))
+					.then(
+						value => assert.equal(value, "a,f,d")
+					)
+					.catch(
+						reason => assert.fail(reason.message)
+					)
 			}
 		)
 		it(
@@ -129,8 +137,12 @@ describe(
 					.add(reject_array[5])
 					.add(reject_array[6])
 				await my_dag()
-					.then(() => assert.fail("No error occurred"))
-					.catch(reason => assert.equal("b", reason.message))
+					.then(
+						() => assert.fail("No error occurred")
+					)
+					.catch(
+						reason => assert.equal("b", reason.message)
+					)
 			}
 		)
 		it(
@@ -145,8 +157,12 @@ describe(
 					.add(reject_array[5])
 					.add(reject_array[6])
 				await my_dag()
-					.then(() => assert.fail("No error occurred"))
-					.catch(reason => assert.equal("b", reason.message))
+					.then(
+						() => assert.fail("No error occurred")
+					)
+					.catch(
+						reason => assert.equal("b", reason.message)
+					)
 			}
 		)
 		it(
@@ -161,8 +177,12 @@ describe(
 					.add(reject_array[5])
 					.add(reject_array[6])
 				await my_dag()
-					.then(() => assert.fail("No error occurred"))
-					.catch(reason => assert.equal("b", reason.message))
+					.then(
+						() => assert.fail("No error occurred")
+					)
+					.catch(
+						reason => assert.equal("b", reason.message)
+					)
 			}
 		)
 	}

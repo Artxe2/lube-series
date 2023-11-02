@@ -20,7 +20,7 @@ const time_regex = /(-?\d+)([YMDHms]+)/g
  * @example add(new Date, "-1D") //=> Date { yesterday }
  */
 const _default = (date, sum) => {
-	for (const [, n, unit] of sum.matchAll(time_regex)) {
+	for (const [ , n, unit ] of sum.matchAll(time_regex)) {
 		const number = +n
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number)
 		else if (unit == "M") date.setMonth(date.getMonth() + number)
@@ -28,7 +28,9 @@ const _default = (date, sum) => {
 		else if (unit == "H") date.setHours(date.getHours() + number)
 		else if (unit == "m") date.setMinutes(date.getMinutes() + number)
 		else if (unit == "s") date.setSeconds(date.getSeconds() + number)
-		else if (unit == "sss") date.setMilliseconds(date.getMilliseconds() + number)
+		else if (unit == "sss") date.setMilliseconds(
+			date.getMilliseconds() + number
+		)
 	}
 	return date
 }

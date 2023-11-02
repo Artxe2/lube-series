@@ -10,7 +10,7 @@ exports.module = (valid, invalid) => {
 			export { a, b as c, d } from 'module'
 			export { fff, ggg, hhh, iii, jjj, kkk, lll } from 'module/2'
 			`,
-			options: [{ maxLength: 30 }],
+			options: [ { maxLength: 30 } ],
 			parserOptions: {
 				ecmaVersion: "latest",
 				sourceType: "module"
@@ -21,7 +21,7 @@ exports.module = (valid, invalid) => {
 			var a, b, c
 			export { a, b, c };
 			`,
-			options: [{ semicolon: true }],
+			options: [ { semicolon: true } ],
 			parserOptions: {
 				ecmaVersion: "latest",
 				sourceType: "module"
@@ -50,10 +50,7 @@ exports.module = (valid, invalid) => {
 				}
 			],
 			options: [
-				{
-					maxLength: 10,
-					semicolon: true
-				}
+				{ maxLength: 10, semicolon: true }
 			],
 			output: `
 
@@ -94,10 +91,7 @@ exports.module = (valid, invalid) => {
 				}
 			],
 			options: [
-				{
-					indent: "  ",
-					maxLength: 10
-				}
+				{ indent: "  ", maxLength: 10 }
 			],
 			output: `
 

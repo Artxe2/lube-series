@@ -56,7 +56,11 @@ const parse_script_block = (text, errors, start) => {
 			}
 		} else {
 			errors.push(
-				AstSyntaxError("parse_script_block is incomplete.", start, text.length)
+				AstSyntaxError(
+					"parse_script_block is incomplete.",
+					start,
+					text.length
+				)
 			)
 			return {
 				elements,

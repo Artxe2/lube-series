@@ -13,18 +13,9 @@ exports.module = (valid, invalid) => {
 			var value = [ pendingA ]
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 18
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 18
-				}
+				{ line: 3, column: 18 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 18 }
 			],
 			output: `
 			var value = [ deferA ]
@@ -36,24 +27,14 @@ exports.module = (valid, invalid) => {
 		// ArrayPattern
 		{
 			code: "var [ camelCase ] = value",
-			errors: [
-				{
-					line: 1,
-					column: 7
-				}
-			],
+			errors: [ { line: 1, column: 7 } ],
 			output: "var [ camel_case ] = value",
 			parserOptions: { ecmaVersion: "latest" }
 		},
 		// ArrowFunctionExpression
 		{
 			code: "(camelCase) => {}",
-			errors: [
-				{
-					line: 1,
-					column: 2
-				}
-			],
+			errors: [ { line: 1, column: 2 } ],
 			output: "(camel_case) => {}",
 			parserOptions: { ecmaVersion: "latest" }
 		},
@@ -67,30 +48,12 @@ exports.module = (valid, invalid) => {
 			function func({ pendingA = 123 }) {}
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 3,
-					column: 15
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 18
-				},
-				{
-					line: 5,
-					column: 4
-				},
-				{
-					line: 5,
-					column: 15
-				}
+				{ line: 3, column: 4 },
+				{ line: 3, column: 15 },
+				{ line: 4, column: 8 },
+				{ line: 4, column: 18 },
+				{ line: 5, column: 4 },
+				{ line: 5, column: 15 }
 			],
 			output: `
 			deferA = deferB
@@ -110,22 +73,10 @@ exports.module = (valid, invalid) => {
 			(snake_case = pendingA) => {}
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 5
-				},
-				{
-					line: 3,
-					column: 18
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 18
-				}
+				{ line: 2, column: 5 },
+				{ line: 3, column: 18 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 18 }
 			],
 			output: `
 			(camel_case = deferA) => {}
@@ -144,18 +95,9 @@ exports.module = (valid, invalid) => {
 			await pendingA
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 10
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 10
-				}
+				{ line: 3, column: 10 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 10 }
 			],
 			output: `
 			await deferA
@@ -177,30 +119,12 @@ exports.module = (valid, invalid) => {
 			pendingA / pendingB
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 3,
-					column: 15
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 18
-				},
-				{
-					line: 5,
-					column: 4
-				},
-				{
-					line: 5,
-					column: 15
-				}
+				{ line: 3, column: 4 },
+				{ line: 3, column: 15 },
+				{ line: 4, column: 8 },
+				{ line: 4, column: 18 },
+				{ line: 5, column: 4 },
+				{ line: 5, column: 15 }
 			],
 			output: `
 			deferA = deferB
@@ -218,18 +142,9 @@ exports.module = (valid, invalid) => {
 			pendingA()
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 4
-				}
+				{ line: 3, column: 4 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 4 }
 			],
 			output: `
 			deferA()
@@ -241,12 +156,7 @@ exports.module = (valid, invalid) => {
 		// ClassDeclaration
 		{
 			code: "class camelCase {}",
-			errors: [
-				{
-					line: 1,
-					column: 7
-				}
-			],
+			errors: [ { line: 1, column: 7 } ],
 			output: "class camel_case {}",
 			parserOptions: { ecmaVersion: "latest" }
 		},
@@ -259,30 +169,12 @@ exports.module = (valid, invalid) => {
 			test ? pendingA : pendingB
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 11
-				},
-				{
-					line: 3,
-					column: 22
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 18
-				},
-				{
-					line: 5,
-					column: 11
-				},
-				{
-					line: 5,
-					column: 22
-				}
+				{ line: 3, column: 11 },
+				{ line: 3, column: 22 },
+				{ line: 4, column: 8 },
+				{ line: 4, column: 18 },
+				{ line: 5, column: 11 },
+				{ line: 5, column: 22 }
 			],
 			output: `
 			test ? deferA : deferB
@@ -297,12 +189,7 @@ exports.module = (valid, invalid) => {
 			export * as camelCase from "module"
 			var camelCase
 			`,
-			errors: [
-				{
-					line: 3,
-					column: 8
-				}
-			],
+			errors: [ { line: 3, column: 8 } ],
 			output: `
 			export * as camelCase from "module"
 			var camel_case
@@ -318,13 +205,8 @@ exports.module = (valid, invalid) => {
 			export default camelCase
 			var camelCase
 			`,
-			errors: [
-				{
-					line: 3,
-					column: 8
-				}
-			],
-			options: [{ fixSameNames: false }],
+			errors: [ { line: 3, column: 8 } ],
+			options: [ { fixSameNames: false } ],
 			output: `
 			export default camelCase
 			var camel_case
@@ -340,14 +222,8 @@ exports.module = (valid, invalid) => {
 			var camelCase
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 19
-				},
-				{
-					line: 3,
-					column: 8
-				}
+				{ line: 2, column: 19 },
+				{ line: 3, column: 8 }
 			],
 			output: `
 			export default camel_case
@@ -365,14 +241,8 @@ exports.module = (valid, invalid) => {
 			var camelCase, camelCase2
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 8
-				},
-				{
-					line: 3,
-					column: 19
-				}
+				{ line: 3, column: 8 },
+				{ line: 3, column: 19 }
 			],
 			output: `
 			export { default as camelCase, camelCase2 } from 'module'
@@ -392,18 +262,9 @@ exports.module = (valid, invalid) => {
 			pendingA
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 4
-				}
+				{ line: 3, column: 4 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 4 }
 			],
 			output: `
 			deferA
@@ -421,22 +282,10 @@ exports.module = (valid, invalid) => {
 			for (snake_case in pendingA) {}
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 9
-				},
-				{
-					line: 3,
-					column: 23
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 23
-				}
+				{ line: 2, column: 9 },
+				{ line: 3, column: 23 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 23 }
 			],
 			output: `
 			for (camel_case in deferA) {}
@@ -455,42 +304,15 @@ exports.module = (valid, invalid) => {
 			for (pendingA; pendingB; pendingC) {}
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 9
-				},
-				{
-					line: 3,
-					column: 19
-				},
-				{
-					line: 3,
-					column: 29
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 18
-				},
-				{
-					line: 4,
-					column: 28
-				},
-				{
-					line: 5,
-					column: 9
-				},
-				{
-					line: 5,
-					column: 19
-				},
-				{
-					line: 5,
-					column: 29
-				}
+				{ line: 3, column: 9 },
+				{ line: 3, column: 19 },
+				{ line: 3, column: 29 },
+				{ line: 4, column: 8 },
+				{ line: 4, column: 18 },
+				{ line: 4, column: 28 },
+				{ line: 5, column: 9 },
+				{ line: 5, column: 19 },
+				{ line: 5, column: 29 }
 			],
 			output: `
 			for (deferA; deferB; deferC) {}
@@ -508,14 +330,8 @@ exports.module = (valid, invalid) => {
 			export function camelCase$() {}
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 13
-				},
-				{
-					line: 4,
-					column: 20
-				}
+				{ line: 2, column: 13 },
+				{ line: 4, column: 20 }
 			],
 			output: `
 			function camel_case() {}
@@ -536,18 +352,9 @@ exports.module = (valid, invalid) => {
 			if (pendingA) {}
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 8
-				}
+				{ line: 3, column: 8 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 8 }
 			],
 			output: `
 			if (deferA) {}
@@ -559,12 +366,7 @@ exports.module = (valid, invalid) => {
 		// ImportDefaultSpecifier
 		{
 			code: "import camelCase from 'module'",
-			errors: [
-				{
-					line: 1,
-					column: 8
-				}
-			],
+			errors: [ { line: 1, column: 8 } ],
 			output: "import camel_case from 'module'",
 			parserOptions: {
 				ecmaVersion: "latest",
@@ -574,12 +376,7 @@ exports.module = (valid, invalid) => {
 		// ImportNamespaceSpecifier
 		{
 			code: "import * as camelCase from 'module'",
-			errors: [
-				{
-					line: 1,
-					column: 13
-				}
-			],
+			errors: [ { line: 1, column: 13 } ],
 			output: "import * as camel_case from 'module'",
 			parserOptions: {
 				ecmaVersion: "latest",
@@ -594,14 +391,8 @@ exports.module = (valid, invalid) => {
 			camelCase2
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 25
-				},
-				{
-					line: 3,
-					column: 4
-				}
+				{ line: 2, column: 25 },
+				{ line: 3, column: 4 }
 			],
 			output: `
 			import { imported as camel_case, camelCase2, camelCase3 } from "module"
@@ -622,30 +413,12 @@ exports.module = (valid, invalid) => {
 			pendingA ?? pendingB
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 3,
-					column: 16
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 18
-				},
-				{
-					line: 5,
-					column: 4
-				},
-				{
-					line: 5,
-					column: 16
-				}
+				{ line: 3, column: 4 },
+				{ line: 3, column: 16 },
+				{ line: 4, column: 8 },
+				{ line: 4, column: 18 },
+				{ line: 5, column: 4 },
+				{ line: 5, column: 16 }
 			],
 			output: `
 			deferA && deferB
@@ -668,30 +441,12 @@ exports.module = (valid, invalid) => {
 			object[pendingB]
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 4
-				},
-				{
-					line: 7,
-					column: 11
-				},
-				{
-					line: 8,
-					column: 8
-				},
-				{
-					line: 9,
-					column: 11
-				}
+				{ line: 3, column: 4 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 4 },
+				{ line: 7, column: 11 },
+				{ line: 8, column: 8 },
+				{ line: 9, column: 11 }
 			],
 			output: `
 			deferA.camelCase
@@ -710,12 +465,7 @@ exports.module = (valid, invalid) => {
 			class ObjectB { camelCase() {} }
 			var camelCase
 			`,
-			errors: [
-				{
-					line: 3,
-					column: 8
-				}
-			],
+			errors: [ { line: 3, column: 8 } ],
 			output: `
 			class ObjectB { camelCase() {} }
 			var camel_case
@@ -731,18 +481,9 @@ exports.module = (valid, invalid) => {
 			new pendingA
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 8
-				}
+				{ line: 3, column: 8 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 8 }
 			],
 			output: `
 			new deferA
@@ -761,22 +502,10 @@ exports.module = (valid, invalid) => {
 			var value = { pendingA }
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 23
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 23
-				},
-				{
-					line: 6,
-					column: 18
-				}
+				{ line: 3, column: 23 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 23 },
+				{ line: 6, column: 18 }
 			],
 			output: `
 			var value = { camelCase: deferA }
@@ -794,14 +523,8 @@ exports.module = (valid, invalid) => {
 			var camelCase, camelCase2
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 8
-				},
-				{
-					line: 3,
-					column: 19
-				}
+				{ line: 3, column: 8 },
+				{ line: 3, column: 19 }
 			],
 			output: `
 			class ObjectB { camelCase = camelCase2 }
@@ -816,14 +539,8 @@ exports.module = (valid, invalid) => {
 			var { ...camelCaseB } = value
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 13
-				},
-				{
-					line: 3,
-					column: 13
-				}
+				{ line: 2, column: 13 },
+				{ line: 3, column: 13 }
 			],
 			output: `
 			var [ ...camel_case_a ] = value
@@ -840,18 +557,9 @@ exports.module = (valid, invalid) => {
 			function func_c() { return pendingA }
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 31
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 31
-				}
+				{ line: 3, column: 31 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 31 }
 			],
 			output: `
 			function func_a() { return deferA }
@@ -869,18 +577,9 @@ exports.module = (valid, invalid) => {
 			a, b, pendingA
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 10
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 10
-				}
+				{ line: 3, column: 10 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 10 }
 			],
 			output: `
 			a, b, deferA
@@ -898,30 +597,12 @@ exports.module = (valid, invalid) => {
 			var value = [ ...pendingA, pendingB ]
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 21
-				},
-				{
-					line: 3,
-					column: 31
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 4,
-					column: 18
-				},
-				{
-					line: 5,
-					column: 21
-				},
-				{
-					line: 5,
-					column: 31
-				}
+				{ line: 3, column: 21 },
+				{ line: 3, column: 31 },
+				{ line: 4, column: 8 },
+				{ line: 4, column: 18 },
+				{ line: 5, column: 21 },
+				{ line: 5, column: 31 }
 			],
 			output: `
 			var value = [ ...deferA, deferB ]
@@ -940,18 +621,9 @@ exports.module = (valid, invalid) => {
 			switch (pendingA) {}
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 12
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 12
-				}
+				{ line: 3, column: 12 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 12 }
 			],
 			output: `
 			switch (deferA) {}
@@ -969,18 +641,9 @@ exports.module = (valid, invalid) => {
 			switch (cond) { case pendingA: break }
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 25
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 25
-				}
+				{ line: 3, column: 25 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 25 }
 			],
 			output: `
 			switch (cond) { case deferA: break }
@@ -998,18 +661,9 @@ exports.module = (valid, invalid) => {
 			pendingA\`quasis\${expression}quasis\`
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 4
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 4
-				}
+				{ line: 3, column: 4 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 4 }
 			],
 			output: `
 			deferA\`quasis\${expression}quasis\`
@@ -1028,18 +682,9 @@ exports.module = (valid, invalid) => {
 			throw pendingA
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 10
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 10
-				}
+				{ line: 3, column: 10 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 10 }
 			],
 			output: `
 			throw deferA
@@ -1057,18 +702,9 @@ exports.module = (valid, invalid) => {
 			~pendingA
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 5
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 5
-				}
+				{ line: 3, column: 5 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 5 }
 			],
 			output: `
 			+deferA
@@ -1086,18 +722,9 @@ exports.module = (valid, invalid) => {
 			pendingA++
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 6
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 4
-				}
+				{ line: 3, column: 6 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 4 }
 			],
 			output: `
 			++deferA
@@ -1117,26 +744,11 @@ exports.module = (valid, invalid) => {
 			export var camelCase$
 			`,
 			errors: [
-				{
-					line: 2,
-					column: 8
-				},
-				{
-					line: 3,
-					column: 21
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 21
-				},
-				{
-					line: 7,
-					column: 15
-				}
+				{ line: 2, column: 8 },
+				{ line: 3, column: 21 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 21 },
+				{ line: 7, column: 15 }
 			],
 			output: `
 			var camel_case = deferA
@@ -1160,18 +772,9 @@ exports.module = (valid, invalid) => {
 			while (pendingA) {}
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 11
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 11
-				}
+				{ line: 3, column: 11 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 11 }
 			],
 			output: `
 			while (deferA) {}
@@ -1189,18 +792,9 @@ exports.module = (valid, invalid) => {
 			with (pendingA) {}
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 10
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 10
-				}
+				{ line: 3, column: 10 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 10 }
 			],
 			output: `
 			with (deferA) {}
@@ -1218,18 +812,9 @@ exports.module = (valid, invalid) => {
 			function* func_c() { yield pendingA }
 			`,
 			errors: [
-				{
-					line: 3,
-					column: 31
-				},
-				{
-					line: 4,
-					column: 8
-				},
-				{
-					line: 5,
-					column: 31
-				}
+				{ line: 3, column: 31 },
+				{ line: 4, column: 8 },
+				{ line: 5, column: 31 }
 			],
 			output: `
 			function* func_a() { yield deferA }

@@ -1,5 +1,5 @@
 import AstSyntaxError from "../../common/AstSyntaxError.js"
-import normalize_element_childs from "./normalize_element_childs.js"
+import normalize_element_children from "./normalize_element_children.js"
 
 /**
  * @param {string} text
@@ -16,10 +16,14 @@ export default (text, ast_nodes, errors) => {
 		if (node.type == "Element" && node.name != "script" && node.name != "style") {
 			if (node.subType == "close") {
 				errors.push(
-					AstSyntaxError(`unopened Element "${node.name}" cannot be closed.`, node.start, node.end)
+					AstSyntaxError(
+						`unopened Element "${node.name}" cannot be closed.`,
+						node.start,
+						node.end
+					)
 				)
 			} else if (node.subType == "open") {
-				normalize_element_childs(text, ast_nodes, errors, node)
+				normalize_element_children(text, ast_nodes, errors, node)
 			}
 		}
 	}

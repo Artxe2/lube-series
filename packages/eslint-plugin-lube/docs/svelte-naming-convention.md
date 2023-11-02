@@ -4,15 +4,14 @@ Enforces snake_case with some symbols for variable declaration.
 
 ## options
 ```js
-schema: [{
-    properties: {
-        fixSameNames: {
-            type: "boolean",
-            default: true
+schema: [
+    {
+        properties: {
+            fixSameNames: { type: "boolean", default: true }
         },
-    },
-    type: "object"
-}]
+        type: "object"
+    }
+]
 ```
 ### fixSameNames
 If set to `true`, an error will be returned if the variable name is the same, even in the case of function calls that are the target of `defer`.
