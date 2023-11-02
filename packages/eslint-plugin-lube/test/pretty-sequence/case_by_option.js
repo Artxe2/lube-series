@@ -108,4 +108,19 @@ exports.module = (valid, invalid) => {
 			parserOptions: { ecmaVersion: "latest" }
 		}
 	)
+	invalid.push(
+		{
+			code: `
+			var value = \`\${[a,b,c]}\`
+			`,
+			errors: [ {} ],
+			options: [
+				{ ignoreTemplateLiteral: false }
+			],
+			output: `
+			var value = \`\${[ a, b, c ]}\`
+			`,
+			parserOptions: { ecmaVersion: "latest" }
+		}
+	)
 }

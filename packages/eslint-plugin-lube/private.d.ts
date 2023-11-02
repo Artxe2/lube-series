@@ -157,6 +157,7 @@ export type RuleOptions = {
 		checkObject?: boolean
 		checkSequence?: boolean
 		funcCallSpacing?: boolean
+		ignoreTemplateLiteral?: boolean
 		indent?: string
 		maxLength?: number
 		objectCurlySpacing?: boolean

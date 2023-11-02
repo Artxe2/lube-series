@@ -37,6 +37,7 @@ module.exports = {
 					checkObject: { type: "boolean", default: true },
 					checkSequence: { type: "boolean", default: true },
 					funcCallSpacing: { type: "boolean", default: false },
+					ignoreTemplateLiteral: { type: "boolean", default: true },
 					indent: { type: "string", default: "\t" },
 					maxLength: { type: "number", default: 30 },
 					objectCurlySpacing: { type: "boolean", default: true }
@@ -55,6 +56,7 @@ module.exports = {
 		const check_object = option?.checkObject ?? true
 		const check_sequence = option?.checkSequence ?? true
 		const func_call_spacing = option?.funcCallSpacing ?? false
+		const ignore_template_literal = option?.ignoreTemplateLiteral ?? true
 		const indent = option?.indent ?? "\t"
 		const max_length = option?.maxLength ?? 30
 		const object_curly_spacing = option?.objectCurlySpacing ?? true
@@ -70,6 +72,8 @@ module.exports = {
 			let [ start, end ] = comment.range
 			while (start < end) comments[start++] = comment
 		}
+		/** @type {true[]} */
+		const ignored_indexes = []
 		/** @type {import("../private").AstNode[] & import("estree").Expression[]} */
 		const nodes = []
 
@@ -144,6 +148,10 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function push_to_reverse(node) {
+			if (
+				ignore_template_literal
+				&& ignored_indexes[node.range[0]]
+			) return
 			nodes.push(node)
 		}
 		/**
@@ -411,6 +419,11 @@ module.exports = {
 			},
 			SequenceExpression: node => {
 				if (check_sequence) push_to_reverse(node)
+			},
+			TemplateLiteral: ({ range: [ start, end ] }) => {
+				if (ignore_template_literal) {
+					while (start < end) ignored_indexes[start++] = true
+				}
 			}
 		})/**/
 	}

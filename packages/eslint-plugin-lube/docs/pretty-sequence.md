@@ -12,6 +12,7 @@ schema: [
             checkObject: { type: "boolean", default: true },
             checkSequence: { type: "boolean", default: true },
             funcCallSpacing: { type: "boolean", default: false },
+            ignoreTemplateLiteral: { type: "boolean", default: true },
             indent: { type: "string", default: "\t" },
             maxLength: { type: "number", default: 30 },
             objectCurlySpacing: { type: "boolean", default: true }
@@ -32,6 +33,8 @@ If it is `true`, it checks the object statement.
 If it is `true`, it checks the sequence statement.
 ### funcCallSpacing
 If it is `true`, it inserts spaces inside function parenthesis.
+### ignoreTemplateLiteral
+If it is `true`, it ignores the template literal syntax.
 ### indent
 This is the character to be used for indentation.
 ### maxLength
@@ -70,6 +73,8 @@ function func(
 ) {
 
 }
+var value = `${[a,b,c]}`
+
 func(
     aaaaaaaaaa_bbbbbbbbbb_cccccccccc
 )
