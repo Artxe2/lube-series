@@ -1,4 +1,4 @@
-# pretty-imports
+# pretty-sequence
 Enforces arrays, objects, and functions to have a pretty format by enforcing proper indentation in sequences.
 
 ## options
