@@ -1,7 +1,7 @@
 import AstSyntaxError from "../../common/AstSyntaxError.js"
 import parse_script_block from "./parse_script_block.js"
 
-const stop_attribute_single_quotes_regex = /(?<=(?<!\\)(\\\\)*)(?:"|{)/
+const stop_attribute_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)["{]/
 
 /**
  * @param {string} text

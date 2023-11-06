@@ -91,7 +91,7 @@ var normalize_nodes = (text, ast_nodes, errors) => {
 	ast_nodes.push(...ast);
 };
 
-const end_double_quotes_regex$1 = /(?<=(?<!\\)(\\\\)*)"/;
+const end_double_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)"/;
 
 /**
  * @param {string} text
@@ -126,7 +126,7 @@ var parse_script_double_quotes$1 = (text, errors, start) => {
 	}
 };
 
-const end_single_quotes_regex$1 = /(?<=(?<!\\)(\\\\)*)'/;
+const end_single_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)'/;
 
 /**
  * @param {string} text
@@ -223,7 +223,7 @@ var parse_script_template$1 = (text, errors, start) => {
 	}
 };
 
-const stop_backtick_regex$1 = /(?<=(?<!\\)(\\\\)*)(?:`|\${)/;
+const stop_backtick_regex$1 = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/;
 
 /**
  * @param {string} text
@@ -332,7 +332,7 @@ const parse_script_block$1 = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex$3 = /(?<=(?<!\\)(\\\\)*)(?:"|{)/;
+const stop_attribute_single_quotes_regex$3 = /(?<=(?<!\\)(?:\\\\)*)["{]/;
 
 /**
  * @param {string} text
@@ -381,7 +381,7 @@ var parse_attribute_double_quotes$1 = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex$2 = /(?<=(?<!\\)(\\\\)*)(?:'|{)/;
+const stop_attribute_single_quotes_regex$2 = /(?<=(?<!\\)(?:\\\\)*)(?:'|{)/;
 
 /**
  * @param {string} text
@@ -821,7 +821,7 @@ var index$1 = (text, include_text) => {
 	return { ast: ast_nodes, errors }
 };
 
-const end_double_quotes_regex = /(?<=(?<!\\)(\\\\)*)"/;
+const end_double_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)"/;
 
 /**
  * @param {string} text
@@ -856,7 +856,7 @@ var parse_script_double_quotes = (text, errors, start) => {
 	}
 };
 
-const end_single_quotes_regex = /(?<=(?<!\\)(\\\\)*)'/;
+const end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/;
 
 /**
  * @param {string} text
@@ -953,7 +953,7 @@ var parse_script_template = (text, errors, start) => {
 	}
 };
 
-const stop_backtick_regex = /(?<=(?<!\\)(\\\\)*)(?:`|\${)/;
+const stop_backtick_regex = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/;
 
 /**
  * @param {string} text
@@ -1070,7 +1070,7 @@ const parse_script_block = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex$1 = /(?<=(?<!\\)(\\\\)*)(?:"|{)/;
+const stop_attribute_single_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)["{]/;
 
 /**
  * @param {string} text
@@ -1119,7 +1119,7 @@ var parse_attribute_double_quotes = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex = /(?<=(?<!\\)(\\\\)*)(?:'|{)/;
+const stop_attribute_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)(?:'|{)/;
 
 /**
  * @param {string} text

@@ -1,6 +1,6 @@
 import AstSyntaxError from "../../common/AstSyntaxError.js"
 
-const end_double_quotes_regex = /(?<=(?<!\\)(\\\\)*)"/
+const end_double_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)"/
 
 /**
  * @param {string} text

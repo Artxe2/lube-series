@@ -1,7 +1,7 @@
 import AstSyntaxError from "../../common/AstSyntaxError.js"
 import parse_script_template from "./parse_script_template.js"
 
-const stop_backtick_regex = /(?<=(?<!\\)(\\\\)*)(?:`|\${)/
+const stop_backtick_regex = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/
 
 /**
  * @param {string} text
