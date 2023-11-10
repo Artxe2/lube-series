@@ -1,6 +1,6 @@
 export default _default;
 /**
- * Compile a regular expression pattern for Flexible korean search.
+ * Compile a regular expression for flexible korean search.
  * @param {string} text
  * @returns {RegExp?}
  * @example searcher("ㄷㅎㅁㄱ") //=>
