@@ -3,7 +3,7 @@
  * @param {string} value
  * @returns {import("eslint").RuleTester.InvalidTestCase}
  */
-const test_case = (type, value) => ({
+let test_case = (type, value) => ({
 	code: `
 	var value = /** @type {A} */(${value})
 	var value = /** @type {B} */(${value}) // comment...

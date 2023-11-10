@@ -8,7 +8,7 @@ describe(
 		it(
 			"get",
 			async () => {
-				const value = await client(
+				let value = await client(
 					"https://dummyjson.com/products/category/:ca_teGory123"
 				)
 					.get()
@@ -22,7 +22,7 @@ describe(
 							Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
 						}
 					)
-				const json = await value.json()
+				let json = await value.json()
 				assert.deepStrictEqual(
 					json,
 					{
@@ -104,7 +104,7 @@ describe(
 		it(
 			"http status",
 			async () => {
-				const value = await client(
+				let value = await client(
 					"https://dummyjson.com/auth/login"
 				)
 					.post()
@@ -116,7 +116,7 @@ describe(
 			"abort",
 			async () => {
 				let stop = () => {}
-				const api = client(
+				let api = client(
 					"https://dummyjson.com/auth/login",
 					abort => stop = abort
 				)

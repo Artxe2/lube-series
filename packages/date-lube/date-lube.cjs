@@ -1,6 +1,6 @@
 'use strict';
 
-const time_regex = /(-?\d+)([YMDHms]+)/g;
+let time_regex = /(-?\d+)([YMDHms]+)/g;
 
 /**
  * Calculates and adds the specified time duration to the provided date.
@@ -21,9 +21,9 @@ const time_regex = /(-?\d+)([YMDHms]+)/g;
  * @returns {Date}
  * @example add(new Date, "-1D") //=> Date { yesterday }
  */
-const _default$3 = (date, sum) => {
-	for (const [ , n, unit ] of sum.matchAll(time_regex)) {
-		const number = +n;
+let _default$3 = (date, sum) => {
+	for (let [ , n, unit ] of sum.matchAll(time_regex)) {
+		let number = +n;
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number);
 		else if (unit == "M") date.setMonth(date.getMonth() + number);
 		else if (unit == "D") date.setDate(date.getDate() + number);
@@ -55,7 +55,7 @@ const _default$3 = (date, sum) => {
  * - "sss": Milliseconds
  * @returns {string}
  */
-const _default$2 = (
+let _default$2 = (
 	date,
 	format = "YYYY-MM-DDTHH:mm:ss.sss"
 ) =>
@@ -106,24 +106,24 @@ const _default$2 = (
  * - "sss": Milliseconds
  * @returns {Date}
  */
-const _default$1 = (
+let _default$1 = (
 	date,
 	format = "YYYY-MM-DDTHH:mm:ss.sss"
 ) => {
 	let x = format.indexOf("YYYY");
-	const year = x < 0 ? "0000" : date.slice(x, x + 4);
+	let year = x < 0 ? "0000" : date.slice(x, x + 4);
 	x = format.indexOf("MM");
-	const month = x < 0 ? "00" : date.slice(x, x + 2);
+	let month = x < 0 ? "00" : date.slice(x, x + 2);
 	x = format.indexOf("DD");
-	const day = x < 0 ? "00" : date.slice(x, x + 2);
+	let day = x < 0 ? "00" : date.slice(x, x + 2);
 	x = format.indexOf("HH");
-	const hours = x < 0 ? "00" : date.slice(x, x + 2);
+	let hours = x < 0 ? "00" : date.slice(x, x + 2);
 	x = format.indexOf("mm");
-	const minutes = x < 0 ? "00" : date.slice(x, x + 2);
+	let minutes = x < 0 ? "00" : date.slice(x, x + 2);
 	x = format.indexOf("ss");
-	const seconds = x < 0 ? "00" : date.slice(x, x + 2);
+	let seconds = x < 0 ? "00" : date.slice(x, x + 2);
 	x = format.indexOf("sss");
-	const milliseconds = x < 0 ? "000" : date.slice(x, x + 3);
+	let milliseconds = x < 0 ? "000" : date.slice(x, x + 3);
 	return new Date(
 		`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`
 	)
@@ -136,12 +136,12 @@ var timeUnit = /** @type {const} */({
 	ss: 1000
 });/**/
 
-const time_zone_regex = /T\+?(-?\d*):?(\d*)/;
+let time_zone_regex = /T\+?(-?\d*):?(\d*)/;
 
 /**
  * Adjusts the date according to the specified time zone offset.
  * @param {Date} date
- * @param {import("../../public.js").TimeZone} time_zone
+ * @param {import("../public.js").TimeZone} time_zone
  * @param {true=} inversion
  * @returns {Date}
  * @throws
@@ -149,8 +149,8 @@ const time_zone_regex = /T\+?(-?\d*):?(\d*)/;
  * RangeError(`Invalid time zone specified: ${time_zone}`) // Throws from Intl.DateTimeFormat
  * ```
  */
-const _default = (date, time_zone, inversion) => {
-	const array = /** @type {RegExpExecArray} */(time_zone_regex.exec(
+let _default = (date, time_zone, inversion) => {
+	let array = /** @type {RegExpExecArray} */(time_zone_regex.exec(
 		Intl.DateTimeFormat(
 			"ia",
 			{
@@ -159,7 +159,7 @@ const _default = (date, time_zone, inversion) => {
 			}
 		).format()
 	));/**/
-	const offset = date.getTimezoneOffset() + +(array[1] ?? 0) * 60 + +(array[2] ?? 0);
+	let offset = date.getTimezoneOffset() + +(array[1] ?? 0) * 60 + +(array[2] ?? 0);
 	date.setMinutes(
 		date.getMinutes() + (inversion ? -offset : offset)
 	);

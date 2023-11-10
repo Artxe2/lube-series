@@ -28,17 +28,17 @@ module.exports = {
 	},
 	create(context) {
 		/** @type {import("../private").RuleOptions["pretty-imports"]} */
-		const option = context.options[0]
-		const check_exports = option?.checkExports ?? true
-		const check_imports = option?.checkImports ?? true
-		const indent = option?.indent ?? "\t"
-		const max_length = option?.maxLength ?? 30
-		const semicolon = option?.semicolon ?? false
+		let option = context.options[0]
+		let check_exports = option?.checkExports ?? true
+		let check_imports = option?.checkImports ?? true
+		let indent = option?.indent ?? "\t"
+		let max_length = option?.maxLength ?? 30
+		let semicolon = option?.semicolon ?? false
 
-		const source_code = context.sourceCode
-		const text = source_code.text
-		const indent_regex = /[ \t]*(?=[^\n]*$)/
-		const _r_regex = /\r/g
+		let source_code = context.sourceCode
+		let text = source_code.text
+		let indent_regex = /[ \t]*(?=[^\n]*$)/
+		let _r_regex = /\r/g
 
 		/**
 		 * @param {number} index
@@ -62,7 +62,7 @@ module.exports = {
 		 * @returns {string}
 		 */
 		function get_text(node_or_start, end) {
-			const substr = typeof node_or_start == "number"
+			let substr = typeof node_or_start == "number"
 				? text.slice(node_or_start, end)
 				: text.slice(
 					node_or_start.range[0],
@@ -95,9 +95,9 @@ module.exports = {
 			 */
 			ExportNamedDeclaration(node) {
 				if (check_exports && node.specifiers[0]?.type == "ExportSpecifier") {
-					const line_indent = get_indent(node.range[0])
+					let line_indent = get_indent(node.range[0])
 					let length = 0
-					for (const s of node.specifiers) {
+					for (let s of node.specifiers) {
 						length += s.range[1] - s.range[0]
 					}
 					let corrected_text = length > max_length
@@ -123,9 +123,9 @@ module.exports = {
 			 */
 			ImportDeclaration(node) {
 				if (check_imports && node.specifiers[0]?.type == "ImportSpecifier") {
-					const line_indent = get_indent(node.range[0])
+					let line_indent = get_indent(node.range[0])
 					let length = 0
-					for (const s of node.specifiers) {
+					for (let s of node.specifiers) {
 						length += s.range[1] - s.range[0]
 					}
 					let corrected_text = length > max_length

@@ -9,22 +9,20 @@ VSCE: JavaScript and TypeScript Nightly
 		"es2021": true,
 		"node": true
 	},
-	"extends": ["plugin:lube/recommended"],
-	"globals": {
-		"RequestInit": true
-	},
-	"ignorePatterns": ["**/types/**/*.d.ts", "**/*.cjs"],
-	"overrides": [{
-		"files": ["**/public.d.ts", "**/private.d.ts"],
-		"rules": {
-			"no-unused-vars": "off"
+	"extends": [ "plugin:lube/recommended" ],
+	"globals": { "RequestInit": true },
+	"ignorePatterns": [ "**/types/**/*.d.ts", "**/*.cjs" ],
+	"overrides": [
+		{
+			"files": [ "**/*.d.ts" ],
+			"rules": { "no-unused-vars": "off" }
 		}
-	}],
+	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["lube"],
-	"rules": {}
+	"plugins": [ "lube" ],
+	"rules": { "prefer-const": "off" }
 }

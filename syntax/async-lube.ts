@@ -1,9 +1,9 @@
 import { client, dag, decorator, parallel } from "async-lube"
 
-const op: RequestInit = { cache: "default" }
-const hd = { Authorization: "..." }
+let op: RequestInit = { cache: "default" }
+let hd = { Authorization: "..." }
 client("https://...", abort => abort())
-const {
+let {
 	delete: _delete,
 	get,
 	head,
@@ -24,7 +24,7 @@ with_body = post()
 with_body = post(op)
 with_body = put()
 with_body = put(op)
-const { json, multiPart, urlEncoded } = with_body
+let { json, multiPart, urlEncoded } = with_body
 var response: Promise<Response> = fetch("")
 response = json({ string: "abc", number: 123 })
 response = json(
@@ -53,7 +53,7 @@ response = urlEncoded(
 )
 let with_query = get()
 with_query = get(op)
-const { query } = with_query
+let { query } = with_query
 response = query({ string: "abc", number: 123 })
 response = query(
 	{ string: "abc", number: 123 },
@@ -63,8 +63,8 @@ response.then
 response.catch
 response.finally
 
-const func_a = (a: string) => a
-const func_ab = (a: number, b: string) => a + b
+let func_a = (a: string) => a
+let func_ab = (a: number, b: string) => a + b
 dag().add(func_a, "1")
 	.add(func_ab, 1, "1")
 dag().add(func_a, () => "1")

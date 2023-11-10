@@ -3,7 +3,7 @@
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": [ "ES2020", "DOM", "DOM.Iterable" ],
 		"module": "CommonJS",
 		"noEmit": true,
 		"skipLibCheck": true,

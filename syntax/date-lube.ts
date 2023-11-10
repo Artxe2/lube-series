@@ -17,7 +17,7 @@ stringToDate("")
 
 timeUnit.DD
 
-const array: TimeZone[] = [ "America/New_York", "Zulu" ]
-for (const tz of array) {
+let array: TimeZone[] = [ "America/New_York", "Zulu" ]
+for (let tz of array) {
 	timeZone(new Date(), tz)
 }

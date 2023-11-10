@@ -41,12 +41,8 @@
 	"types": "types/index.d.ts",
 	"typesVersions": {
 		"*": {
-			"@types": [
-				"public.d.ts"
-			],
-			"*": [
-				"types/index.d.ts"
-			]
+			"@types": [ "public.d.ts" ],
+			"*": [ "types/index.d.ts" ]
 		}
 	},
 	"version": "1.4.2"

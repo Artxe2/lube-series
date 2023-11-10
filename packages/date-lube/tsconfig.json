@@ -7,7 +7,7 @@
 		"declarationDir": "types",
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": [ "ES2020", "DOM", "DOM.Iterable" ],
 		"module": "Node16",
 		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
 		"rootDir": "src",
@@ -15,5 +15,5 @@
 		"strict": true,
 		"target": "ESNext"
 	},
-	"include": ["**/*.js"]
+	"include": [ "**/*.js" ]
 }

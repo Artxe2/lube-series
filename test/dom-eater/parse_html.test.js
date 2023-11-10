@@ -8,7 +8,7 @@ describe(
 		it(
 			"self-closing",
 			() => {
-				const ast = parseHtml(
+				let ast = parseHtml(
 					`
 <area>
 <base>
@@ -152,11 +152,11 @@ describe(
 		it(
 			"script element",
 			() => {
-				const ast = parseHtml(
+				let ast = parseHtml(
 					`
 <script>
 import { Component } from "module"
-const single = 'single'
+let single = 'single'
 let double = "double"
 function func() {
 	var str = \`str \${1 == 1 ? "true" + single : 'false' + double}\`
@@ -236,12 +236,12 @@ func()
 										}
 									],
 									"subType": "content",
-									"text": "\nimport { Component } from \"module\"\nconst single = 'single'\nlet double = \"double\"\nfunction func() {\n\tvar str = `str ${1 == 1 ? \"true\" + single : 'false' + double}`\n}\nfunc()\n",
+									"text": "\nimport { Component } from \"module\"\nlet single = 'single'\nlet double = \"double\"\nfunction func() {\n\tvar str = `str ${1 == 1 ? \"true\" + single : 'false' + double}`\n}\nfunc()\n",
 									"type": "Script"
 								}
 							],
 							"subType": "open",
-							"text": "<script>\nimport { Component } from \"module\"\nconst single = 'single'\nlet double = \"double\"\nfunction func() {\n\tvar str = `str ${1 == 1 ? \"true\" + single : 'false' + double}`\n}\nfunc()\n</script>",
+							"text": "<script>\nimport { Component } from \"module\"\nlet single = 'single'\nlet double = \"double\"\nfunction func() {\n\tvar str = `str ${1 == 1 ? \"true\" + single : 'false' + double}`\n}\nfunc()\n</script>",
 							"type": "Element"
 						},
 						{ "text": "\n", "type": "Text" },
@@ -272,7 +272,7 @@ func()
 		it(
 			"style element",
 			() => {
-				const ast = parseHtml(
+				let ast = parseHtml(
 					`
 <script>
 </script>
@@ -342,7 +342,7 @@ func()
 		it(
 			"attributes and children",
 			() => {
-				const ast = parseHtml(
+				let ast = parseHtml(
 					`
 <div {var} script =  {"double"}{\`\${'single'}\`} flag string="{true ?? "true"}">
 <span>text</span>
@@ -493,7 +493,7 @@ func()
 		it(
 			"attribute error",
 			() => {
-				const ast = parseHtml(
+				let ast = parseHtml(
 					`
 <a {></a>
 `,

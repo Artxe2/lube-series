@@ -8,15 +8,15 @@ describe(
 		it(
 			"example",
 			() => {
-				const ast = parseJsx(
+				let ast = parseJsx(
 					`
 var n = 5
-const a = <a>{n}</a>
-const text = "<div></div>"
-const props = {}
+let a = <a>{n}</a>
+let text = "<div></div>"
+let props = {}
 
 export function App() {
-	const is_active = false
+	let is_active = false
 	return (
 		<div {...props} style="color: red; background: blue;"
 			className={\`:hover/c=--primary-50;bold
@@ -40,17 +40,17 @@ export function App() {
 							"children": [
 								{
 									"elements": [],
-									"end": 27,
-									"start": 24,
+									"end": 25,
+									"start": 22,
 									"strings": [],
 									"subType": "jsx",
 									"type": "Script",
 									"text": "{n}"
 								}
 							],
-							"end": 31,
+							"end": 29,
 							"name": "a",
-							"start": 21,
+							"start": 19,
 							"subType": "open",
 							"type": "Element",
 							"text": "<a>{n}</a>"
@@ -58,14 +58,14 @@ export function App() {
 						{
 							"attributes": [
 								{
-									"end": 153,
+									"end": 145,
 									"name": "",
-									"start": 143,
+									"start": 135,
 									"type": "Attribute",
 									"value": {
 										"elements": [],
-										"end": 153,
-										"start": 143,
+										"end": 145,
+										"start": 135,
 										"strings": [],
 										"subType": "jsx",
 										"type": "Script",
@@ -74,14 +74,14 @@ export function App() {
 									"text": "{...props}"
 								},
 								{
-									"end": 191,
+									"end": 183,
 									"name": "style",
-									"start": 154,
+									"start": 146,
 									"type": "Attribute",
 									"value": {
-										"end": 191,
+										"end": 183,
 										"scripts": [],
-										"start": 160,
+										"start": 152,
 										"subType": "double",
 										"type": "String",
 										"text": "\"color: red; background: blue;\""
@@ -89,26 +89,26 @@ export function App() {
 									"text": "style=\"color: red; background: blue;\""
 								},
 								{
-									"end": 327,
+									"end": 319,
 									"name": "className",
-									"start": 195,
+									"start": 187,
 									"type": "Attribute",
 									"value": {
 										"elements": [],
-										"end": 327,
-										"start": 205,
+										"end": 319,
+										"start": 197,
 										"strings": [
 											{
-												"end": 326,
+												"end": 318,
 												"scripts": [
 													{
-														"end": 325,
-														"start": 296,
+														"end": 317,
+														"start": 288,
 														"strings": [
 															{
-																"end": 324,
+																"end": 316,
 																"scripts": [],
-																"start": 311,
+																"start": 303,
 																"subType": "double",
 																"type": "String",
 																"text": "\"bold;fs=1.2\""
@@ -119,7 +119,7 @@ export function App() {
 														"text": "${is_active ?? \"bold;fs=1.2\"}"
 													}
 												],
-												"start": 206,
+												"start": 198,
 												"subType": "backtick",
 												"type": "String",
 												"text": "`:hover/c=--primary-50;bold\n\t\t\tc=red bg=blue\n\t\t\t@dark@c=white\n\t\t\t:active/tf=scale(1.2)\n\t\t\t${is_active ?? \"bold;fs=1.2\"}`"
@@ -134,45 +134,45 @@ export function App() {
 							],
 							"children": [
 								{
-									"end": 332,
-									"start": 328,
+									"end": 324,
+									"start": 320,
 									"type": "Text",
 									"text": "\n\t\t\t"
 								},
 								{
 									"elements": [],
-									"end": 335,
-									"start": 332,
+									"end": 327,
+									"start": 324,
 									"strings": [],
 									"subType": "jsx",
 									"type": "Script",
 									"text": "{a}"
 								},
 								{
-									"end": 339,
-									"start": 335,
+									"end": 331,
+									"start": 327,
 									"type": "Text",
 									"text": "\n\t\t\t"
 								},
 								{
 									"elements": [],
-									"end": 345,
-									"start": 339,
+									"end": 337,
+									"start": 331,
 									"strings": [],
 									"subType": "jsx",
 									"type": "Script",
 									"text": "{text}"
 								},
 								{
-									"end": 348,
-									"start": 345,
+									"end": 340,
+									"start": 337,
 									"type": "Text",
 									"text": "\n\t\t"
 								}
 							],
-							"end": 354,
+							"end": 346,
 							"name": "div",
-							"start": 138,
+							"start": 130,
 							"subType": "open",
 							"type": "Element",
 							"text": "<div {...props} style=\"color: red; background: blue;\"\n\t\t\tclassName={`:hover/c=--primary-50;bold\n\t\t\tc=red bg=blue\n\t\t\t@dark@c=white\n\t\t\t:active/tf=scale(1.2)\n\t\t\t${is_active ?? \"bold;fs=1.2\"}`}>\n\t\t\t{a}\n\t\t\t{text}\n\t\t</div>"

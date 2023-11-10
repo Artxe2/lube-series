@@ -5,7 +5,7 @@ import { parallel } from "async-lube"
 describe(
 	"parallel",
 	() => {
-		const now = Date.now()
+		let now = Date.now()
 		/**
 		 * @param {number} ms
 		 * @returns {Promise<{
@@ -14,12 +14,12 @@ describe(
 		 *   ms: number
 		 * }>}
 		 */
-		const wait = ms => new Promise(
+		let wait = ms => new Promise(
 			(resolve, reject) => {
-				const start = Date.now() - now
+				let start = Date.now() - now
 				setTimeout(
 					() => {
-						const end = Date.now() - now
+						let end = Date.now() - now
 						if (ms % 2) resolve({ end, start, ms })
 						else reject({ end, start, ms })
 					},
@@ -31,7 +31,7 @@ describe(
 		it(
 			"result order and duration",
 			async () => {
-				const value = await parallel(
+				let value = await parallel(
 					3,
 					() => wait(101),
 					() => wait(300),
@@ -41,7 +41,7 @@ describe(
 					() => wait(300),
 					() => wait(401)
 				)
-				for (const v of value) {
+				for (let v of value) {
 					if ("value" in v) {
 						v.value.ms = parseInt(String(v.value.ms / 100))
 						v.value.start = parseInt(String(v.value.start / 100))

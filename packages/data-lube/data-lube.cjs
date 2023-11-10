@@ -1,7 +1,7 @@
 'use strict';
 
-const _date = Date;
-const _array = Array;
+let _date = Date;
+let _array = Array;
 
 /**
  * Deep copy object.
@@ -9,15 +9,15 @@ const _array = Array;
  * @param {T} obj
  * @returns {T}
  */
-const _default$2 = obj => {
+let _default$2 = obj => {
 	if (!obj || typeof obj != "object") return obj
 	if (obj.constructor == _date) return /** @type {T} */(new _date(obj))/**/
 	/** @type {Record<string, *>} */
-	const copy = obj.constructor == _array
+	let copy = obj.constructor == _array
 		? []
 		: {};
-	for (const key in obj) {
-		const data = obj[key];
+	for (let key in obj) {
+		let data = obj[key];
 		copy[key] = data && typeof data == "object"
 			? _default$2(data)
 			: data;
@@ -32,7 +32,7 @@ const _default$2 = obj => {
  * @param {*} another
  * @returns {another is T}
  */
-const _default$1 = (object, another) => {
+let _default$1 = (object, another) => {
 	if (
 		!object
 		|| !another
@@ -40,10 +40,10 @@ const _default$1 = (object, another) => {
 		|| typeof another != "object"
 		|| object?.constructor != another?.constructor
 	) return object === another
-	const o_key = Object.keys(object);
-	const a_key = Object.keys(another);
+	let o_key = Object.keys(object);
+	let a_key = Object.keys(another);
 	if (o_key.length != a_key.length) return false
-	for (const key of o_key) {
+	for (let key of o_key) {
 		if (
 			!a_key.includes(key)
 			|| !_default$1(
@@ -59,13 +59,13 @@ const _default$1 = (object, another) => {
  * Deep freeze object.
  * @template {*} T
  * @param {T} data
- * @returns {import("../../private.js").DeepReadonly<T>}
+ * @returns {import("../private.js").DeepReadonly<T>}
  */
-const _default = data => {
+let _default = data => {
 	if (data && typeof data == "object") {
-		for (const key in Object.freeze(data)) _default(data[key]);
+		for (let key in Object.freeze(data)) _default(data[key]);
 	}
-	return /** @type {import("../../private.js").DeepReadonly<T>} */(data)/**/
+	return /** @type {import("../private.js").DeepReadonly<T>} */(data)/**/
 };
 
 exports.deepCopy = _default$2;

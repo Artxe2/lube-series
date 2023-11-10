@@ -23,21 +23,21 @@ module.exports = {
 	},
 	create(context) {
 		/** @type {import("../private").RuleOptions["svelte-naming-convention"]} */
-		const option = context.options[0]
-		const fix_same_names = option?.fixSameNames ?? true
+		let option = context.options[0]
+		let fix_same_names = option?.fixSameNames ?? true
 
-		// let name | const name | class name
-		const allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
-		const fixable_name_regex = /^[_$]?[_$]?(?:[\dA-Za-z]+(?:_[\dA-Za-z]+)*\$?\$?)?$/
-		const fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
-		const camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
+		// let name | let name | class name
+		let allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
+		let fixable_name_regex = /^[_$]?[_$]?(?:[\dA-Za-z]+(?:_[\dA-Za-z]+)*\$?\$?)?$/
+		let fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
+		let camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
 
 		/** @type {Map<string, import("../private").AstNode[]>} */
-		const pending_usages = new Map()
+		let pending_usages = new Map()
 		/** @type {Set<string>} */
-		const reported_declarations = new Set()
+		let reported_declarations = new Set()
 		/** @type {Set<import("../private").AstNode>} */
-		const shortand_properties = new Set()
+		let shortand_properties = new Set()
 
 		/**
 		 * @param {import("../private").AstNode & import("estree").Identifier} node
@@ -45,7 +45,7 @@ module.exports = {
 		 */
 		function defer(node) {
 			if (fix_same_names) {
-				const name = node.name
+				let name = node.name
 				if (reported_declarations.has(name)) report(node)
 				else {
 					let usages = pending_usages.get(name)
@@ -71,7 +71,7 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function report(node) {
-			const name = node.name
+			let name = node.name
 			context.report(
 				{
 					data: { name },
@@ -90,7 +90,7 @@ module.exports = {
 				}
 			)
 			if (fix_same_names) {
-				const usages = pending_usages.get(name)
+				let usages = pending_usages.get(name)
 				while (usages?.length) {
 					report(
 						/** @type {import("../private").AstNode & import("estree").Identifier} */(usages.pop())/**/
@@ -103,11 +103,10 @@ module.exports = {
 		return {
 			/** @param {import("../private").AstNode & import("estree").Identifier} node */
 			Identifier(node) {
-				const name = node.name
+				let name = node.name
 				if (allow_regex.test(name)) return
-				const parent = node.parent
-				const type = parent.type
-				switch (type) {
+				let parent = node.parent
+				switch (parent.type) {
 				case "ArrayExpression":
 					// var value = [ camelCase ]
 					defer(node)

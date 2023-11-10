@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": [ "ES2020", "DOM", "DOM.Iterable" ],
 		"module": "ES6",
 		"moduleResolution": "Node",
 		"noEmit": true,
@@ -10,8 +10,6 @@
 		"strict": true,
 		"target": "ESNext"
 	},
-	"ts-node": {
-		"esm": true
-	},
-	"exclude": ["**/*.cjs"]
+	"ts-node": { "esm": true },
+	"exclude": [ "**/*.cjs" ]
 }

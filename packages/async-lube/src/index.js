@@ -1,4 +1,4 @@
-export { default as client } from "./src/client.js"
-export { default as dag } from "./src/dag.js"
-export { default as decorator } from "./src/decorator.js"
-export { default as parallel } from "./src/parallel.js"
+export { default as client } from "./client.js"
+export { default as dag } from "./dag.js"
+export { default as decorator } from "./decorator.js"
+export { default as parallel } from "./parallel.js"

@@ -77,7 +77,7 @@ var api = decorator((id: string) => fetch("https://.../" + id))
     })
     .throttle(3, 500) // n request in ms
 
-api("123")
+api("123") // caching key: "[\"123\"]"
 
 api(123) // Argument of type 'number' is not assignable to parameter of type 'string'.ts(2345)
 api() // Expected 1 arguments, but got 0.ts(2554)

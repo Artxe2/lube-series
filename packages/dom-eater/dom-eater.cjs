@@ -1,6 +1,6 @@
 'use strict';
 
-const E = Error;
+let E = Error;
 
 /**
  * @param {string} message
@@ -10,32 +10,32 @@ const E = Error;
  */
 var AstSyntaxError = (message, start, end) => {
 	/** @type {Error & { start?: number, end?: number }} */
-	const error = E(message);
+	let error = E(message);
 	error.name = "AstSyntaxError";
 	error.start = start;
 	error.end = end;
 	return /** @type {Error & { name: "AstSyntaxError", start: number, end: number }} */(error)/**/
 };
 
-const self_closing_element_regex = /^(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr|!DOCTYPE)$/;
+let self_closing_element_regex = /^(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr|!DOCTYPE)$/i;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstNode[]} ast_nodes
- * @param {import("../../../public.js").AstSyntaxError[]}  errors
- * @param {import("../../../public.js").Element} element
+ * @param {import("../../public.js").AstNode[]} ast_nodes
+ * @param {import("../../public.js").AstSyntaxError[]}  errors
+ * @param {import("../../public.js").Element} element
  * @returns {void}
  */
 var normalize_element_children = (text, ast_nodes, errors, element) => {
-	const name = element.name;
+	let name = element.name;
 	if (self_closing_element_regex.test(name)) return
-	const length = ast_nodes.length;
+	let length = ast_nodes.length;
 	for (let i = 0; i < length; i++) {
-		const token = ast_nodes[i];
+		let token = ast_nodes[i];
 		if (token.type == "Element" && token.name == name) {
 			if (token.subType == "close") {
 				element.end = token.end;
-				const children = ast_nodes.splice(0, i);
+				let children = ast_nodes.splice(0, i);
 				ast_nodes.shift();
 				if (children.length) {
 					element.children = children;
@@ -64,15 +64,15 @@ var normalize_element_children = (text, ast_nodes, errors, element) => {
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstNode[]} ast_nodes
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstNode[]} ast_nodes
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @returns {void}
  */
 var normalize_nodes = (text, ast_nodes, errors) => {
-	/** @type {import("../../../public.js").AstNode[]} */
-	const ast = [];
+	/** @type {import("../../public.js").AstNode[]} */
+	let ast = [];
 	while (ast_nodes.length > 0) {
-		const node = /** @type {import("../../../public.js").AstNode} */(ast_nodes.shift());/**/
+		let node = /** @type {import("../../public.js").AstNode} */(ast_nodes.shift());/**/
 		ast.push(node);
 		if (node.type == "Element" && node.name != "script" && node.name != "style") {
 			if (node.subType == "close") {
@@ -91,16 +91,16 @@ var normalize_nodes = (text, ast_nodes, errors) => {
 	ast_nodes.push(...ast);
 };
 
-const end_double_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)"/;
+let end_double_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)"/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "double" }}
+ * @returns {import("../../public.js").String & { subType: "double" }}
  */
 var parse_script_double_quotes$1 = (text, errors, start) => {
-	const index = text.slice(start + 1).search(end_double_quotes_regex$1) + 1;
+	let index = text.slice(start + 1).search(end_double_quotes_regex$1) + 1;
 	if (index > 0) {
 		return {
 			end: start + index + 1,
@@ -126,16 +126,16 @@ var parse_script_double_quotes$1 = (text, errors, start) => {
 	}
 };
 
-const end_single_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)'/;
+let end_single_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)'/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "single" }}
+ * @returns {import("../../public.js").String & { subType: "single" }}
  */
 var parse_script_single_quotes$1 = (text, errors, start) => {
-	const index = text.slice(start + 1).search(end_single_quotes_regex$1) + 1;
+	let index = text.slice(start + 1).search(end_single_quotes_regex$1) + 1;
 	if (index > 0) {
 		return {
 			end: start + index + 1,
@@ -161,21 +161,21 @@ var parse_script_single_quotes$1 = (text, errors, start) => {
 	}
 };
 
-const stop_script_block_regex$3 = /[{}'"`]/;
+let stop_script_block_regex$3 = /[{}'"`]/;
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Script & { subType: "template" }}
+ * @returns {import("../../public.js").Script & { subType: "template" }}
  */
 var parse_script_template$1 = (text, errors, start) => {
 	let child_pre_index = start + 2;
-	/** @type {import("../../../public.js").String[]} */
-	const strings = [];
+	/** @type {import("../../public.js").String[]} */
+	let strings = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_script_block_regex$3);
+		let child_index = text.slice(child_pre_index).search(stop_script_block_regex$3);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "}") {
 				return {
 					end: index + 1,
@@ -186,21 +186,21 @@ var parse_script_template$1 = (text, errors, start) => {
 				}
 			}
 			if (text[index] == "{") {
-				const node = parse_script_block$1(text, errors, index);
-				for (const str of node.strings) {
+				let node = parse_script_block$1(text, errors, index);
+				for (let str of node.strings) {
 					strings.push(str);
 				}
 				child_pre_index = node.end;
 			} else if (text[index] == "'") {
-				const node = parse_script_single_quotes$1(text, errors, index);
+				let node = parse_script_single_quotes$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else if (text[index] == "\"") {
-				const node = parse_script_double_quotes$1(text, errors, index);
+				let node = parse_script_double_quotes$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else {
-				const node = parse_script_backticks$1(text, errors, index);
+				let node = parse_script_backticks$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			}
@@ -223,22 +223,22 @@ var parse_script_template$1 = (text, errors, start) => {
 	}
 };
 
-const stop_backtick_regex$1 = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/;
+let stop_backtick_regex$1 = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "backtick" }}
+ * @returns {import("../../public.js").String & { subType: "backtick" }}
  */
 var parse_script_backticks$1 = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Script[]} */
-	const scripts = [];
+	/** @type {import("../../public.js").Script[]} */
+	let scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_backtick_regex$1);
+		let child_index = text.slice(child_pre_index).search(stop_backtick_regex$1);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "`") {
 				return {
 					end: index + 1,
@@ -248,7 +248,7 @@ var parse_script_backticks$1 = (text, errors, start) => {
 					type: "String"
 				}
 			}
-			const node = parse_script_template$1(text, errors, index);
+			let node = parse_script_template$1(text, errors, index);
 			scripts.push(node);
 			child_pre_index = node.end;
 		} else {
@@ -270,22 +270,22 @@ var parse_script_backticks$1 = (text, errors, start) => {
 	}
 };
 
-const stop_script_block_regex$2 = /[{}'"`]/;
+let stop_script_block_regex$2 = /[{}'"`]/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Script & { subType: "block" }}
+ * @returns {import("../../public.js").Script & { subType: "block" }}
  */
-const parse_script_block$1 = (text, errors, start) => {
+let parse_script_block$1 = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").String[]} */
-	const strings = [];
+	/** @type {import("../../public.js").String[]} */
+	let strings = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_script_block_regex$2);
+		let child_index = text.slice(child_pre_index).search(stop_script_block_regex$2);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "}") {
 				return {
 					end: index + 1,
@@ -295,21 +295,21 @@ const parse_script_block$1 = (text, errors, start) => {
 					type: "Script"
 				}
 			} else if (text[index] == "{") {
-				const node = parse_script_block$1(text, errors, index);
-				for (const str of node.strings) {
+				let node = parse_script_block$1(text, errors, index);
+				for (let str of node.strings) {
 					strings.push(str);
 				}
 				child_pre_index = node.end;
 			} else if (text[index] == "'") {
-				const node = parse_script_single_quotes$1(text, errors, index);
+				let node = parse_script_single_quotes$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else if (text[index] == "\"") {
-				const node = parse_script_double_quotes$1(text, errors, index);
+				let node = parse_script_double_quotes$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else {
-				const node = parse_script_backticks$1(text, errors, index);
+				let node = parse_script_backticks$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			}
@@ -332,24 +332,24 @@ const parse_script_block$1 = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex$3 = /(?<=(?<!\\)(?:\\\\)*)["{]/;
+let stop_attribute_single_quotes_regex$3 = /(?<=(?<!\\)(?:\\\\)*)["{]/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "double" }}
+ * @returns {import("../../public.js").String & { subType: "double" }}
  */
 var parse_attribute_double_quotes$1 = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Script[]} */
-	const scripts = [];
+	/** @type {import("../../public.js").Script[]} */
+	let scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(
+		let child_index = text.slice(child_pre_index).search(
 			stop_attribute_single_quotes_regex$3
 		);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "\"") {
 				return {
 					end: index + 1,
@@ -359,7 +359,7 @@ var parse_attribute_double_quotes$1 = (text, errors, start) => {
 					type: "String"
 				}
 			}
-			const node = parse_script_block$1(text, errors, index);
+			let node = parse_script_block$1(text, errors, index);
 			scripts.push(node);
 			child_pre_index = node.end;
 		} else {
@@ -381,24 +381,24 @@ var parse_attribute_double_quotes$1 = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex$2 = /(?<=(?<!\\)(?:\\\\)*)(?:'|{)/;
+let stop_attribute_single_quotes_regex$2 = /(?<=(?<!\\)(?:\\\\)*)(?:'|{)/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "single" }}
+ * @returns {import("../../public.js").String & { subType: "single" }}
  */
 var parse_attribute_single_quotes$1 = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Script[]} */
-	const scripts = [];
+	/** @type {import("../../public.js").Script[]} */
+	let scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(
+		let child_index = text.slice(child_pre_index).search(
 			stop_attribute_single_quotes_regex$2
 		);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "'") {
 				return {
 					end: index + 1,
@@ -408,7 +408,7 @@ var parse_attribute_single_quotes$1 = (text, errors, start) => {
 					type: "String"
 				}
 			}
-			const node = parse_script_block$1(text, errors, index);
+			let node = parse_script_block$1(text, errors, index);
 			scripts.push(node);
 			child_pre_index = node.end;
 		} else {
@@ -430,18 +430,18 @@ var parse_attribute_single_quotes$1 = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_name_regex$1 = /[ =>]/;
-const stop_space_regex$1 = /\S/;
+let stop_attribute_name_regex$1 = /[ =>]/;
+let stop_space_regex$1 = /\S/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Attribute}
+ * @returns {import("../../public.js").Attribute}
  */
 var parse_attribute$1 = (text, errors, start) => {
 	if (text[start] == "{") {
-		const node = parse_script_block$1(text, errors, start);
+		let node = parse_script_block$1(text, errors, start);
 		return {
 			end: node.end,
 			name: "",
@@ -450,34 +450,34 @@ var parse_attribute$1 = (text, errors, start) => {
 			value: node
 		}
 	}
-	const name_index = text.slice(start + 1).search(stop_attribute_name_regex$1) + 1;
+	let name_index = text.slice(start + 1).search(stop_attribute_name_regex$1) + 1;
 	if (name_index > 0) {
-		const name = text.slice(start, start + name_index);
-		/** @type {import("../../../public.js").Attribute} */
-		const node = {
+		let name = text.slice(start, start + name_index);
+		/** @type {import("../../public.js").Attribute} */
+		let node = {
 			end: start + name_index,
 			name,
 			start,
 			type: "Attribute",
 			value: true
 		};
-		const equals_sign_index = text.slice(start + name_index).search(stop_space_regex$1);
+		let equals_sign_index = text.slice(start + name_index).search(stop_space_regex$1);
 		if (equals_sign_index < 0 || text[start + name_index + equals_sign_index] != "=") return node
-		const value_index = text.slice(
+		let value_index = text.slice(
 			start + name_index + equals_sign_index + 1
 		).search(stop_space_regex$1) + 1;
 		if (value_index > 0) {
-			const index = start + name_index + equals_sign_index + value_index;
+			let index = start + name_index + equals_sign_index + value_index;
 			if (text[index] == "'") {
-				const value = parse_attribute_single_quotes$1(text, errors, index);
+				let value = parse_attribute_single_quotes$1(text, errors, index);
 				node.value = value;
 				node.end = value.end;
 			} else if (text[index] == "\"") {
-				const value = parse_attribute_double_quotes$1(text, errors, index);
+				let value = parse_attribute_double_quotes$1(text, errors, index);
 				node.value = value;
 				node.end = value.end;
 			} else if (text[index] == "{") {
-				const value = parse_script_block$1(text, errors, index);
+				let value = parse_script_block$1(text, errors, index);
 				node.value = value;
 				node.end = value.end;
 			} else {
@@ -518,22 +518,22 @@ var parse_attribute$1 = (text, errors, start) => {
 	}
 };
 
-const stop_script_content_regex = /[{'"`]|<\/script>/;
+let stop_script_content_regex = /[{'"`]|<\/script>/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Script & { subType: "content" }}
+ * @returns {import("../../public.js").Script & { subType: "content" }}
  */
 var parse_script_content = (text, errors, start) => {
 	let child_pre_index = start;
-	/** @type {import("../../../public.js").String[]} */
-	const strings = [];
+	/** @type {import("../../public.js").String[]} */
+	let strings = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_script_content_regex);
+		let child_index = text.slice(child_pre_index).search(stop_script_content_regex);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "<") {
 				return {
 					end: index,
@@ -543,21 +543,21 @@ var parse_script_content = (text, errors, start) => {
 					type: "Script"
 				}
 			} else if (text[index] == "{") {
-				const node = parse_script_block$1(text, errors, index);
-				for (const str of node.strings) {
+				let node = parse_script_block$1(text, errors, index);
+				for (let str of node.strings) {
 					strings.push(str);
 				}
 				child_pre_index = node.end;
 			} else if (text[index] == "'") {
-				const node = parse_script_single_quotes$1(text, errors, index);
+				let node = parse_script_single_quotes$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else if (text[index] == "\"") {
-				const node = parse_script_double_quotes$1(text, errors, index);
+				let node = parse_script_double_quotes$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else {
-				const node = parse_script_backticks$1(text, errors, index);
+				let node = parse_script_backticks$1(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			}
@@ -580,16 +580,16 @@ var parse_script_content = (text, errors, start) => {
 	}
 };
 
-const end_style_content_regex = /<\/style>/;
+let end_style_content_regex = /<\/style>/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Style}
+ * @returns {import("../../public.js").Style}
  */
 var parse_style_content = (text, errors, start) => {
-	const index = text.slice(start).search(end_style_content_regex);
+	let index = text.slice(start).search(end_style_content_regex);
 	if (index >= 0) {
 		return {
 			end: start + index,
@@ -611,24 +611,24 @@ var parse_style_content = (text, errors, start) => {
 	}
 };
 
-const end_element_name_regex$1 = /[ >]/;
-const slash_regex$1 = /^\/|\/$/;
-const stop_element_regex$1 = /[^\s/]/;
+let end_element_name_regex$1 = /[ >]/;
+let slash_regex$1 = /^\/|\/$/;
+let stop_element_regex$1 = /[^\s/]/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Element}
+ * @returns {import("../../public.js").Element}
  */
 var parse_element$1 = (text, errors, start) => {
-	const name_index = text.slice(start + 1).search(end_element_name_regex$1) + 1;
+	let name_index = text.slice(start + 1).search(end_element_name_regex$1) + 1;
 	if (name_index > 0) {
 		let child_pre_index = start + name_index;
-		const name = text.slice(start + 1, child_pre_index).replace(slash_regex$1, "");
+		let name = text.slice(start + 1, child_pre_index).replace(slash_regex$1, "");
 		if (text[child_pre_index] == ">") {
-			/** @type {import("../../../public.js").Element} */
-			const node = {
+			/** @type {import("../../public.js").Element} */
+			let node = {
 				attributes: [],
 				children: [],
 				end: child_pre_index + 1,
@@ -643,26 +643,26 @@ var parse_element$1 = (text, errors, start) => {
 			};
 			if (node?.type == "Element") {
 				if (node.name == "script" && node.subType == "open") {
-					const text_content = parse_script_content(text, errors, child_pre_index + 1);
+					let text_content = parse_script_content(text, errors, child_pre_index + 1);
 					node.children.push(text_content);
 					node.end = text_content.end + 9;
 				} else if (node.name == "style" && node.subType == "open") {
-					const text_content = parse_style_content(text, errors, child_pre_index + 1);
+					let text_content = parse_style_content(text, errors, child_pre_index + 1);
 					node.children.push(text_content);
 					node.end = text_content.end + 8;
 				}
 			}
 			return node
 		}
-		/** @type {import("../../../public.js").Attribute[]} */
-		const attributes = [];
+		/** @type {import("../../public.js").Attribute[]} */
+		let attributes = [];
 		for (;;) {
-			const child_index = text.slice(child_pre_index).search(stop_element_regex$1);
+			let child_index = text.slice(child_pre_index).search(stop_element_regex$1);
 			if (child_index >= 0) {
-				const index = child_pre_index + child_index;
+				let index = child_pre_index + child_index;
 				if (text[index] == ">") {
-					/** @type {import("../../../public.js").Element} */
-					const node = {
+					/** @type {import("../../public.js").Element} */
+					let node = {
 						attributes,
 						children: [],
 						end: index + 1,
@@ -677,18 +677,18 @@ var parse_element$1 = (text, errors, start) => {
 					};
 					if (node?.type == "Element") {
 						if (node.name == "script" && node.subType == "open") {
-							const text_content = parse_script_content(text, errors, index + 1);
+							let text_content = parse_script_content(text, errors, index + 1);
 							node.children.push(text_content);
 							node.end = text_content.end + 9;
 						} else if (node.name == "style" && node.subType == "open") {
-							const text_content = parse_style_content(text, errors, index + 1);
+							let text_content = parse_style_content(text, errors, index + 1);
 							node.children.push(text_content);
 							node.end = text_content.end + 8;
 						}
 					}
 					return node
 				}
-				const node = parse_attribute$1(text, errors, index);
+				let node = parse_attribute$1(text, errors, index);
 				attributes.push(node);
 				child_pre_index = node.end;
 			} else {
@@ -729,31 +729,31 @@ var parse_element$1 = (text, errors, start) => {
 	}
 };
 
-const stop_text_regex = /[<{]/;
+let stop_text_regex = /[<{]/;
 
 /**
  * @param {string} text
  * @param {import("../../public.js").AstNode} node
  */
-const set_text$1 = (text, node) => {
+let set_text$1 = (text, node) => {
 	node.text = text.slice(node.start, node.end);
 	if (node.type == "Attribute") {
 		if (node.value !== true) {
 			set_text$1(text, node.value);
 		}
 	} else if (node.type == "Element") {
-		for (const attr of node.attributes) {
+		for (let attr of node.attributes) {
 			set_text$1(text, attr);
 		}
-		for (const child of node.children) {
+		for (let child of node.children) {
 			set_text$1(text, child);
 		}
 	} else if (node.type == "Script") {
-		for (const string of node.strings) {
+		for (let string of node.strings) {
 			set_text$1(text, string);
 		}
 	} else if (node.type == "String") {
-		for (const script of node.scripts) {
+		for (let script of node.scripts) {
 			set_text$1(text, script);
 		}
 	}
@@ -769,12 +769,12 @@ const set_text$1 = (text, node) => {
  */
 var index$1 = (text, include_text) => {
 	/** @type {import("../../public.js").AstSyntaxError[]} */
-	const errors = [];
+	let errors = [];
 	/** @type {import("../../public.js").AstNode[]} */
-	const ast_nodes = [];
+	let ast_nodes = [];
 	let start = 0;
 	for (;;) {
-		const index = text.slice(start).search(stop_text_regex);
+		let index = text.slice(start).search(stop_text_regex);
 		if (index >= 0) {
 			if (index) {
 				ast_nodes.push(
@@ -786,11 +786,11 @@ var index$1 = (text, include_text) => {
 				);
 			}
 			if (text[start + index] == "<") {
-				const node = parse_element$1(text, errors, start + index);
+				let node = parse_element$1(text, errors, start + index);
 				ast_nodes.push(node);
 				start = node.end;
 			} else {
-				const node = parse_script_block$1(text, errors, start + index);
+				let node = parse_script_block$1(text, errors, start + index);
 				ast_nodes.push(node);
 				start = node.end;
 			}
@@ -814,23 +814,23 @@ var index$1 = (text, include_text) => {
 	);
 	normalize_nodes(text, ast_nodes, errors);
 	if (include_text) {
-		for (const node of ast_nodes) {
+		for (let node of ast_nodes) {
 			set_text$1(text, node);
 		}
 	}
 	return { ast: ast_nodes, errors }
 };
 
-const end_double_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)"/;
+let end_double_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)"/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "double" }}
+ * @returns {import("../../public.js").String & { subType: "double" }}
  */
 var parse_script_double_quotes = (text, errors, start) => {
-	const index = text.slice(start + 1).search(end_double_quotes_regex) + 1;
+	let index = text.slice(start + 1).search(end_double_quotes_regex) + 1;
 	if (index > 0) {
 		return {
 			end: start + index + 1,
@@ -856,16 +856,16 @@ var parse_script_double_quotes = (text, errors, start) => {
 	}
 };
 
-const end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/;
+let end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "single" }}
+ * @returns {import("../../public.js").String & { subType: "single" }}
  */
 var parse_script_single_quotes = (text, errors, start) => {
-	const index = text.slice(start + 1).search(end_single_quotes_regex) + 1;
+	let index = text.slice(start + 1).search(end_single_quotes_regex) + 1;
 	if (index > 0) {
 		return {
 			end: start + index + 1,
@@ -891,21 +891,21 @@ var parse_script_single_quotes = (text, errors, start) => {
 	}
 };
 
-const stop_script_block_regex$1 = /[{}'"`]/;
+let stop_script_block_regex$1 = /[{}'"`]/;
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Script & { subType: "template" }}
+ * @returns {import("../../public.js").Script & { subType: "template" }}
  */
 var parse_script_template = (text, errors, start) => {
 	let child_pre_index = start + 2;
-	/** @type {import("../../../public.js").String[]} */
-	const strings = [];
+	/** @type {import("../../public.js").String[]} */
+	let strings = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_script_block_regex$1);
+		let child_index = text.slice(child_pre_index).search(stop_script_block_regex$1);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "}") {
 				return {
 					end: index + 1,
@@ -916,21 +916,21 @@ var parse_script_template = (text, errors, start) => {
 				}
 			}
 			if (text[index] == "{") {
-				const node = parse_script_block(text, errors, index);
-				for (const str of node.strings) {
+				let node = parse_script_block(text, errors, index);
+				for (let str of node.strings) {
 					strings.push(str);
 				}
 				child_pre_index = node.end;
 			} else if (text[index] == "'") {
-				const node = parse_script_single_quotes(text, errors, index);
+				let node = parse_script_single_quotes(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else if (text[index] == "\"") {
-				const node = parse_script_double_quotes(text, errors, index);
+				let node = parse_script_double_quotes(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else {
-				const node = parse_script_backticks(text, errors, index);
+				let node = parse_script_backticks(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			}
@@ -953,22 +953,22 @@ var parse_script_template = (text, errors, start) => {
 	}
 };
 
-const stop_backtick_regex = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/;
+let stop_backtick_regex = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "backtick" }}
+ * @returns {import("../../public.js").String & { subType: "backtick" }}
  */
 var parse_script_backticks = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Script[]} */
-	const scripts = [];
+	/** @type {import("../../public.js").Script[]} */
+	let scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_backtick_regex);
+		let child_index = text.slice(child_pre_index).search(stop_backtick_regex);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "`") {
 				return {
 					end: index + 1,
@@ -978,7 +978,7 @@ var parse_script_backticks = (text, errors, start) => {
 					type: "String"
 				}
 			}
-			const node = parse_script_template(text, errors, index);
+			let node = parse_script_template(text, errors, index);
 			scripts.push(node);
 			child_pre_index = node.end;
 		} else {
@@ -1000,24 +1000,24 @@ var parse_script_backticks = (text, errors, start) => {
 	}
 };
 
-const stop_script_block_regex = /[{}'"`]|<[A-Za-z]/;
+let stop_script_block_regex = /[{}'"`]|<[A-Za-z]/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Script & { subType: "jsx" }}
+ * @returns {import("../../public.js").Script & { subType: "jsx" }}
  */
-const parse_script_block = (text, errors, start) => {
+let parse_script_block = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Element[]} */
-	const elements = [];
-	/** @type {import("../../../public.js").String[]} */
-	const strings = [];
+	/** @type {import("../../public.js").Element[]} */
+	let elements = [];
+	/** @type {import("../../public.js").String[]} */
+	let strings = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_script_block_regex);
+		let child_index = text.slice(child_pre_index).search(stop_script_block_regex);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "}") {
 				return {
 					elements,
@@ -1028,25 +1028,25 @@ const parse_script_block = (text, errors, start) => {
 					type: "Script"
 				}
 			} else if (text[index] == "<") {
-				const node = parse_element(text, errors, index);
+				let node = parse_element(text, errors, index);
 				elements.push(node);
 				child_pre_index = node.end;
 			} else if (text[index] == "{") {
-				const node = parse_script_block(text, errors, index);
-				for (const str of node.strings) {
+				let node = parse_script_block(text, errors, index);
+				for (let str of node.strings) {
 					strings.push(str);
 				}
 				child_pre_index = node.end;
 			} else if (text[index] == "'") {
-				const node = parse_script_single_quotes(text, errors, index);
+				let node = parse_script_single_quotes(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else if (text[index] == "\"") {
-				const node = parse_script_double_quotes(text, errors, index);
+				let node = parse_script_double_quotes(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			} else {
-				const node = parse_script_backticks(text, errors, index);
+				let node = parse_script_backticks(text, errors, index);
 				strings.push(node);
 				child_pre_index = node.end;
 			}
@@ -1070,24 +1070,24 @@ const parse_script_block = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)["{]/;
+let stop_attribute_single_quotes_regex$1 = /(?<=(?<!\\)(?:\\\\)*)["{]/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "double" }}
+ * @returns {import("../../public.js").String & { subType: "double" }}
  */
 var parse_attribute_double_quotes = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Script[]} */
-	const scripts = [];
+	/** @type {import("../../public.js").Script[]} */
+	let scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(
+		let child_index = text.slice(child_pre_index).search(
 			stop_attribute_single_quotes_regex$1
 		);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "\"") {
 				return {
 					end: index + 1,
@@ -1097,7 +1097,7 @@ var parse_attribute_double_quotes = (text, errors, start) => {
 					type: "String"
 				}
 			}
-			const node = parse_script_block(text, errors, index);
+			let node = parse_script_block(text, errors, index);
 			scripts.push(node);
 			child_pre_index = node.end;
 		} else {
@@ -1119,24 +1119,24 @@ var parse_attribute_double_quotes = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)(?:'|{)/;
+let stop_attribute_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)(?:'|{)/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").String & { subType: "single" }}
+ * @returns {import("../../public.js").String & { subType: "single" }}
  */
 var parse_attribute_single_quotes = (text, errors, start) => {
 	let child_pre_index = start + 1;
-	/** @type {import("../../../public.js").Script[]} */
-	const scripts = [];
+	/** @type {import("../../public.js").Script[]} */
+	let scripts = [];
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(
+		let child_index = text.slice(child_pre_index).search(
 			stop_attribute_single_quotes_regex
 		);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (text[index] == "'") {
 				return {
 					end: index + 1,
@@ -1146,7 +1146,7 @@ var parse_attribute_single_quotes = (text, errors, start) => {
 					type: "String"
 				}
 			}
-			const node = parse_script_block(text, errors, index);
+			let node = parse_script_block(text, errors, index);
 			scripts.push(node);
 			child_pre_index = node.end;
 		} else {
@@ -1168,18 +1168,18 @@ var parse_attribute_single_quotes = (text, errors, start) => {
 	}
 };
 
-const stop_attribute_name_regex = /[ =>]/;
-const stop_space_regex = /\S/;
+let stop_attribute_name_regex = /[ =>]/;
+let stop_space_regex = /\S/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Attribute}
+ * @returns {import("../../public.js").Attribute}
  */
 var parse_attribute = (text, errors, start) => {
 	if (text[start] == "{") {
-		const node = parse_script_block(text, errors, start);
+		let node = parse_script_block(text, errors, start);
 		return {
 			end: node.end,
 			name: "",
@@ -1188,34 +1188,34 @@ var parse_attribute = (text, errors, start) => {
 			value: node
 		}
 	}
-	const name_index = text.slice(start + 1).search(stop_attribute_name_regex) + 1;
+	let name_index = text.slice(start + 1).search(stop_attribute_name_regex) + 1;
 	if (name_index > 0) {
-		const name = text.slice(start, start + name_index);
-		/** @type {import("../../../public.js").Attribute} */
-		const node = {
+		let name = text.slice(start, start + name_index);
+		/** @type {import("../../public.js").Attribute} */
+		let node = {
 			end: start + name_index,
 			name,
 			start,
 			type: "Attribute",
 			value: true
 		};
-		const equals_sign_index = text.slice(start + name_index).search(stop_space_regex);
+		let equals_sign_index = text.slice(start + name_index).search(stop_space_regex);
 		if (equals_sign_index < 0 || text[start + name_index + equals_sign_index] != "=") return node
-		const value_index = text.slice(
+		let value_index = text.slice(
 			start + name_index + equals_sign_index + 1
 		).search(stop_space_regex) + 1;
 		if (value_index > 0) {
-			const index = start + name_index + equals_sign_index + value_index;
+			let index = start + name_index + equals_sign_index + value_index;
 			if (text[index] == "'") {
-				const value = parse_attribute_single_quotes(text, errors, index);
+				let value = parse_attribute_single_quotes(text, errors, index);
 				node.value = value;
 				node.end = value.end;
 			} else if (text[index] == "\"") {
-				const value = parse_attribute_double_quotes(text, errors, index);
+				let value = parse_attribute_double_quotes(text, errors, index);
 				node.value = value;
 				node.end = value.end;
 			} else if (text[index] == "{") {
-				const value = parse_script_block(text, errors, index);
+				let value = parse_script_block(text, errors, index);
 				node.value = value;
 				node.end = value.end;
 			} else {
@@ -1256,25 +1256,25 @@ var parse_attribute = (text, errors, start) => {
 	}
 };
 
-const end_element_name_regex = /[ >]/;
-const slash_regex = /^\/|\/$/;
-const stop_element_content_regex = /[{<]/;
-const stop_element_regex = /[^\s/]/;
+let end_element_name_regex = /[ >]/;
+let slash_regex = /^\/|\/$/;
+let stop_element_content_regex = /[{<]/;
+let stop_element_regex = /[^\s/]/;
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Element}
+ * @returns {import("../../public.js").Element}
  */
-const parse_open_tag = (text, errors, start) => {
-	const name_index = text.slice(start + 1).search(end_element_name_regex) + 1;
+let parse_open_tag = (text, errors, start) => {
+	let name_index = text.slice(start + 1).search(end_element_name_regex) + 1;
 	if (name_index > 0) {
 		let child_pre_index = start + name_index;
-		const name = text.slice(start + 1, child_pre_index).replace(slash_regex, "");
+		let name = text.slice(start + 1, child_pre_index).replace(slash_regex, "");
 		if (text[child_pre_index] == ">") {
-			/** @type {import("../../../public.js").Element} */
-			const node = {
+			/** @type {import("../../public.js").Element} */
+			let node = {
 				attributes: [],
 				children: [],
 				end: child_pre_index + 1,
@@ -1289,15 +1289,15 @@ const parse_open_tag = (text, errors, start) => {
 			};
 			return node
 		}
-		/** @type {import("../../../public.js").Attribute[]} */
-		const attributes = [];
+		/** @type {import("../../public.js").Attribute[]} */
+		let attributes = [];
 		for (;;) {
-			const child_index = text.slice(child_pre_index).search(stop_element_regex);
+			let child_index = text.slice(child_pre_index).search(stop_element_regex);
 			if (child_index >= 0) {
-				const index = child_pre_index + child_index;
+				let index = child_pre_index + child_index;
 				if (text[index] == ">") {
-					/** @type {import("../../../public.js").Element} */
-					const node = {
+					/** @type {import("../../public.js").Element} */
+					let node = {
 						attributes,
 						children: [],
 						end: index + 1,
@@ -1312,7 +1312,7 @@ const parse_open_tag = (text, errors, start) => {
 					};
 					return node
 				}
-				const node = parse_attribute(text, errors, index);
+				let node = parse_attribute(text, errors, index);
 				attributes.push(node);
 				child_pre_index = node.end;
 			} else {
@@ -1355,13 +1355,13 @@ const parse_open_tag = (text, errors, start) => {
 
 /**
  * @param {string} text
- * @param {import("../../../public.js").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../../public.js").Element}
+ * @returns {import("../../public.js").Element}
  */
-const parse_element = (text, errors, start) => {
-	const err = errors.length;
-	const node = parse_open_tag(text, errors, start);
+let parse_element = (text, errors, start) => {
+	let err = errors.length;
+	let node = parse_open_tag(text, errors, start);
 	if (errors.length > err || node.subType == "closed") return node
 	if (node.subType == "close") {
 		errors.push(
@@ -1375,9 +1375,9 @@ const parse_element = (text, errors, start) => {
 	}
 	let child_pre_index = node.end;
 	for (;;) {
-		const child_index = text.slice(child_pre_index).search(stop_element_content_regex);
+		let child_index = text.slice(child_pre_index).search(stop_element_content_regex);
 		if (child_index >= 0) {
-			const index = child_pre_index + child_index;
+			let index = child_pre_index + child_index;
 			if (child_index) {
 				node.children.push(
 					{
@@ -1406,12 +1406,12 @@ const parse_element = (text, errors, start) => {
 					}
 					return node
 				} else {
-					const child = parse_element(text, errors, index);
+					let child = parse_element(text, errors, index);
 					node.children.push(child);
 					child_pre_index = child.end;
 				}
 			} else {
-				const child = parse_script_block(text, errors, index);
+				let child = parse_script_block(text, errors, index);
 				node.children.push(child);
 				child_pre_index = child.end;
 			}
@@ -1429,7 +1429,7 @@ const parse_element = (text, errors, start) => {
 	}
 };
 
-const stop_jsx_regex = /['"`]|<[A-Za-z]/;
+let stop_jsx_regex = /['"`]|<[A-Za-z]/;
 
 /** @typedef {import("../../public.js").AstNode} */
 
@@ -1437,30 +1437,30 @@ const stop_jsx_regex = /['"`]|<[A-Za-z]/;
  * @param {string} text
  * @param {import("../../public.js").AstNode} node
  */
-const set_text = (text, node) => {
+let set_text = (text, node) => {
 	node.text = text.slice(node.start, node.end);
 	if (node.type == "Attribute") {
 		if (node.value !== true) {
 			set_text(text, node.value);
 		}
 	} else if (node.type == "Element") {
-		for (const attr of node.attributes) {
+		for (let attr of node.attributes) {
 			set_text(text, attr);
 		}
-		for (const child of node.children) {
+		for (let child of node.children) {
 			set_text(text, child);
 		}
 	} else if (node.type == "Script") {
-		for (const string of node.strings) {
+		for (let string of node.strings) {
 			set_text(text, string);
 		}
 		if (node.subType == "jsx") {
-			for (const element of node.elements) {
+			for (let element of node.elements) {
 				set_text(text, element);
 			}
 		}
 	} else if (node.type == "String") {
-		for (const script of node.scripts) {
+		for (let script of node.scripts) {
 			set_text(text, script);
 		}
 	}
@@ -1476,25 +1476,25 @@ const set_text = (text, node) => {
  */
 var index = (text, include_text) => {
 	/** @type {import("../../public.js").AstSyntaxError[]} */
-	const errors = [];
+	let errors = [];
 	/** @type {import("../../public.js").AstNode[]} */
-	const ast_nodes = [];
+	let ast_nodes = [];
 	let start = 0;
 	for (;;) {
-		const index = text.slice(start).search(stop_jsx_regex);
+		let index = text.slice(start).search(stop_jsx_regex);
 		if (index >= 0) {
 			if (text[start + index] == "<") {
-				const node = parse_element(text, errors, start + index);
+				let node = parse_element(text, errors, start + index);
 				ast_nodes.push(node);
 				start = node.end;
 			} else if (text[start + index] == "'") {
-				const node = parse_script_single_quotes(text, errors, start + index);
+				let node = parse_script_single_quotes(text, errors, start + index);
 				start = node.end;
 			} else if (text[start + index] == "\"") {
-				const node = parse_script_double_quotes(text, errors, start + index);
+				let node = parse_script_double_quotes(text, errors, start + index);
 				start = node.end;
 			} else {
-				const node = parse_script_backticks(text, errors, start + index);
+				let node = parse_script_backticks(text, errors, start + index);
 				start = node.end;
 			}
 		} else break
@@ -1505,7 +1505,7 @@ var index = (text, include_text) => {
 			: a.end - b.end
 	);
 	if (include_text) {
-		for (const node of ast_nodes) {
+		for (let node of ast_nodes) {
 			set_text(text, node);
 		}
 	}

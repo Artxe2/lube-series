@@ -5,24 +5,26 @@ import { decorator } from "async-lube"
 describe(
 	"decorator",
 	() => {
-		const resolve = () =>
-			() => Promise.resolve("resolve")
-				.then(() => "resolve")
+		let resolve = async () => "resolve"
 		/**
 		 * @param {number} ms
 		 */
-		const sleep = ms => new Promise(res => setTimeout(res, ms))
-		const get_result = (
+		let sleep = ms => new Promise(res => setTimeout(res, ms))
+		let get_result = (
 			() => {
 				let count = 0
-				return () => count++
+				/**
+				 * @param {number} key
+				 * @returns {number}
+				 */
+				return key => count++ ?? key
 			}
 		)()
 
 		it(
 			"already error",
 			async () => {
-				const already_test = decorator(resolve)
+				let already_test = decorator(resolve)
 				await Promise.all(
 					[
 						already_test()
@@ -46,7 +48,7 @@ describe(
 		it(
 			"debounce error",
 			async () => {
-				const debounce_test = decorator(resolve)
+				let debounce_test = decorator(resolve)
 					.debounce(500)
 				await Promise.all(
 					[
@@ -71,7 +73,7 @@ describe(
 		it(
 			"throttle error",
 			async () => {
-				const throttle_test = decorator(resolve)
+				let throttle_test = decorator(resolve)
 					.throttle(2, 1000)
 				await Promise.all(
 					[
@@ -100,7 +102,7 @@ describe(
 		it(
 			"retries",
 			async () => {
-				const retry_test = decorator(
+				let retry_test = decorator(
 					(() => {
 						let count = 0
 						return async () => {
@@ -137,17 +139,19 @@ describe(
 		it(
 			"caching",
 			async () => {
-				const caching_test = decorator(get_result)
+				let caching_test = decorator(get_result)
 					.cache(1)
-				const first = await caching_test()
+				let test1 = await caching_test(1)
 				await sleep(500)
-				const second = await caching_test()
+				let test2 = caching_test(2)
+				let test3 = await caching_test(1)
 				await sleep(600)
-				const third = await caching_test()
+				let test4 = await caching_test(1)
 
-				assert.equal(first, 0)
-				assert.equal(second, 0)
-				assert.equal(third, 1)
+				assert.equal(test1, 0)
+				assert.equal(await test2, 1)
+				assert.equal(test3, 0)
+				assert.equal(test4, 2)
 			}
 		)
 	}

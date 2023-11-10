@@ -173,9 +173,9 @@ parseHtml(`<!DOCTYPE html>
 ```ts
 import { parseJsx } from "dom-eater"
 
-const result = parseJsx(`import { param } from "module"
+let result = parseJsx(`import { param } from "module"
 export function App() {
-  const [value, setValue] = useValue(param)
+  let [value, setValue] = useValue(param)
   return <div attr="text{js-attr}">
 	TEXT{js-text}
   </div>

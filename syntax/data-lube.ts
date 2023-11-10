@@ -1,6 +1,6 @@
 import { deepCopy, deepEqual, deepFreeze } from "data-lube"
 
-const origin = {
+let origin = {
 	a: [ 1, 2 ],
 	n: null,
 	o: { k: "v" },

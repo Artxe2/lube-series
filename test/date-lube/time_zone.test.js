@@ -7,19 +7,19 @@ describe(
 		it(
 			"London ~ New-York",
 			() => {
-				const now = new Date()
-				const london = timeZone(new Date(now), "Europe/London")
-				const new_york = timeZone(
+				let now = new Date()
+				let london = timeZone(new Date(now), "Europe/London")
+				let new_york = timeZone(
 					new Date(now),
 					"America/New_York"
 				)
-				const new_york_inv = timeZone(
+				let new_york_inv = timeZone(
 					new Date(now),
 					"America/New_York",
 					true
 				)
-				const gap = (london.getTime() - new_york.getTime()) / timeUnit.mm
-				const gap_inv = (london.getTime() - new_york_inv.getTime()) / timeUnit.mm
+				let gap = (london.getTime() - new_york.getTime()) / timeUnit.mm
+				let gap_inv = (london.getTime() - new_york_inv.getTime()) / timeUnit.mm
 				assert.isTrue(
 					gap >= 240 && gap <= 360 && gap % 60 === 0
 				)

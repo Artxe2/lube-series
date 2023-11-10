@@ -1,10 +1,10 @@
 "use strict"
-const { RuleTester } = require("eslint")
+let { RuleTester } = require("eslint")
 
 /** @type {RuleTester.ValidTestCase[]} */
-const valid = []
+let valid = []
 /** @type {RuleTester.InvalidTestCase[]} */
-const invalid = []
+let invalid = []
 
 require(
 	"./pretty-sequence/case_by_node_type"
