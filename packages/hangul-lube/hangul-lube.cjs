@@ -52,7 +52,7 @@ let _default$1 = text => {
 const non_word_pattern = "[^가-힣0-9A-Z]*?";
 
 /**
- * Compile a regular expression pattern for Flexible korean search.
+ * Compile a regular expression for flexible korean search.
  * @param {string} text
  * @returns {RegExp?}
  * @example searcher("ㄷㅎㅁㄱ") //=>

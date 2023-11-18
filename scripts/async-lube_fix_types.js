@@ -1,16 +1,19 @@
+import { fileURLToPath } from "node:url"
 import fs from "node:fs"
 
-let replace_any_type_regex = /(?<=@returns {(.+?)}\r?\n(?:.|[\r\n])+?: )any(?=;)/g
+const dir = fileURLToPath(new URL("..", import.meta.url))
+
+const replace_any_type_regex = /(?<=@returns {(.+?)}\r?\n(?:.|[\r\n])+?: )any(?=;)/g
 
 /**
  * @param {string} _
  * @param {string} type
  * @returns {string}
  */
-let replace_any_type_handler = (_, type) => type
+const replace_any_type_handler = (_, type) => type
 
-let decorator_d_ts = "packages/async-lube/types/decorator.d.ts"
-let text = fs.readFileSync(decorator_d_ts)
+const decorator_d_ts = `${dir}/packages/async-lube/types/decorator.d.ts`
+const text = fs.readFileSync(decorator_d_ts)
 	.toString()
 
 fs.writeFileSync(
