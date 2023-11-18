@@ -7,13 +7,13 @@ import parse_script_single_quotes from "./parse_script_single_quotes.js"
 let stop_script_block_regex = /[{}'"`]/
 /**
  * @param {string} text
- * @param {import("../../public.js").AstSyntaxError[]} errors
+ * @param {import("#public").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../public.js").Script & { subType: "template" }}
+ * @returns {import("#public").Script & { subType: "template" }}
  */
 export default (text, errors, start) => {
 	let child_pre_index = start + 2
-	/** @type {import("../../public.js").String[]} */
+	/** @type {import("#public").String[]} */
 	let strings = []
 	for (;;) {
 		let child_index = text.slice(child_pre_index).search(stop_script_block_regex)

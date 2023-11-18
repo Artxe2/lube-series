@@ -1,4 +1,4 @@
-declare function _default(text: string, errors: import("../../public.js").AstSyntaxError[], start: number): import("../../public.js").Script & {
+declare function _default(text: string, errors: import("#public").AstSyntaxError[], start: number): import("#public").Script & {
     subType: "template";
 };
 export default _default;

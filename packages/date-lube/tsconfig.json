@@ -10,6 +10,7 @@
 		"lib": [ "ES2020", "DOM", "DOM.Iterable" ],
 		"module": "Node16",
 		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
+		"paths": { "#public": [ "./public.d.ts" ] },
 		"rootDir": "src",
 		"skipLibCheck": true,
 		"strict": true,

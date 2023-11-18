@@ -5,12 +5,13 @@
 	},
 	"description": "Simple tools to lubricate JavaScript",
 	"devDependencies": {
-		"@typescript-eslint/parser": "^6.9.0",
+		"@typescript-eslint/parser": "^6.11.0",
+		"@vitest/coverage-v8": "^0.34.6",
 		"async-lube": "workspace:^",
 		"data-lube": "workspace:^",
 		"date-lube": "workspace:^",
 		"dom-eater": "workspace:^",
-		"eslint": "^8.52.0",
+		"eslint": "^8.54.0",
 		"eslint-plugin-lube": "workspace:^",
 		"hangul-lube": "workspace:^",
 		"typescript": "^5.2.2",
@@ -27,7 +28,7 @@
 		"dts": "pnpm -r dts",
 		"lint": "eslint --cache --fix **/*.{js,json,ts}",
 		"pre": "pnpm test && pnpm lint && pnpm dts && pnpm cjs && tsc",
-		"test": "vitest run"
+		"test": "vitest run --coverage"
 	},
 	"type": "module",
 	"version": "0.0.0"

@@ -1,1 +1,1 @@
-{"version":3,"file":"time_zone.d.ts","sourceRoot":"","sources":["../src/time_zone.js"],"names":[],"mappings":";AAEA;;;;;;;;;;GAUG;AACH,gCATW,IAAI,aACJ,OAAO,cAAc,EAAE,QAAQ,cAC/B,IAAI,eACF,IAAI,CAqBhB"}
+{"version":3,"file":"time_zone.d.ts","sourceRoot":"","sources":["../src/time_zone.js"],"names":[],"mappings":";AAEA;;;;;;;;;;GAUG;AACH,gCATW,IAAI,aACJ,OAAO,SAAS,EAAE,QAAQ,cAC1B,IAAI,eACF,IAAI,CAqBhB"}

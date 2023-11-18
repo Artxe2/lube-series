@@ -3,15 +3,15 @@ import normalize_element_children from "./normalize_element_children.js"
 
 /**
  * @param {string} text
- * @param {import("../../public.js").AstNode[]} ast_nodes
- * @param {import("../../public.js").AstSyntaxError[]} errors
+ * @param {import("#public").AstNode[]} ast_nodes
+ * @param {import("#public").AstSyntaxError[]} errors
  * @returns {void}
  */
 export default (text, ast_nodes, errors) => {
-	/** @type {import("../../public.js").AstNode[]} */
+	/** @type {import("#public").AstNode[]} */
 	let ast = []
 	while (ast_nodes.length > 0) {
-		let node = /** @type {import("../../public.js").AstNode} */(ast_nodes.shift())/**/
+		let node = /** @type {import("#public").AstNode} */(ast_nodes.shift())/**/
 		ast.push(node)
 		if (node.type == "Element" && node.name != "script" && node.name != "style") {
 			if (node.subType == "close") {

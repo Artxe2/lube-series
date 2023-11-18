@@ -9,9 +9,9 @@ let stop_element_regex = /[^\s/]/
 
 /**
  * @param {string} text
- * @param {import("../../public.js").AstSyntaxError[]} errors
+ * @param {import("#public").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../public.js").Element}
+ * @returns {import("#public").Element}
  */
 export default (text, errors, start) => {
 	let name_index = text.slice(start + 1).search(end_element_name_regex) + 1
@@ -19,7 +19,7 @@ export default (text, errors, start) => {
 		let child_pre_index = start + name_index
 		let name = text.slice(start + 1, child_pre_index).replace(slash_regex, "")
 		if (text[child_pre_index] == ">") {
-			/** @type {import("../../public.js").Element} */
+			/** @type {import("#public").Element} */
 			let node = {
 				attributes: [],
 				children: [],
@@ -46,14 +46,14 @@ export default (text, errors, start) => {
 			}
 			return node
 		}
-		/** @type {import("../../public.js").Attribute[]} */
+		/** @type {import("#public").Attribute[]} */
 		let attributes = []
 		for (;;) {
 			let child_index = text.slice(child_pre_index).search(stop_element_regex)
 			if (child_index >= 0) {
 				let index = child_pre_index + child_index
 				if (text[index] == ">") {
-					/** @type {import("../../public.js").Element} */
+					/** @type {import("#public").Element} */
 					let node = {
 						attributes,
 						children: [],

@@ -1,11 +1,11 @@
 export default parse_script_block;
 /**
  * @param {string} text
- * @param {import("../../public.js").AstSyntaxError[]} errors
+ * @param {import("#public").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../public.js").Script & { subType: "block" }}
+ * @returns {import("#public").Script & { subType: "block" }}
  */
-declare function parse_script_block(text: string, errors: import("../../public.js").AstSyntaxError[], start: number): import("../../public.js").Script & {
+declare function parse_script_block(text: string, errors: import("#public").AstSyntaxError[], start: number): import("#public").Script & {
     subType: "block";
 };
 //# sourceMappingURL=parse_script_block.d.ts.map

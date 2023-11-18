@@ -11,5 +11,5 @@
 		"target": "ESNext"
 	},
 	"ts-node": { "esm": true },
-	"exclude": [ "**/*.cjs" ]
+	"exclude": [ "coverage/", "packages/" ]
 }

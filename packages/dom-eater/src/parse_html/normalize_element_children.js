@@ -5,9 +5,9 @@ let self_closing_element_regex = /^(?:area|base|br|col|embed|hr|img|input|link|m
 
 /**
  * @param {string} text
- * @param {import("../../public.js").AstNode[]} ast_nodes
- * @param {import("../../public.js").AstSyntaxError[]}  errors
- * @param {import("../../public.js").Element} element
+ * @param {import("#public").AstNode[]} ast_nodes
+ * @param {import("#public").AstSyntaxError[]}  errors
+ * @param {import("#public").Element} element
  * @returns {void}
  */
 export default (text, ast_nodes, errors, element) => {

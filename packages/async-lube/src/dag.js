@@ -118,7 +118,7 @@ let _default = () => {
 	/**
 	 * @template {(...args: *[]) => *} T
 	 * @param {T} handler
-	 * @param {import("../private.js").Dependencies<T>} dependencies
+	 * @param {import("#private").Dependencies<T>} dependencies
 	 * @returns {ReturnType<typeof _default>}
 	 */
 	utils.add = (handler, ...dependencies) => {

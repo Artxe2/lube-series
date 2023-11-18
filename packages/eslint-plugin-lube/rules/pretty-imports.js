@@ -27,7 +27,7 @@ module.exports = {
 		type: "layout"
 	},
 	create(context) {
-		/** @type {import("../private").RuleOptions["pretty-imports"]} */
+		/** @type {import("#private").RuleOptions["pretty-imports"]} */
 		let option = context.options[0]
 		let check_exports = option?.checkExports ?? true
 		let check_imports = option?.checkImports ?? true
@@ -54,10 +54,10 @@ module.exports = {
 		 * @returns {string}
 		 *//**
 		 * @overload
-		 * @param {import("../private").AstNode} node
+		 * @param {import("#private").AstNode} node
 		 * @returns {string}
 		 *//**
-		 * @param {import("../private").AstNode | number} node_or_start
+		 * @param {import("#private").AstNode | number} node_or_start
 		 * @param {number=} end
 		 * @returns {string}
 		 */
@@ -71,7 +71,7 @@ module.exports = {
 			return substr.replace(_r_regex, "")
 		}
 		/**
-		 * @param {import("../private").AstNode} node
+		 * @param {import("#private").AstNode} node
 		 * @param {string} corrected_text
 		 * @param {"exports" | "imports"} message_id
 		 * @returns {void}
@@ -90,7 +90,7 @@ module.exports = {
 
 		return {
 			/**
-			 * @param {import("../private").AstNode & import("estree").ExportNamedDeclaration} node
+			 * @param {import("#private").AstNode & import("estree").ExportNamedDeclaration} node
 			 * @returns {void}
 			 */
 			ExportNamedDeclaration(node) {
@@ -102,11 +102,11 @@ module.exports = {
 					}
 					let corrected_text = length > max_length
 						? `export {\n${line_indent + indent}${
-							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text)
+							/** @type {import("#private").AstNode[]} */(node.specifiers)/**/.map(get_text)
 								.join(",\n" + line_indent + indent)
 						}\n${line_indent}}`
 						: `export { ${
-							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text).join(", ")
+							/** @type {import("#private").AstNode[]} */(node.specifiers)/**/.map(get_text).join(", ")
 						} }`
 					if (node.source) {
 						corrected_text += " from " + node.source.raw
@@ -118,7 +118,7 @@ module.exports = {
 				}
 			},
 			/**
-			 * @param {import("../private").AstNode & import("estree").ImportDeclaration} node
+			 * @param {import("#private").AstNode & import("estree").ImportDeclaration} node
 			 * @returns {void}
 			 */
 			ImportDeclaration(node) {
@@ -130,11 +130,11 @@ module.exports = {
 					}
 					let corrected_text = length > max_length
 						? `import {\n${line_indent + indent}${
-							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text)
+							/** @type {import("#private").AstNode[]} */(node.specifiers)/**/.map(get_text)
 								.join(",\n" + line_indent + indent)
 						}\n${line_indent}} from ${node.source.raw}`
 						: `import { ${
-							/** @type {import("../private").AstNode[]} */(node.specifiers)/**/.map(get_text).join(", ")
+							/** @type {import("#private").AstNode[]} */(node.specifiers)/**/.map(get_text).join(", ")
 						} } from ${node.source.raw}`
 					if (semicolon) {
 						corrected_text += ";"

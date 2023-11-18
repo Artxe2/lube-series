@@ -6,6 +6,9 @@
 		"lib": [ "ES2020", "DOM", "DOM.Iterable" ],
 		"module": "CommonJS",
 		"noEmit": true,
+		"paths": {
+			"#private": [ "./private.d.ts" ]
+		},
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"

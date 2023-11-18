@@ -11,7 +11,11 @@ VSCE: JavaScript and TypeScript Nightly
 	},
 	"extends": [ "plugin:lube/recommended" ],
 	"globals": { "RequestInit": true },
-	"ignorePatterns": [ "**/types/**/*.d.ts", "**/*.cjs" ],
+	"ignorePatterns": [
+		"**/types/**/*.d.ts",
+		"**/*.cjs",
+		"coverage/"
+	],
 	"overrides": [
 		{
 			"files": [ "**/*.d.ts" ],

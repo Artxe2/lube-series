@@ -22,7 +22,7 @@ module.exports = {
 		type: "layout"
 	},
 	create(context) {
-		/** @type {import("../private").RuleOptions["svelte-naming-convention"]} */
+		/** @type {import("#private").RuleOptions["svelte-naming-convention"]} */
 		let option = context.options[0]
 		let fix_same_names = option?.fixSameNames ?? true
 
@@ -32,15 +32,15 @@ module.exports = {
 		let fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
 		let camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
 
-		/** @type {Map<string, import("../private").AstNode[]>} */
+		/** @type {Map<string, import("#private").AstNode[]>} */
 		let pending_usages = new Map()
 		/** @type {Set<string>} */
 		let reported_declarations = new Set()
-		/** @type {Set<import("../private").AstNode>} */
+		/** @type {Set<import("#private").AstNode>} */
 		let shortand_properties = new Set()
 
 		/**
-		 * @param {import("../private").AstNode & import("estree").Identifier} node
+		 * @param {import("#private").AstNode & import("estree").Identifier} node
 		 * @returns {void}
 		 */
 		function defer(node) {
@@ -67,7 +67,7 @@ module.exports = {
 			return a + (a ? "_" : "") + b.toLowerCase()
 		}
 		/**
-		 * @param {import("../private").AstNode & import("estree").Identifier} node
+		 * @param {import("#private").AstNode & import("estree").Identifier} node
 		 * @returns {void}
 		 */
 		function report(node) {
@@ -93,7 +93,7 @@ module.exports = {
 				let usages = pending_usages.get(name)
 				while (usages?.length) {
 					report(
-						/** @type {import("../private").AstNode & import("estree").Identifier} */(usages.pop())/**/
+						/** @type {import("#private").AstNode & import("estree").Identifier} */(usages.pop())/**/
 					)
 				}
 				reported_declarations.add(name)
@@ -101,7 +101,7 @@ module.exports = {
 		}
 
 		return {
-			/** @param {import("../private").AstNode & import("estree").Identifier} node */
+			/** @param {import("#private").AstNode & import("estree").Identifier} node */
 			Identifier(node) {
 				let name = node.name
 				if (allow_regex.test(name)) return

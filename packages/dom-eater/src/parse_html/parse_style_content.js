@@ -4,9 +4,9 @@ let end_style_content_regex = /<\/style>/
 
 /**
  * @param {string} text
- * @param {import("../../public.js").AstSyntaxError[]} errors
+ * @param {import("#public").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("../../public.js").Style}
+ * @returns {import("#public").Style}
  */
 export default (text, errors, start) => {
 	let index = text.slice(start).search(end_style_content_regex)
