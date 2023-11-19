@@ -52,7 +52,7 @@ export type AstNode = BaseAstNode & (
 	| estree.ForStatement
 	| {
 		body: AstNode
-		id: AstNode
+		id?: AstNode
 		params: AstNode[]
 	} & estree.FunctionDeclaration
 	| {

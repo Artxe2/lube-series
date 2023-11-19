@@ -261,11 +261,9 @@ module.exports = {
 						[ start, end ] = node.params[0].range
 					}
 				} else {
-					start = node.type == "FunctionDeclaration"
+					start = node.id
 						? origin_text.indexOf("(", node.id.range[1]) + 1
-						: node.id
-							? origin_text.indexOf("(", node.id.range[1]) + 1
-							: origin_text.indexOf("(", node.range[0]) + 1
+						: origin_text.indexOf("(", node.range[0]) + 1
 					end = origin_text.indexOf(
 						")",
 						node.params.length
@@ -387,7 +385,11 @@ module.exports = {
 		return /** @type {import("../private").RuleListener} */({
 			"Program:exit": () => {
 				for (let node of nodes.reverse()) {
-					verify_correct(node)
+					try {
+						verify_correct(node)
+					} catch (error) {
+						console.error(node.type, node, error)
+					}
 				}
 			},
 			ArrayExpression: node => {

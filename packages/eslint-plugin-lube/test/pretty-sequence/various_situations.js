@@ -46,6 +46,17 @@ exports.module = (valid, invalid) => {
 				)
 			`,
 			parserOptions: { ecmaVersion: "latest" }
+		},
+		{
+			code: `
+			export default function(abc) {
+				return [ abc, abc ]
+			}
+			`,
+			parserOptions: {
+				ecmaVersion: "latest",
+				sourceType: "module"
+			}
 		}
 	)
 	invalid.push(
