@@ -5,13 +5,13 @@ let stop_backtick_regex = /(?<=(?<!\\)(?:\\\\)*)(?:`|\${)/
 
 /**
  * @param {string} text
- * @param {import("#public").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("#public").String & { subType: "backtick" }}
+ * @returns {import("../../public.js").String & { subType: "backtick" }}
  */
 export default (text, errors, start) => {
 	let child_pre_index = start + 1
-	/** @type {import("#public").Script[]} */
+	/** @type {import("../../public.js").Script[]} */
 	let scripts = []
 	for (;;) {
 		let child_index = text.slice(child_pre_index).search(stop_backtick_regex)

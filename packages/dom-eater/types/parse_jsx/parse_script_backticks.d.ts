@@ -1,4 +1,4 @@
-declare function _default(text: string, errors: import("#public").AstSyntaxError[], start: number): import("#public").String & {
+declare function _default(text: string, errors: import("../../public.js").AstSyntaxError[], start: number): import("../../public.js").String & {
     subType: "backtick";
 };
 export default _default;

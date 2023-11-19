@@ -5,11 +5,11 @@ import parse_script_single_quotes from "./parse_script_single_quotes.js"
 
 let stop_jsx_regex = /['"`]|<[A-Za-z]/
 
-/** @typedef {import("#public").AstNode} */
+/** @typedef {import("../../public.js").AstNode} */
 
 /**
  * @param {string} text
- * @param {import("#public").AstNode} node
+ * @param {import("../../public.js").AstNode} node
  */
 let set_text = (text, node) => {
 	node.text = text.slice(node.start, node.end)
@@ -44,14 +44,14 @@ let set_text = (text, node) => {
  * @param {string} text
  * @param {true=} include_text
  * @returns {{
- *   ast: import("#public").AstNode[]
- *   errors: import("#public").AstSyntaxError[]
+ *   ast: import("../../public.js").AstNode[]
+ *   errors: import("../../public.js").AstSyntaxError[]
  * }}
  */
 export default (text, include_text) => {
-	/** @type {import("#public").AstSyntaxError[]} */
+	/** @type {import("../../public.js").AstSyntaxError[]} */
 	let errors = []
-	/** @type {import("#public").AstNode[]} */
+	/** @type {import("../../public.js").AstNode[]} */
 	let ast_nodes = []
 	let start = 0
 	for (;;) {

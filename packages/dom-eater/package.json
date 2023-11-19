@@ -33,9 +33,7 @@
 	},
 	"scripts": {
 		"cjs": "rollup src/index.js --file dom-eater.cjs --format cjs",
-		"clean:lin": "node -e \"if (process.platform !== 'win32') process.exit(1)\" || rm -rf types",
-		"clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist types rmdir /Q /S types",
-		"dts": "npm run clean:win && npm run clean:lin && tsc",
+		"dts": "node ../../scripts/tsc_with_clean.js dom-eater",
 		"test": "cd ../../dom-eater/test && vitest run"
 	},
 	"type": "module",

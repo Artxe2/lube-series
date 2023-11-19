@@ -7,13 +7,13 @@ let stop_script_block_regex = /[{}'"`]/
 
 /**
  * @param {string} text
- * @param {import("#public").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("#public").Script & { subType: "block" }}
+ * @returns {import("../../public.js").Script & { subType: "block" }}
  */
 let parse_script_block = (text, errors, start) => {
 	let child_pre_index = start + 1
-	/** @type {import("#public").String[]} */
+	/** @type {import("../../public.js").String[]} */
 	let strings = []
 	for (;;) {
 		let child_index = text.slice(child_pre_index).search(stop_script_block_regex)

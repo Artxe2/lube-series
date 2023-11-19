@@ -138,7 +138,7 @@ export type BaseAstNode = {
 export type Comment = BaseAstNode & estree.Comment
 
 export type RuleListener = {
-	[K in keyof eslint.Rule.NodeListener]: (node: import("#private").AstNode) => void
+	[K in keyof eslint.Rule.NodeListener]: (node: import("../private").AstNode) => void
 }
 
 export type RuleOptions = {

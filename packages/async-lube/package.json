@@ -35,9 +35,7 @@
 	},
 	"scripts": {
 		"cjs": "rollup src/index.js --file async-lube.cjs --format cjs",
-		"clean:lin": "node -e \"if (process.platform !== 'win32') process.exit(1)\" || rm -rf types",
-		"clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist types rmdir /Q /S types",
-		"dts": "npm run clean:win && npm run clean:lin && tsc && node ../../scripts/async-lube_fix_types.js",
+		"dts": "node ../../scripts/tsc_with_clean.js async-lube && node ../../scripts/async-lube_fix_types.js",
 		"test": "cd ../../test/async-lube/ && vitest run"
 	},
 	"type": "module",

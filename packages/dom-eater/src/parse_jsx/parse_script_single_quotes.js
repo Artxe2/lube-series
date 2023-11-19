@@ -4,9 +4,9 @@ let end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/
 
 /**
  * @param {string} text
- * @param {import("#public").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("#public").String & { subType: "single" }}
+ * @returns {import("../../public.js").String & { subType: "single" }}
  */
 export default (text, errors, start) => {
 	let index = text.slice(start + 1).search(end_single_quotes_regex) + 1

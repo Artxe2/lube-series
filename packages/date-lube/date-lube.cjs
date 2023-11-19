@@ -141,7 +141,7 @@ let time_zone_regex = /T\+?(-?\d*):?(\d*)/;
 /**
  * Adjusts the date according to the specified time zone offset.
  * @param {Date} date
- * @param {import("#public").TimeZone} time_zone
+ * @param {import("../public.js").TimeZone} time_zone
  * @param {true=} inversion
  * @returns {Date}
  * @throws

@@ -1,1 +1,1 @@
-{"version":3,"file":"parse_attribute_double_quotes.d.ts","sourceRoot":"","sources":["../../src/parse_jsx/parse_attribute_double_quotes.js"],"names":[],"mappings":"AAWe,gCALJ,MAAM,UACN,OAAO,SAAS,EAAE,cAAc,EAAE,SAClC,MAAM,GACJ,OAAO,SAAS,EAAE,MAAM,GAAG;IAAE,OAAO,EAAE,QAAQ,CAAA;CAAE,CAyC5D"}
+{"version":3,"file":"parse_attribute_double_quotes.d.ts","sourceRoot":"","sources":["../../src/parse_jsx/parse_attribute_double_quotes.js"],"names":[],"mappings":"AAWe,gCALJ,MAAM,UACN,OAAO,iBAAiB,EAAE,cAAc,EAAE,SAC1C,MAAM,GACJ,OAAO,iBAAiB,EAAE,MAAM,GAAG;IAAE,OAAO,EAAE,QAAQ,CAAA;CAAE,CAyCpE"}

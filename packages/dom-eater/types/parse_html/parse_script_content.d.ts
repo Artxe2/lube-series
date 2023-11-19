@@ -1,4 +1,4 @@
-declare function _default(text: string, errors: import("#public").AstSyntaxError[], start: number): import("#public").Script & {
+declare function _default(text: string, errors: import("../../public.js").AstSyntaxError[], start: number): import("../../public.js").Script & {
     subType: "content";
 };
 export default _default;

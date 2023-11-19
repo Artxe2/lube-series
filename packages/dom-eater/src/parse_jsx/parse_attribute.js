@@ -8,9 +8,9 @@ let stop_space_regex = /\S/
 
 /**
  * @param {string} text
- * @param {import("#public").AstSyntaxError[]} errors
+ * @param {import("../../public.js").AstSyntaxError[]} errors
  * @param {number} start
- * @returns {import("#public").Attribute}
+ * @returns {import("../../public.js").Attribute}
  */
 export default (text, errors, start) => {
 	if (text[start] == "{") {
@@ -26,7 +26,7 @@ export default (text, errors, start) => {
 	let name_index = text.slice(start + 1).search(stop_attribute_name_regex) + 1
 	if (name_index > 0) {
 		let name = text.slice(start, start + name_index)
-		/** @type {import("#public").Attribute} */
+		/** @type {import("../../public.js").Attribute} */
 		let node = {
 			end: start + name_index,
 			name,

@@ -376,7 +376,7 @@ let _default$2 = () => {
 	/**
 	 * @template {(...args: *[]) => *} T
 	 * @param {T} handler
-	 * @param {import("#private").Dependencies<T>} dependencies
+	 * @param {import("../private.js").Dependencies<T>} dependencies
 	 * @returns {ReturnType<typeof _default>}
 	 */
 	utils.add = (handler, ...dependencies) => {
@@ -612,16 +612,16 @@ let _default$1 = handler => {
 /**
  * Run multiple functions in parallel with a specified limit on the number of parallel executions.
  * @template {[((...args: []) => *), ...((...args: []) => *)[]]} T
- * @param {import("#private").Between<2, readonly T["length"]>} size
+ * @param {import("../private.js").Between<2, readonly T["length"]>} size
  * @param {T} handlers
- * @returns {Promise<import("#private").ParallelResult<T>>}
+ * @returns {Promise<import("../private.js").ParallelResult<T>>}
  */
 let _default = (size, ...handlers) => {
-	/** @type {import("#private").ParallelResult<T>} */
-	let result = /** @type {import("#private").ParallelResult<T>} */([]);/**/
+	/** @type {import("../private.js").ParallelResult<T>} */
+	let result = /** @type {import("../private.js").ParallelResult<T>} */([]);/**/
 	return new Promise(
 		resolve => {
-			let length = /** @type {import("#private").Between<2, readonly T["length"]>} */(handlers.length);/**/
+			let length = /** @type {import("../private.js").Between<2, readonly T["length"]>} */(handlers.length);/**/
 			if (length < size) size = length;
 			let index = 0;
 			let finally_handler = () => {

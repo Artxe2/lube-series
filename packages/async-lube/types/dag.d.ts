@@ -16,10 +16,10 @@ declare function _default(): {
     /**
      * @template {(...args: *[]) => *} T
      * @param {T} handler
-     * @param {import("#private").Dependencies<T>} dependencies
+     * @param {import("../private.js").Dependencies<T>} dependencies
      * @returns {ReturnType<typeof _default>}
      */
-    add<T extends (...args: any[]) => any>(handler: T, ...dependencies: import("#private").Dependencies<T>): ReturnType<typeof _default>;
+    add<T extends (...args: any[]) => any>(handler: T, ...dependencies: import("../private.js").Dependencies<T>): ReturnType<typeof _default>;
 };
 /**
  * @param {Map<*[], Function>} nodes

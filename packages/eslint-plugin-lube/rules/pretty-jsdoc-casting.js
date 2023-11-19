@@ -34,19 +34,19 @@ module.exports = {
 		let fixed_text = origin_text
 		let text_length = fixed_text.length + 1
 		let text_indexes = get_indexed_array(text_length)
-		/** @type {import("#private").Comment[]} */
+		/** @type {import("../private").Comment[]} */
 		let comments = []
-		for (let comment of /** @type {import("#private").Comment[]} */(source_code.getAllComments())/**/) {
+		for (let comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
 			let [ start, end ] = comment.range
 			while (start < end) comments[start++] = comment
 		}
-		/** @type {import("#private").AstNode[] & import("estree").Expression[]} */
+		/** @type {import("../private").AstNode[] & import("estree").Expression[]} */
 		let expressions = []
 		/** @type {Set<string>} */
 		let node_ranges = new Set
 
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @returns {void}
 		 */
 		function verify_correct(node) {
@@ -154,7 +154,7 @@ module.exports = {
 			}
 		}
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @param {number} start
 		 * @param {number} end
 		 * @param {string} corrected_text
@@ -183,7 +183,7 @@ module.exports = {
 			)
 		}
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @returns {void}
 		 */
 		function push_to_reverse(node) {

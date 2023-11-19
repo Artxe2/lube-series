@@ -48,7 +48,7 @@ module.exports = {
 		type: "layout"
 	},
 	create(context) {
-		/** @type {import("#private").RuleOptions["pretty-sequence"]} */
+		/** @type {import("../private").RuleOptions["pretty-sequence"]} */
 		let option = context.options[0]
 		let array_bracket_spacing = option?.arrayBracketSpacing ?? true
 		let check_array = option?.checkArray ?? true
@@ -66,19 +66,19 @@ module.exports = {
 		let fixed_text = origin_text
 		let text_length = fixed_text.length + 1
 		let text_indexes = get_indexed_array(text_length)
-		/** @type {import("#private").Comment[]} */
+		/** @type {import("../private").Comment[]} */
 		let comments = []
-		for (let comment of /** @type {import("#private").Comment[]} */(source_code.getAllComments())/**/) {
+		for (let comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
 			let [ start, end ] = comment.range
 			while (start < end) comments[start++] = comment
 		}
 		/** @type {true[]} */
 		let ignored_indexes = []
-		/** @type {import("#private").AstNode[] & import("estree").Expression[]} */
+		/** @type {import("../private").AstNode[] & import("estree").Expression[]} */
 		let nodes = []
 
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @param {number} start
 		 * @param {number} end
 		 * @param {boolean=} add_indentation
@@ -144,7 +144,7 @@ module.exports = {
 				: substr
 		}
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @returns {void}
 		 */
 		function push_to_reverse(node) {
@@ -155,7 +155,7 @@ module.exports = {
 			nodes.push(node)
 		}
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @param {number} start
 		 * @param {number} end
 		 * @param {string} corrected_text
@@ -184,7 +184,7 @@ module.exports = {
 			)
 		}
 		/**
-		 * @param {import("#private").AstNode} node
+		 * @param {import("../private").AstNode} node
 		 * @returns {void}
 		 */
 		function verify_correct(node) {
@@ -384,7 +384,7 @@ module.exports = {
 				report(node, start, end, corrected_text)
 			}
 		}
-		return /** @type {import("#private").RuleListener} */({
+		return /** @type {import("../private").RuleListener} */({
 			"Program:exit": () => {
 				for (let node of nodes.reverse()) {
 					verify_correct(node)
