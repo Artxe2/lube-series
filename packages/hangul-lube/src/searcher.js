@@ -18,7 +18,7 @@ let _default = text => {
 	const len = text.length - 1
 	for (let i = 0; i <= len; i++) {
 		if (i) regex += non_word_pattern
-		const t = text[i]
+		const t = /** @type {string} */(text[i])/**/
 		regex += first_consonant_letters[t] || get_letter_range(t)
 	}
 	return regex

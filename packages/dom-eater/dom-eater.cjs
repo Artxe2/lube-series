@@ -32,7 +32,7 @@ var normalize_element_children = (text, ast_nodes, errors, element) => {
 	let length = ast_nodes.length;
 	for (let i = 0; i < length; i++) {
 		let token = ast_nodes[i];
-		if (token.type == "Element" && token.name == name) {
+		if (token?.type == "Element" && token.name == name) {
 			if (token.subType == "close") {
 				element.end = token.end;
 				let children = ast_nodes.splice(0, i);
@@ -430,7 +430,7 @@ var parse_attribute_single_quotes$1 = (text, errors, start) => {
 	}
 };
 
-let stop_attribute_name_regex$1 = /[ =>]/;
+let stop_attribute_name_regex$1 = /[\s=>]/;
 let stop_space_regex$1 = /\S/;
 
 /**
@@ -1168,7 +1168,7 @@ var parse_attribute_single_quotes = (text, errors, start) => {
 	}
 };
 
-let stop_attribute_name_regex = /[ =>]/;
+let stop_attribute_name_regex = /[\s=>]/;
 let stop_space_regex = /\S/;
 
 /**

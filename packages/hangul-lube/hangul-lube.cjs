@@ -43,10 +43,12 @@ let _default$1 = text => {
 	let regex = "";
 	let len = text.length - 1;
 	for (let i = 0; i < len; i++) {
-		let t = text[i];
+		let t = /** @type {string} */(text[i]);/**/
 		regex += _default$3[t] ?? _default$2(t);
 	}
-	return regex + _default$2(text[len])
+	return regex + _default$2(
+		/** @type {string} */(text[len])/**/
+	)
 };
 
 const non_word_pattern = "[^가-힣0-9A-Z]*?";
@@ -66,7 +68,7 @@ let _default = text => {
 	const len = text.length - 1;
 	for (let i = 0; i <= len; i++) {
 		if (i) regex += non_word_pattern;
-		const t = text[i];
+		const t = /** @type {string} */(text[i]);/**/
 		regex += _default$3[t] || _default$2(t);
 	}
 	return regex

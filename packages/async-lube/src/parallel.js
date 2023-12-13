@@ -22,7 +22,7 @@ let _default = (size, ...handlers) => {
 			 * @returns {Promise<{ value: * } | { reason: * }>}
 			 */
 			let run = i =>
-				Promise.resolve(handlers[i]())
+				Promise.resolve(handlers[i]?.())
 					.then(
 						value => result[i] = { value },
 						reason => result[i] = { reason }

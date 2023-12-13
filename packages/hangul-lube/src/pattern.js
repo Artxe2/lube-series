@@ -13,10 +13,12 @@ let _default = text => {
 	let regex = ""
 	let len = text.length - 1
 	for (let i = 0; i < len; i++) {
-		let t = text[i]
+		let t = /** @type {string} */(text[i])/**/
 		regex += first_consonant_letters[t] ?? get_letter_range(t)
 	}
-	return regex + get_letter_range(text[len])
+	return regex + get_letter_range(
+		/** @type {string} */(text[len])/**/
+	)
 }
 
 export default _default

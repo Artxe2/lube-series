@@ -3,7 +3,7 @@ import parse_attribute_double_quotes from "./parse_attribute_double_quotes.js"
 import parse_attribute_single_quotes from "./parse_attribute_single_quotes.js"
 import parse_script_block from "./parse_script_block.js"
 
-let stop_attribute_name_regex = /[ =>]/
+let stop_attribute_name_regex = /[\s=>]/
 let stop_space_regex = /\S/
 
 /**

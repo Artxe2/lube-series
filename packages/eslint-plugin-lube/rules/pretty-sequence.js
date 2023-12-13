@@ -87,9 +87,11 @@ module.exports = {
 		function get_text(node, start, end, add_indentation) {
 			let open_paren = false
 			let [ left, right ] = node.range
+			let comment
 			W: while (left > start) {
-				if (comments[left - 1]) {
-					left = comments[left - 1].range[0]
+				comment = comments[left - 1]
+				if (comment) {
+					left = comment.range[0]
 				} else {
 					let left_space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
 					if (left_space) {
@@ -97,8 +99,8 @@ module.exports = {
 					} else if (origin_text[left - 1] == "(") {
 						open_paren = true
 						while (right < end) {
-							if (comments[right]) {
-								let comment = comments[right]
+							comment = comments[right]
+							if (comment) {
 								right = comment.range[1]
 							} else {
 								let right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
@@ -121,8 +123,8 @@ module.exports = {
 				}
 			}
 			while (right < end) {
-				if (comments[right]) {
-					let comment = comments[right]
+				comment = comments[right]
+				if (comment) {
 					right = comment.range[1]
 				} else {
 					let right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
@@ -162,8 +164,11 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function report(node, start, end, corrected_text) {
-			fixed_text = fixed_text.slice(0, text_indexes[start]) + corrected_text + fixed_text.slice(text_indexes[end])
-			let gap = corrected_text.length + text_indexes[start] - text_indexes[end]
+			let s = text_indexes[start]
+			let e = text_indexes[end]
+			if (s == null || e == null) return
+			fixed_text = fixed_text.slice(0, s) + corrected_text + fixed_text.slice(e)
+			let gap = corrected_text.length + s - e
 			if (gap) {
 				for (let i = end; i < text_length; i++) {
 					text_indexes[i] += gap
@@ -244,21 +249,24 @@ module.exports = {
 			case "FunctionExpression":
 				if (node.type == "ArrowFunctionExpression") {
 					if (
-						node.params.length != 1
+						node.params.length > 1
 						|| origin_text.slice(
 							node.range[0],
-							node.params[0].range[0]
+							node.params[0]?.range[0]
 						).includes("(")
 					) {
 						start = origin_text.indexOf("(", node.range[0]) + 1
 						end = origin_text.indexOf(
 							")",
 							node.params.length
-								? node.params[node.params.length - 1].range[1]
+								? node.params[node.params.length - 1]?.range[1]
 								: start
 						)
 					} else {
-						[ start, end ] = node.params[0].range
+						let range = node.params[0]?.range
+						if (range) {
+							[ start, end ] = range
+						}
 					}
 				} else {
 					start = node.id
@@ -267,7 +275,7 @@ module.exports = {
 					end = origin_text.indexOf(
 						")",
 						node.params.length
-							? node.params[node.params.length - 1].range[1]
+							? node.params[node.params.length - 1]?.range[1]
 							: start
 					)
 				}

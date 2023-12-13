@@ -3,9 +3,12 @@
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true,
+		"exactOptionalPropertyTypes": true,
 		"lib": [ "ES2020", "DOM", "DOM.Iterable" ],
 		"module": "CommonJS",
 		"noEmit": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"

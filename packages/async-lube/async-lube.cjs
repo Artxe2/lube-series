@@ -8,7 +8,12 @@ let to_query = data => {
 	let query = "";
 	if (data) {
 		for (let key in data) {
-			query += (query ? "&" : "") + encodeURIComponent(key) + "=" + encodeURIComponent(data[key]);
+			query += (query ? "&" : "")
+				+ encodeURIComponent(key)
+				+ "="
+				+ encodeURIComponent(
+					/** @type {string} */(data[key])/**/
+				);
 		}
 	}
 	return query
@@ -65,7 +70,7 @@ let get_fetch_query = (
 	query,
 	headers
 ) => {
-	options = { headers, ...options };
+	options = /** @type {RequestInit} */({ headers, ...options });/**/
 	if (set_abort) {
 		let controller = new AbortController();
 		set_abort(() => controller.abort());
@@ -100,7 +105,7 @@ let get_fetch_body = (
 		"Content-Type": content_type,
 		...headers
 	};
-	options = { method, body, headers, ...options };
+	options = /** @type {RequestInit} */({ method, body, headers, ...options });/**/
 	if (set_abort) {
 		let controller = new AbortController();
 		set_abort(() => controller.abort());
@@ -633,7 +638,7 @@ let _default = (size, ...handlers) => {
 			 * @returns {Promise<{ value: * } | { reason: * }>}
 			 */
 			let run = i =>
-				Promise.resolve(handlers[i]())
+				Promise.resolve(handlers[i]?.())
 					.then(
 						value => result[i] = { value },
 						reason => result[i] = { reason }

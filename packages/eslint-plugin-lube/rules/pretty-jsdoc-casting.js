@@ -63,22 +63,26 @@ module.exports = {
 			 * @returns {void}
 			 */
 			function temp_text_changes(start, end, insert = "") {
-				let gap = insert.length + temp_indexes[start] - temp_indexes[end]
-				temp_text = temp_text.slice(0, temp_indexes[start]) + insert + temp_text.slice(temp_indexes[end])
+				let s = temp_indexes[start]
+				let e = temp_indexes[end]
+				if (s == null || e == null) return
+				let gap = insert.length + s - e
+				temp_text = temp_text.slice(0, s) + insert + temp_text.slice(e)
 				if (gap) {
 					while (end < text_length) {
 						temp_indexes[end++] += gap
 					}
 				}
 			}
+			let comment
 			let open = 0
 			let close = 0
 			let prev_open = 0
 			let prev_close = 0
 			let [ left, right ] = node.range
 			W: while (left > 0) {
-				if (comments[left - 1]) {
-					let comment = comments[left - 1]
+				comment = comments[left - 1]
+				if (comment) {
 					left = comment.range[0]
 					if (open && !types[open - 1]) {
 						let type = comment.type == "Block" && type_regex.exec(comment.value)?.[0]
@@ -93,8 +97,8 @@ module.exports = {
 						left -= left_space
 					} else if (origin_text[left - 1] == "(") {
 						while (right < text_length) {
-							if (comments[right]) {
-								let comment = comments[right]
+							comment = comments[right]
+							if (comment) {
 								right = comment.range[1]
 							} else {
 								let right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
@@ -134,6 +138,7 @@ module.exports = {
 			}
 			let start = temp_indexes[node.range[0]]
 			let end = temp_indexes[node.range[1]]
+			if (!end) return
 			if (extras[end] || open && temp_text.slice(end, end + 4) == "/**/") {
 				end += 4
 			}
@@ -161,8 +166,11 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function report(node, start, end, corrected_text) {
-			fixed_text = fixed_text.slice(0, text_indexes[start]) + corrected_text + fixed_text.slice(text_indexes[end])
-			let gap = corrected_text.length + text_indexes[start] - text_indexes[end]
+			let s = text_indexes[start]
+			let e = text_indexes[end]
+			if (s == null || e == null) return
+			fixed_text = fixed_text.slice(0, s) + corrected_text + fixed_text.slice(e)
+			let gap = corrected_text.length + s - e
 			if (gap) {
 				for (let i = end; i < text_length; i++) {
 					text_indexes[i] += gap

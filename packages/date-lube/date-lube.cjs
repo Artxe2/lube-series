@@ -22,7 +22,7 @@ let time_regex = /(-?\d+)([YMDHms]+)/g;
  * @example add(new Date, "-1D") //=> Date { yesterday }
  */
 let _default$3 = (date, sum) => {
-	for (let [ , n, unit ] of sum.matchAll(time_regex)) {
+	for (let [ , n, unit ] of /** @type {IterableIterator<RegExpExecArray & [string, string]>} */(sum.matchAll(time_regex))/**/) {
 		let number = +n;
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number);
 		else if (unit == "M") date.setMonth(date.getMonth() + number);

@@ -1,0 +1,10 @@
+/*
+VSCE: ESLint
+VSCE: Sort JS object keys
+VSCE: JavaScript and TypeScript Nightly
+*/
+{
+	"extends": [ "plugin:lube/recommended" ],
+	"plugins": [ "lube" ],
+	"rules": { "no-console": "off" }
+}

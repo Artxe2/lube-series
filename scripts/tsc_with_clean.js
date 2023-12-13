@@ -15,7 +15,10 @@ const current_time = Date.now()
 
 exec(
 	`cd ${pacakge_path} && tsc`,
-	() => {
+	(error, stdout, stderr) => {
+		if (stderr) console.error(stdout)
+		if (stdout) console.log(stdout)
+		if (error) process.exit(error.code)
 		/**
 		 * @param {string} dir_path
 		 * @returns {void}
