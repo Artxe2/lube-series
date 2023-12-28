@@ -30,6 +30,5 @@
 		"pre": "pnpm test && pnpm lint && pnpm dts && pnpm cjs && tsc",
 		"test": "vitest run --coverage"
 	},
-	"type": "module",
 	"version": "0.0.0"
 }

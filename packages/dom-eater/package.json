@@ -36,7 +36,6 @@
 		"dts": "node ../../scripts/tsc_with_clean.js dom-eater",
 		"test": "cd ../../dom-eater/test && vitest run"
 	},
-	"type": "module",
 	"types": "types/index.d.ts",
 	"typesVersions": {
 		"*": {
@@ -44,5 +43,5 @@
 			"*": [ "types/index.d.ts" ]
 		}
 	},
-	"version": "0.2.4"
+	"version": "0.2.5"
 }

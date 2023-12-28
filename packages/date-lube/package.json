@@ -35,7 +35,6 @@
 		"dts": "node ../../scripts/tsc_with_clean.js date-lube",
 		"test": "cd ../../test/date-lube/ && vitest run"
 	},
-	"type": "module",
 	"types": "types/index.d.ts",
 	"typesVersions": {
 		"*": {

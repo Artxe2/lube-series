@@ -38,7 +38,6 @@
 		"dts": "node ../../scripts/tsc_with_clean.js async-lube && node ../../scripts/async-lube_fix_types.js",
 		"test": "cd ../../test/async-lube/ && vitest run"
 	},
-	"type": "module",
 	"types": "types/index.d.ts",
 	"version": "1.6.0"
 }

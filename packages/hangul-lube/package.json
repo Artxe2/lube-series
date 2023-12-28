@@ -34,7 +34,6 @@
 		"dts": "node ../../scripts/tsc_with_clean.js hangul-lube",
 		"test": "cd ../../test/hangul-lube/ && vitest run"
 	},
-	"type": "module",
 	"types": "types/index.d.ts",
 	"version": "1.4.1"
 }
