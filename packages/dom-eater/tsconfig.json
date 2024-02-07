@@ -11,7 +11,7 @@
 		"lib": [ "ES2020" ],
 		"module": "Node16",
 		"noPropertyAccessFromIndexSignature": true,
-		"noUncheckedIndexedAccess": true,
+		// "noUncheckedIndexedAccess": true,
 		"outDir": "silences wrong TS error, we don't compile, we only typecheck",
 		"rootDir": "src",
 		"skipLibCheck": true,

@@ -8,9 +8,7 @@
 let _default = (object, another) => {
 	if (
 		!object
-		|| !another
 		|| typeof object != "object"
-		|| typeof another != "object"
 		|| object?.constructor != another?.constructor
 	) return object === another
 	let o_key = Object.keys(object)

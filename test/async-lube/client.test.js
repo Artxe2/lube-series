@@ -35,16 +35,16 @@ describe(
 								"discountPercentage": 12.96,
 								"id": 1,
 								"images": [
-									"https://i.dummyjson.com/data/products/1/1.jpg",
-									"https://i.dummyjson.com/data/products/1/2.jpg",
-									"https://i.dummyjson.com/data/products/1/3.jpg",
-									"https://i.dummyjson.com/data/products/1/4.jpg",
-									"https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+									"https://cdn.dummyjson.com/product-images/1/1.jpg",
+									"https://cdn.dummyjson.com/product-images/1/2.jpg",
+									"https://cdn.dummyjson.com/product-images/1/3.jpg",
+									"https://cdn.dummyjson.com/product-images/1/4.jpg",
+									"https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
 								],
 								"price": 549,
 								"rating": 4.69,
 								"stock": 94,
-								"thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+								"thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
 								"title": "iPhone 9"
 							},
 							{
@@ -55,15 +55,15 @@ describe(
 								"discountPercentage": 17.94,
 								"id": 2,
 								"images": [
-									"https://i.dummyjson.com/data/products/2/1.jpg",
-									"https://i.dummyjson.com/data/products/2/2.jpg",
-									"https://i.dummyjson.com/data/products/2/3.jpg",
-									"https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+									"https://cdn.dummyjson.com/product-images/2/1.jpg",
+									"https://cdn.dummyjson.com/product-images/2/2.jpg",
+									"https://cdn.dummyjson.com/product-images/2/3.jpg",
+									"https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
 								],
 								"price": 899,
 								"rating": 4.44,
 								"stock": 34,
-								"thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+								"thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
 								"title": "iPhone X"
 							}
 						],
