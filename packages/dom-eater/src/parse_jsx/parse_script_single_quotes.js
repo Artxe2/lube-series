@@ -1,6 +1,6 @@
 import AstSyntaxError from "../AstSyntaxError.js"
 
-let end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/
+const end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/
 
 /**
  * @param {string} text
@@ -9,7 +9,7 @@ let end_single_quotes_regex = /(?<=(?<!\\)(?:\\\\)*)'/
  * @returns {import("../../public.js").String & { subType: "single" }}
  */
 export default (text, errors, start) => {
-	let index = text.slice(start + 1).search(end_single_quotes_regex) + 1
+	const index = text.slice(start + 1).search(end_single_quotes_regex) + 1
 	if (index > 0) {
 		return {
 			end: start + index + 1,

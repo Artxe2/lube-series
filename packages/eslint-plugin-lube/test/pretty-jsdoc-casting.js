@@ -1,10 +1,10 @@
 "use strict"
-let { RuleTester } = require("eslint")
+const { RuleTester } = require("eslint")
 
 /** @type {RuleTester.ValidTestCase[]} */
-let valid = []
+const valid = []
 /** @type {RuleTester.InvalidTestCase[]} */
-let invalid = []
+const invalid = []
 
 require(
 	"./pretty-jsdoc-casting/case_by_expression"

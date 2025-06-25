@@ -8,7 +8,7 @@ describe(
 		it(
 			"first consonant letters search",
 			() => {
-				let regex = searcher("ㄷㅎㅁㄱㅂㄷㅅㅇㅁㄹㄱㄷㄷㄹ~")
+				const regex = searcher("ㄷㅎㅁㄱㅂㄷㅅㅇㅁㄹㄱㄷㄷㄹ~")
 				assert.isTrue(
 					regex?.test("동해물과 ?백두산이 !마르고 @닳도록~")
 				)
@@ -17,7 +17,7 @@ describe(
 		it(
 			"first complex letters search",
 			() => {
-				let regex = searcher("ㅎㅇ 테스트123")
+				const regex = searcher("ㅎㅇ 테스트123")
 				assert.isTrue(
 					regex?.test("하이~ 테스트 123456789!")
 				)

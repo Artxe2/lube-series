@@ -9,11 +9,11 @@ import get_letter_range from "./get_letter_range.js"
  *
  * pattern("특수문자 test 1234!@#$") //=> "특[수-숳]문[자-잫] test 1234!@#$"
  */
-let _default = text => {
+const _default = text => {
 	let regex = ""
-	let len = text.length - 1
+	const len = text.length - 1
 	for (let i = 0; i < len; i++) {
-		let t = /** @type {string} */(text[i])/**/
+		const t = /** @type {string} */(text[i])/**/
 		regex += first_consonant_letters[t] ?? get_letter_range(t)
 	}
 	return regex + get_letter_range(

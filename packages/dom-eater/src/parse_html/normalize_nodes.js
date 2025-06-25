@@ -9,9 +9,9 @@ import normalize_element_children from "./normalize_element_children.js"
  */
 export default (text, ast_nodes, errors) => {
 	/** @type {import("../../public.js").AstNode[]} */
-	let ast = []
+	const ast = []
 	while (ast_nodes.length > 0) {
-		let node = /** @type {import("../../public.js").AstNode} */(ast_nodes.shift())/**/
+		const node = /** @type {import("../../public.js").AstNode} */(ast_nodes.shift())/**/
 		ast.push(node)
 		if (node.type == "Element" && node.name != "script" && node.name != "style") {
 			if (node.subType == "close") {

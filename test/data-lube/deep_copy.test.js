@@ -5,7 +5,7 @@ import { deepCopy } from "data-lube"
 describe(
 	"deep_copy",
 	() => {
-		let dimensions = [
+		const dimensions = [
 			{
 				"dimensions": [
 					{
@@ -124,7 +124,7 @@ describe(
 		it(
 			"clone",
 			() => {
-				let clone = deepCopy(dimensions)
+				const clone = deepCopy(dimensions)
 				assert.equal(
 					JSON.stringify(dimensions),
 					JSON.stringify(clone)

@@ -23,21 +23,21 @@ module.exports = {
 	},
 	create(context) {
 		/** @type {import("../private").RuleOptions["svelte-naming-convention"]} */
-		let option = context.options[0]
-		let fix_same_names = option?.fixSameNames ?? true
+		const option = context.options[0]
+		const fix_same_names = option?.fixSameNames ?? true
 
 		// let name | let name | class name
-		let allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
-		let fixable_name_regex = /^[_$]?[_$]?(?:[\dA-Za-z]+(?:_[\dA-Za-z]+)*\$?\$?)?$/
-		let fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
-		let camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
+		const allow_regex = /^[_$]?[_$]?(?:[\da-z]+(?:_[\da-z]+)*\$?\$?)?$|^[A-Z](?:_?[\dA-Z]+)*$|^(?:[\dA-Z][\da-z]*)+$/
+		const fixable_name_regex = /^[_$]?[_$]?(?:[\dA-Za-z]+(?:_[\dA-Za-z]+)*\$?\$?)?$/
+		const fix_regex = /([\da-z]?)([A-Z][\dA-Z]*)/g
+		const camel_case_regex = /^[\da-z]+([A-Z][\da-z]*)*$/
 
 		/** @type {Map<string, import("../private").AstNode[]>} */
-		let pending_usages = new Map()
+		const pending_usages = new Map()
 		/** @type {Set<string>} */
-		let reported_declarations = new Set()
+		const reported_declarations = new Set()
 		/** @type {Set<import("../private").AstNode>} */
-		let shortand_properties = new Set()
+		const shortand_properties = new Set()
 
 		/**
 		 * @param {import("../private").AstNode & import("estree").Identifier} node
@@ -45,7 +45,7 @@ module.exports = {
 		 */
 		function defer(node) {
 			if (fix_same_names) {
-				let name = node.name
+				const name = node.name
 				if (reported_declarations.has(name)) report(node)
 				else {
 					let usages = pending_usages.get(name)
@@ -71,7 +71,7 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function report(node) {
-			let name = node.name
+			const name = node.name
 			context.report(
 				{
 					data: { name },
@@ -90,7 +90,7 @@ module.exports = {
 				}
 			)
 			if (fix_same_names) {
-				let usages = pending_usages.get(name)
+				const usages = pending_usages.get(name)
 				while (usages?.length) {
 					report(
 						/** @type {import("../private").AstNode & import("estree").Identifier} */(usages.pop())/**/
@@ -103,9 +103,9 @@ module.exports = {
 		return {
 			/** @param {import("../private").AstNode & import("estree").Identifier} node */
 			Identifier(node) {
-				let name = node.name
+				const name = node.name
 				if (allow_regex.test(name)) return
-				let parent = node.parent
+				const parent = node.parent
 				switch (parent.type) {
 				case "ArrayExpression":
 					// var value = [ camelCase ]
@@ -227,7 +227,7 @@ module.exports = {
 					break
 				case "ImportSpecifier":
 					// import { imported as local, local2 } from "module"
-					if (parent.local == node && parent.imported.name != parent.local.name) {
+					if (parent.local == node && parent.imported.type == "Identifier" && parent.imported.name != parent.local.name) {
 						// import { imported as camelCase } from "module"
 						report(node)
 					}

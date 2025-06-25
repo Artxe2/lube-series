@@ -2,10 +2,10 @@ import AstSyntaxError from "../AstSyntaxError.js"
 import parse_attribute from "./parse_attribute.js"
 import parse_script_block from "./parse_script_block.js"
 
-let end_element_name_regex = /[ >]/
-let slash_regex = /^\/|\/$/
-let stop_element_content_regex = /[{<]/
-let stop_element_regex = /[^\s/]/
+const end_element_name_regex = /[ >]/
+const slash_regex = /^\/|\/$/
+const stop_element_content_regex = /[{<]/
+const stop_element_regex = /[^\s/]/
 
 /**
  * @param {string} text
@@ -13,14 +13,14 @@ let stop_element_regex = /[^\s/]/
  * @param {number} start
  * @returns {import("../../public.js").Element}
  */
-let parse_open_tag = (text, errors, start) => {
-	let name_index = text.slice(start + 1).search(end_element_name_regex) + 1
+const parse_open_tag = (text, errors, start) => {
+	const name_index = text.slice(start + 1).search(end_element_name_regex) + 1
 	if (name_index > 0) {
 		let child_pre_index = start + name_index
-		let name = text.slice(start + 1, child_pre_index).replace(slash_regex, "")
+		const name = text.slice(start + 1, child_pre_index).replace(slash_regex, "")
 		if (text[child_pre_index] == ">") {
 			/** @type {import("../../public.js").Element} */
-			let node = {
+			const node = {
 				attributes: [],
 				children: [],
 				end: child_pre_index + 1,
@@ -36,14 +36,14 @@ let parse_open_tag = (text, errors, start) => {
 			return node
 		}
 		/** @type {import("../../public.js").Attribute[]} */
-		let attributes = []
+		const attributes = []
 		for (;;) {
-			let child_index = text.slice(child_pre_index).search(stop_element_regex)
+			const child_index = text.slice(child_pre_index).search(stop_element_regex)
 			if (child_index >= 0) {
-				let index = child_pre_index + child_index
+				const index = child_pre_index + child_index
 				if (text[index] == ">") {
 					/** @type {import("../../public.js").Element} */
-					let node = {
+					const node = {
 						attributes,
 						children: [],
 						end: index + 1,
@@ -58,7 +58,7 @@ let parse_open_tag = (text, errors, start) => {
 					}
 					return node
 				}
-				let node = parse_attribute(text, errors, index)
+				const node = parse_attribute(text, errors, index)
 				attributes.push(node)
 				child_pre_index = node.end
 			} else {
@@ -105,9 +105,9 @@ let parse_open_tag = (text, errors, start) => {
  * @param {number} start
  * @returns {import("../../public.js").Element}
  */
-let parse_element = (text, errors, start) => {
-	let err = errors.length
-	let node = parse_open_tag(text, errors, start)
+const parse_element = (text, errors, start) => {
+	const err = errors.length
+	const node = parse_open_tag(text, errors, start)
 	if (errors.length > err || node.subType == "closed") return node
 	if (node.subType == "close") {
 		errors.push(
@@ -121,9 +121,9 @@ let parse_element = (text, errors, start) => {
 	}
 	let child_pre_index = node.end
 	for (;;) {
-		let child_index = text.slice(child_pre_index).search(stop_element_content_regex)
+		const child_index = text.slice(child_pre_index).search(stop_element_content_regex)
 		if (child_index >= 0) {
-			let index = child_pre_index + child_index
+			const index = child_pre_index + child_index
 			if (child_index) {
 				node.children.push(
 					{
@@ -152,12 +152,12 @@ let parse_element = (text, errors, start) => {
 					}
 					return node
 				} else {
-					let child = parse_element(text, errors, index)
+					const child = parse_element(text, errors, index)
 					node.children.push(child)
 					child_pre_index = child.end
 				}
 			} else {
-				let child = parse_script_block(text, errors, index)
+				const child = parse_script_block(text, errors, index)
 				node.children.push(child)
 				child_pre_index = child.end
 			}

@@ -1,17 +1,17 @@
 "use strict"
 
-let indent_regex = /[ \t]*(?=[^\n]*$)/
-let left_space_regex = /\s+$/
-let right_space_regex = /^\s+/
-let __n_regex = /(?<=\n)/g
-let _r_regex = /\r/g
+const indent_regex = /[ \t]*(?=[^\n]*$)/
+const left_space_regex = /\s+$/
+const right_space_regex = /^\s+/
+const __n_regex = /(?<=\n)/g
+const _r_regex = /\r/g
 
 /**
  * @param {number} length
  * @returns {number[]}
  */
 function get_indexed_array(length) {
-	let array = []
+	const array = []
 	while (length) array[--length] = length
 	return array
 }
@@ -49,33 +49,33 @@ module.exports = {
 	},
 	create(context) {
 		/** @type {import("../private").RuleOptions["pretty-sequence"]} */
-		let option = context.options[0]
-		let array_bracket_spacing = option?.arrayBracketSpacing ?? true
-		let check_array = option?.checkArray ?? true
-		let check_call = option?.checkCall ?? true
-		let check_object = option?.checkObject ?? true
-		let check_sequence = option?.checkSequence ?? true
-		let func_call_spacing = option?.funcCallSpacing ?? false
-		let ignore_template_literal = option?.ignoreTemplateLiteral ?? true
-		let indent = option?.indent ?? "\t"
-		let max_length = option?.maxLength ?? 30
-		let object_curly_spacing = option?.objectCurlySpacing ?? true
+		const option = context.options[0]
+		const array_bracket_spacing = option?.arrayBracketSpacing ?? true
+		const check_array = option?.checkArray ?? true
+		const check_call = option?.checkCall ?? true
+		const check_object = option?.checkObject ?? true
+		const check_sequence = option?.checkSequence ?? true
+		const func_call_spacing = option?.funcCallSpacing ?? false
+		const ignore_template_literal = option?.ignoreTemplateLiteral ?? true
+		const indent = option?.indent ?? "\t"
+		const max_length = option?.maxLength ?? 30
+		const object_curly_spacing = option?.objectCurlySpacing ?? true
 
-		let source_code = context.sourceCode
-		let origin_text = source_code.text
+		const source_code = context.sourceCode
+		const origin_text = source_code.text
 		let fixed_text = origin_text
-		let text_length = fixed_text.length + 1
-		let text_indexes = get_indexed_array(text_length)
+		const text_length = fixed_text.length + 1
+		const text_indexes = get_indexed_array(text_length)
 		/** @type {import("../private").Comment[]} */
-		let comments = []
-		for (let comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
+		const comments = []
+		for (const comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
 			let [ start, end ] = comment.range
 			while (start < end) comments[start++] = comment
 		}
 		/** @type {true[]} */
-		let ignored_indexes = []
+		const ignored_indexes = []
 		/** @type {import("../private").AstNode[] & import("estree").Expression[]} */
-		let nodes = []
+		const nodes = []
 
 		/**
 		 * @param {import("../private").AstNode} node
@@ -93,7 +93,7 @@ module.exports = {
 				if (comment) {
 					left = comment.range[0]
 				} else {
-					let left_space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
+					const left_space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
 					if (left_space) {
 						left -= left_space
 					} else if (origin_text[left - 1] == "(") {
@@ -103,7 +103,7 @@ module.exports = {
 							if (comment) {
 								right = comment.range[1]
 							} else {
-								let right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
+								const right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
 								if (right_space) {
 									right += right_space
 								} else {
@@ -127,7 +127,7 @@ module.exports = {
 				if (comment) {
 					right = comment.range[1]
 				} else {
-					let right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
+					const right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
 					if (right_space) {
 						right += right_space
 					} else {
@@ -135,7 +135,7 @@ module.exports = {
 					}
 				}
 			}
-			let substr = fixed_text.slice(
+			const substr = fixed_text.slice(
 				text_indexes[left],
 				text_indexes[right]
 			)
@@ -164,11 +164,11 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function report(node, start, end, corrected_text) {
-			let s = text_indexes[start]
-			let e = text_indexes[end]
+			const s = text_indexes[start]
+			const e = text_indexes[end]
 			if (s == null || e == null) return
 			fixed_text = fixed_text.slice(0, s) + corrected_text + fixed_text.slice(e)
-			let gap = corrected_text.length + s - e
+			const gap = corrected_text.length + s - e
 			if (gap) {
 				for (let i = end; i < text_length; i++) {
 					text_indexes[i] += gap
@@ -207,21 +207,21 @@ module.exports = {
 			let line_indent = get_indent(node.range[0])
 			switch (node.type) {
 			case "ArrayExpression":
-			case "ArrayPattern":
+			case "ArrayPattern": {
 				start = node.range[0] + 1
 				end = node.range[1] - 1
 				let null_anchor = start
-				let elements = node.elements.map(
+				const elements = node.elements.map(
 					v => {
-						let n = v ?? {
+						const n = v ?? {
 							range: [ null_anchor, null_anchor ]
 						}
-						let text = get_text(n, start, end)
+						const text = get_text(n, start, end)
 						null_anchor += text.length + 1
 						return n
 					}
 				)
-				for (let text of elements.map(v => get_text(v, start, end))) {
+				for (const text of elements.map(v => get_text(v, start, end))) {
 					if (text.includes("\n")) {
 						length = max_length + 1
 						break
@@ -244,6 +244,7 @@ module.exports = {
 						elements.map(v => get_text(v, start, end)).join(", ")
 					}${length && array_bracket_spacing ? " " : ""}`
 				break
+			}
 			case "ArrowFunctionExpression":
 			case "FunctionDeclaration":
 			case "FunctionExpression":
@@ -263,7 +264,7 @@ module.exports = {
 								: start
 						)
 					} else {
-						let range = node.params[0]?.range
+						const range = node.params[0]?.range
 						if (range) {
 							[ start, end ] = range
 						}
@@ -279,7 +280,7 @@ module.exports = {
 							: start
 					)
 				}
-				for (let text of node.params.map(v => get_text(v, start, end))) {
+				for (const text of node.params.map(v => get_text(v, start, end))) {
 					if (text.includes("\n")) {
 						length = max_length + 1
 						break
@@ -308,7 +309,7 @@ module.exports = {
 				line_indent = get_indent(node.callee.range[1])
 				start = origin_text.indexOf("(", node.callee.range[1]) + 1
 				end = node.range[1] - 1
-				for (let text of node.arguments.map(v => get_text(v, start, end))) {
+				for (const text of node.arguments.map(v => get_text(v, start, end))) {
 					if (text.includes("\n")) {
 						length = max_length + 1
 						break
@@ -335,7 +336,7 @@ module.exports = {
 			case "ObjectPattern":
 				start = node.range[0] + 1
 				end = node.range[1] - 1
-				for (let text of node.properties.map(v => get_text(v, start, end))) {
+				for (const text of node.properties.map(v => get_text(v, start, end))) {
 					if (text.includes("\n")) {
 						length = max_length + 1
 						break
@@ -362,7 +363,7 @@ module.exports = {
 			case "SequenceExpression":
 				start = node.range[0]
 				end = node.range[1]
-				for (let text of node.expressions.map(v => get_text(v, start, end))) {
+				for (const text of node.expressions.map(v => get_text(v, start, end))) {
 					if (text.includes("\n")) {
 						length = max_length + 1
 						break
@@ -392,7 +393,7 @@ module.exports = {
 		}
 		return /** @type {import("../private").RuleListener} */({
 			"Program:exit": () => {
-				for (let node of nodes.reverse()) {
+				for (const node of nodes.reverse()) {
 					try {
 						verify_correct(node)
 					} catch (error) {

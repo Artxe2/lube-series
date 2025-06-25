@@ -8,7 +8,7 @@ describe(
 		it(
 			"example",
 			() => {
-				let ast = parseJsx(
+				const ast = parseJsx(
 					`
 var n = 5
 let a = <a>{n}</a>

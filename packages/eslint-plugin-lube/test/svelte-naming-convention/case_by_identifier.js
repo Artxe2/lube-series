@@ -29,14 +29,18 @@ exports.module = (valid, invalid) => {
 			code: "var [ camelCase ] = value",
 			errors: [ { line: 1, column: 7 } ],
 			output: "var [ camel_case ] = value",
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// ArrowFunctionExpression
 		{
 			code: "(camelCase) => {}",
 			errors: [ { line: 1, column: 2 } ],
 			output: "(camel_case) => {}",
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// AssignmentExpression
 		{
@@ -62,7 +66,9 @@ exports.module = (valid, invalid) => {
 			pending_a = pending_b
 			function func({ pendingA = 123 }) {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// AssignmentPattern
 		{
@@ -84,7 +90,9 @@ exports.module = (valid, invalid) => {
 			var pending_a
 			(snake_case = pending_a) => {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// AwaitExpression
 		{
@@ -105,9 +113,11 @@ exports.module = (valid, invalid) => {
 			var pending_a
 			await pending_a
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// BinaryExpression
@@ -158,7 +168,9 @@ exports.module = (valid, invalid) => {
 			code: "class camelCase {}",
 			errors: [ { line: 1, column: 7 } ],
 			output: "class camel_case {}",
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// ConditionalExpression
 		{
@@ -194,9 +206,11 @@ exports.module = (valid, invalid) => {
 			export * as camelCase from "module"
 			var camel_case
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// ExportDefaultDeclaration
@@ -211,9 +225,11 @@ exports.module = (valid, invalid) => {
 			export default camelCase
 			var camel_case
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		{
@@ -229,9 +245,11 @@ exports.module = (valid, invalid) => {
 			export default camel_case
 			var camel_case
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// ExportSpecifier
@@ -248,9 +266,11 @@ exports.module = (valid, invalid) => {
 			export { default as camelCase, camelCase2 } from 'module'
 			var camel_case, camel_case2
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// ExpressionStatement
@@ -293,7 +313,9 @@ exports.module = (valid, invalid) => {
 			var pending_a
 			for (snake_case in pending_a) {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// ForStatement
 		{
@@ -320,7 +342,9 @@ exports.module = (valid, invalid) => {
 			var pending_a, pending_b, pending_c
 			for (pending_a; pending_b; pending_c) {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// FunctionDeclaration
 		{
@@ -338,9 +362,11 @@ exports.module = (valid, invalid) => {
 			export function camelCase2() {}
 			export function camel_case$() {}
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// IfStatement
@@ -368,9 +394,11 @@ exports.module = (valid, invalid) => {
 			code: "import camelCase from 'module'",
 			errors: [ { line: 1, column: 8 } ],
 			output: "import camel_case from 'module'",
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// ImportNamespaceSpecifier
@@ -378,9 +406,11 @@ exports.module = (valid, invalid) => {
 			code: "import * as camelCase from 'module'",
 			errors: [ { line: 1, column: 13 } ],
 			output: "import * as camel_case from 'module'",
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// ImportSpecifier
@@ -399,9 +429,11 @@ exports.module = (valid, invalid) => {
 			camel_case
 			camelCase2
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// LogicalExpression
@@ -426,7 +458,9 @@ exports.module = (valid, invalid) => {
 			var pending_a, pending_b
 			pending_a ?? pending_b
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// MemberExpression
 		{
@@ -470,7 +504,9 @@ exports.module = (valid, invalid) => {
 			class ObjectB { camelCase() {} }
 			var camel_case
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// NewExpression
 		{
@@ -514,7 +550,9 @@ exports.module = (valid, invalid) => {
 			var value = { key: pending_a }
 			var value = { pendingA: pending_a }
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// PropertyDefinition
 		{
@@ -530,7 +568,9 @@ exports.module = (valid, invalid) => {
 			class ObjectB { camelCase = camelCase2 }
 			var camel_case, camel_case2
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		//RestElement
 		{
@@ -546,7 +586,9 @@ exports.module = (valid, invalid) => {
 			var [ ...camel_case_a ] = value
 			var { ...camel_case_b } = value
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// ReturnStatement
 		{
@@ -610,7 +652,9 @@ exports.module = (valid, invalid) => {
 			var pending_a, pending_b
 			var value = [ ...pending_a, pending_b ]
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// SwitchCase
 		{
@@ -671,7 +715,9 @@ exports.module = (valid, invalid) => {
 			var pending_a
 			pending_a\`quasis\${expression}quasis\`
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		// ThrowStatement
 		{
@@ -758,9 +804,11 @@ exports.module = (valid, invalid) => {
 			export var camelCase2
 			export var camel_case$
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		// WhileStatement
@@ -822,7 +870,9 @@ exports.module = (valid, invalid) => {
 			var pending_a
 			function* func_c() { yield pending_a }
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 }

@@ -5,26 +5,26 @@ import { decorator } from "async-lube"
 describe(
 	"decorator",
 	() => {
-		let resolve = async () => "resolve"
+		const resolve = async () => "resolve"
 		/**
 		 * @param {number} ms
 		 */
-		let sleep = ms => new Promise(res => setTimeout(res, ms))
-		let get_result = (
+		const sleep = ms => new Promise(res => setTimeout(res, ms))
+		const get_result = (
 			() => {
 				let count = 0
 				/**
-				 * @param {number} key
-				 * @returns {number}
+				 * @param {*} key
 				 */
-				return key => count++ ?? key
+
+				return key => count++
 			}
 		)()
 
 		it(
 			"already error",
 			async () => {
-				let already_test = decorator(resolve)
+				const already_test = decorator(resolve)
 				await Promise.all(
 					[
 						already_test()
@@ -48,7 +48,7 @@ describe(
 		it(
 			"debounce error",
 			async () => {
-				let debounce_test = decorator(resolve)
+				const debounce_test = decorator(resolve)
 					.debounce(500)
 				await Promise.all(
 					[
@@ -73,7 +73,7 @@ describe(
 		it(
 			"throttle error",
 			async () => {
-				let throttle_test = decorator(resolve)
+				const throttle_test = decorator(resolve)
 					.throttle(2, 1000)
 				await Promise.all(
 					[
@@ -102,7 +102,7 @@ describe(
 		it(
 			"retries",
 			async () => {
-				let retry_test = decorator(
+				const retry_test = decorator(
 					(() => {
 						let count = 0
 						return async () => {
@@ -139,14 +139,14 @@ describe(
 		it(
 			"caching",
 			async () => {
-				let caching_test = decorator(get_result)
+				const caching_test = decorator(get_result)
 					.cache(1)
-				let test1 = await caching_test(1)
+				const test1 = await caching_test(1)
 				await sleep(500)
-				let test2 = caching_test(2)
-				let test3 = await caching_test(1)
+				const test2 = caching_test(2)
+				const test3 = await caching_test(1)
 				await sleep(600)
-				let test4 = await caching_test(1)
+				const test4 = await caching_test(1)
 
 				assert.equal(test1, 0)
 				assert.equal(await test2, 1)

@@ -5,16 +5,16 @@
  * @param {*} another
  * @returns {another is T}
  */
-let _default = (object, another) => {
+const _default = (object, another) => {
 	if (
 		!object
 		|| typeof object != "object"
 		|| object?.constructor != another?.constructor
 	) return object === another
-	let o_key = Object.keys(object)
-	let a_key = Object.keys(another)
+	const o_key = Object.keys(object)
+	const a_key = Object.keys(another)
 	if (o_key.length != a_key.length) return false
-	for (let key of o_key) {
+	for (const key of o_key) {
 		if (
 			!a_key.includes(key)
 			|| !_default(

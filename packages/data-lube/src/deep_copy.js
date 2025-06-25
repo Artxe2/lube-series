@@ -1,5 +1,5 @@
-let _date = Date
-let _array = Array
+const _date = Date
+const _array = Array
 
 /**
  * Deep copy object.
@@ -7,15 +7,15 @@ let _array = Array
  * @param {T} obj
  * @returns {T}
  */
-let _default = obj => {
+const _default = obj => {
 	if (!obj || typeof obj != "object") return obj
 	if (obj.constructor == _date) return /** @type {T} */(new _date(obj))/**/
 	/** @type {Record<string, *>} */
-	let copy = obj.constructor == _array
+	const copy = obj.constructor == _array
 		? []
 		: {}
-	for (let key in obj) {
-		let data = obj[key]
+	for (const key in obj) {
+		const data = obj[key]
 		copy[key] = data && typeof data == "object"
 			? _default(data)
 			: data

@@ -59,7 +59,9 @@ exports.module = (valid, invalid) => {
 			] = value
 			var [] = value
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -102,7 +104,9 @@ exports.module = (valid, invalid) => {
 			var value = async a => b
 			var value = async (a, b, c) => {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -141,7 +145,9 @@ exports.module = (valid, invalid) => {
 			function func() {}
 			async function func() {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -180,7 +186,9 @@ exports.module = (valid, invalid) => {
 			var value = function () {}
 			var value = async function () {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -265,7 +273,9 @@ exports.module = (valid, invalid) => {
 			}
 			var value = {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -294,7 +304,9 @@ exports.module = (valid, invalid) => {
 			} = value
 			var {} = value
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `

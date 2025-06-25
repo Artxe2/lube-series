@@ -1,5 +1,5 @@
 /** @type {Record<string, string | void>} */
-let _default = {
+const _default = {
 	ㄱ: "[가-깋]",
 	ㄴ: "[나-닣]",
 	ㄷ: "[다-딯]",

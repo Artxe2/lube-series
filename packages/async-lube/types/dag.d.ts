@@ -13,12 +13,6 @@ export default _default;
  */
 declare function _default(): {
     (index?: number | undefined): Promise<Awaited<ReturnType<typeof run_dag>>>;
-    /**
-     * @template {(...args: *[]) => *} T
-     * @param {T} handler
-     * @param {import("../private.js").Dependencies<T>} dependencies
-     * @returns {ReturnType<typeof _default>}
-     */
     add<T extends (...args: any[]) => any>(handler: T, ...dependencies: import("../private.js").Dependencies<T>): ReturnType<typeof _default>;
 };
 /**

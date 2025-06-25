@@ -4,7 +4,7 @@ import parse_script_backticks from "./parse_script_backticks.js"
 import parse_script_double_quotes from "./parse_script_double_quotes.js"
 import parse_script_single_quotes from "./parse_script_single_quotes.js"
 
-let stop_script_block_regex = /[{}'"`]|<[A-Za-z]/
+const stop_script_block_regex = /[{}'"`]|<[A-Za-z]/
 
 /**
  * @param {string} text
@@ -12,16 +12,16 @@ let stop_script_block_regex = /[{}'"`]|<[A-Za-z]/
  * @param {number} start
  * @returns {import("../../public.js").Script & { subType: "jsx" }}
  */
-let parse_script_block = (text, errors, start) => {
+const parse_script_block = (text, errors, start) => {
 	let child_pre_index = start + 1
 	/** @type {import("../../public.js").Element[]} */
-	let elements = []
+	const elements = []
 	/** @type {import("../../public.js").String[]} */
-	let strings = []
+	const strings = []
 	for (;;) {
-		let child_index = text.slice(child_pre_index).search(stop_script_block_regex)
+		const child_index = text.slice(child_pre_index).search(stop_script_block_regex)
 		if (child_index >= 0) {
-			let index = child_pre_index + child_index
+			const index = child_pre_index + child_index
 			if (text[index] == "}") {
 				return {
 					elements,
@@ -32,25 +32,25 @@ let parse_script_block = (text, errors, start) => {
 					type: "Script"
 				}
 			} else if (text[index] == "<") {
-				let node = parse_element(text, errors, index)
+				const node = parse_element(text, errors, index)
 				elements.push(node)
 				child_pre_index = node.end
 			} else if (text[index] == "{") {
-				let node = parse_script_block(text, errors, index)
-				for (let str of node.strings) {
+				const node = parse_script_block(text, errors, index)
+				for (const str of node.strings) {
 					strings.push(str)
 				}
 				child_pre_index = node.end
 			} else if (text[index] == "'") {
-				let node = parse_script_single_quotes(text, errors, index)
+				const node = parse_script_single_quotes(text, errors, index)
 				strings.push(node)
 				child_pre_index = node.end
 			} else if (text[index] == "\"") {
-				let node = parse_script_double_quotes(text, errors, index)
+				const node = parse_script_double_quotes(text, errors, index)
 				strings.push(node)
 				child_pre_index = node.end
 			} else {
-				let node = parse_script_backticks(text, errors, index)
+				const node = parse_script_backticks(text, errors, index)
 				strings.push(node)
 				child_pre_index = node.end
 			}

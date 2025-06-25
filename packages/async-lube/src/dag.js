@@ -9,7 +9,7 @@
  * @param {number} index
  * @returns {Promise<*>}
  */
-let run_node = async (
+const run_node = async (
 	resolve,
 	reject,
 	jobs,
@@ -19,15 +19,15 @@ let run_node = async (
 	handler,
 	index
 ) => {
-	let value = await handler(
+	const value = await handler(
 		...(dependencies.length ? await Promise.all(dependencies) : dependencies)
 	)
 	jobs.set(dependencies, value)
 	if (!--count[0]) resolve([ ...jobs.values() ][index])
 	else {
-		let queue = dependents.get(handler)
+		const queue = dependents.get(handler)
 		if (queue) {
-			for (let p of queue) {
+			for (const p of queue) {
 				p[p.indexOf(handler)] = value
 				if (p.every(v => typeof v != "function")) {
 					run_node(
@@ -51,27 +51,27 @@ let run_node = async (
  * @param {number} index
  * @returns {Promise<*>}
  */
-let run_dag = (nodes, index) =>
+const run_dag = (nodes, index) =>
 	new Promise(
 		(resolve, reject) => {
 			/** @type {Map<*[], Function>} */
-			let jobs = new Map()
+			const jobs = new Map()
 			/** @type {Map<Function, *[][]>} */
-			let dependents = new Map()
+			const dependents = new Map()
 			/** @type {[number]} */
-			let count = [ nodes.size ]
+			const count = [ nodes.size ]
 
-			for (let [ dependencies, handler ] of nodes) {
-				let clone = [ ...dependencies ]
+			for (const [ dependencies, handler ] of nodes) {
+				const clone = [ ...dependencies ]
 				jobs.set(clone, handler)
-				for (let p of clone)
+				for (const p of clone)
 					if (typeof p == "function") {
-						let array = dependents.get(p)
+						const array = dependents.get(p)
 						if (array) array.push(clone)
 						else dependents.set(p, [ clone ])
 					}
 			}
-			for (let [ dependencies, handler ] of jobs) {
+			for (const [ dependencies, handler ] of jobs) {
 				if (
 					dependencies.every(
 						/** @type {*} */p/**/ => typeof p != "function"
@@ -105,15 +105,15 @@ let run_dag = (nodes, index) =>
  * }
  * ```
  */
-let _default = () => {
+const _default = () => {
 	/** @type {Map<*[], Function>} */
-	let nodes = new Map()
+	const nodes = new Map()
 
 	/**
 	 * @param {number=} index
 	 * @returns {Promise<Awaited<ReturnType<typeof run_dag>>>}
 	 */
-	let utils = (index = nodes.size - 1) => run_dag(nodes, index)
+	const utils = (index = nodes.size - 1) => run_dag(nodes, index)
 
 	/**
 	 * @template {(...args: *[]) => *} T

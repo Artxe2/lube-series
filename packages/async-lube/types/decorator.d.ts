@@ -25,30 +25,9 @@ export default _default;
  */
 declare function _default<T extends (...args: any[]) => any>(handler: T): {
     (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>>;
-    /**
-     * Enable caching for the decorated function.
-     * @param {number} s
-     * @returns {ReturnType<typeof _default<T>>}
-     */
     cache(s: number): ReturnType<typeof _default<T>>;
-    /**
-     * Enable debouncing for the decorated function.
-     * @param {number} ms
-     * @returns {ReturnType<typeof _default<T>>}
-     */
     debounce(ms: number): ReturnType<typeof _default<T>>;
-    /**
-     * Enable retries for the decorated function.
-     * @param {(reason: Error, count: number) => void} checker
-     * @returns {ReturnType<typeof _default<T>>}
-     */
     retries(checker: (reason: Error, count: number) => void): ReturnType<typeof _default<T>>;
-    /**
-     * Enable throttling for the decorated function.
-     * @param {number} n
-     * @param {number} ms
-     * @returns {ReturnType<typeof _default<T>>}
-     */
     throttle(n: number, ms: number): ReturnType<typeof _default<T>>;
 };
 //# sourceMappingURL=decorator.d.ts.map

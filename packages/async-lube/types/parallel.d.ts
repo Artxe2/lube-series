@@ -6,5 +6,5 @@ export default _default;
  * @param {T} handlers
  * @returns {Promise<import("../private.js").ParallelResult<T>>}
  */
-declare function _default<T extends [() => any, ...(() => any)[]]>(size: import("../private.js").Between<2, T["length"]>, ...handlers: T): Promise<import("../private.js").ParallelResult<T>>;
+declare function _default<T extends [((...args: []) => any), ...((...args: []) => any)[]]>(size: import("../private.js").Between<2, readonly T["length"]>, ...handlers: T): Promise<import("../private.js").ParallelResult<T>>;
 //# sourceMappingURL=parallel.d.ts.map

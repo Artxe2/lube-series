@@ -1,15 +1,15 @@
 "use strict"
 
-let left_space_regex = /\s+$/
-let right_space_regex = /^\s+/
-let type_regex = /(?<=(?:^|.*\s*)@type\s*\{).+(?=\}.*?$)/
+const left_space_regex = /\s+$/
+const right_space_regex = /^\s+/
+const type_regex = /(?<=(?:^|.*\s*)@type\s*\{).+(?=\}.*?$)/
 
 /**
  * @param {number} length
  * @returns {number[]}
  */
 function get_indexed_array(length) {
-	let array = []
+	const array = []
 	while (length) array[--length] = length
 	return array
 }
@@ -29,21 +29,21 @@ module.exports = {
 		type: "layout"
 	},
 	create(context) {
-		let source_code = context.sourceCode
-		let origin_text = source_code.text
+		const source_code = context.sourceCode
+		const origin_text = source_code.text
 		let fixed_text = origin_text
-		let text_length = fixed_text.length + 1
-		let text_indexes = get_indexed_array(text_length)
+		const text_length = fixed_text.length + 1
+		const text_indexes = get_indexed_array(text_length)
 		/** @type {import("../private").Comment[]} */
-		let comments = []
-		for (let comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
+		const comments = []
+		for (const comment of /** @type {import("../private").Comment[]} */(source_code.getAllComments())/**/) {
 			let [ start, end ] = comment.range
 			while (start < end) comments[start++] = comment
 		}
 		/** @type {import("../private").AstNode[] & import("estree").Expression[]} */
-		let expressions = []
+		const expressions = []
 		/** @type {Set<string>} */
-		let node_ranges = new Set
+		const node_ranges = new Set
 
 		/**
 		 * @param {import("../private").AstNode} node
@@ -51,11 +51,11 @@ module.exports = {
 		 */
 		function verify_correct(node) {
 			let temp_text = fixed_text
-			let temp_indexes = [ ...text_indexes ]
+			const temp_indexes = [ ...text_indexes ]
 			/** @type {(string | undefined)[]} */
-			let types = []
+			const types = []
 			/** @type {true[]} */
-			let extras = []
+			const extras = []
 			/**
 			 * @param {number} start
 			 * @param {number} end
@@ -63,10 +63,10 @@ module.exports = {
 			 * @returns {void}
 			 */
 			function temp_text_changes(start, end, insert = "") {
-				let s = temp_indexes[start]
-				let e = temp_indexes[end]
+				const s = temp_indexes[start]
+				const e = temp_indexes[end]
 				if (s == null || e == null) return
-				let gap = insert.length + s - e
+				const gap = insert.length + s - e
 				temp_text = temp_text.slice(0, s) + insert + temp_text.slice(e)
 				if (gap) {
 					while (end < text_length) {
@@ -85,14 +85,14 @@ module.exports = {
 				if (comment) {
 					left = comment.range[0]
 					if (open && !types[open - 1]) {
-						let type = comment.type == "Block" && type_regex.exec(comment.value)?.[0]
+						const type = comment.type == "Block" && type_regex.exec(comment.value)?.[0]
 						if (type) {
 							types[open - 1] = type
 							temp_text_changes(...comment.range)
 						}
 					}
 				} else {
-					let left_space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
+					const left_space = left_space_regex.exec(origin_text.slice(0, left))?.[0].length
 					if (left_space) {
 						left -= left_space
 					} else if (origin_text[left - 1] == "(") {
@@ -101,7 +101,7 @@ module.exports = {
 							if (comment) {
 								right = comment.range[1]
 							} else {
-								let right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
+								const right_space = right_space_regex.exec(origin_text.slice(right))?.[0].length
 								if (right_space) {
 									right += right_space
 								} else {
@@ -136,7 +136,7 @@ module.exports = {
 				temp_text_changes(prev_open, prev_open, "(")
 				temp_text_changes(prev_close, prev_close, ")")
 			}
-			let start = temp_indexes[node.range[0]]
+			const start = temp_indexes[node.range[0]]
 			let end = temp_indexes[node.range[1]]
 			if (!end) return
 			if (extras[end] || open && temp_text.slice(end, end + 4) == "/**/") {
@@ -166,11 +166,11 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function report(node, start, end, corrected_text) {
-			let s = text_indexes[start]
-			let e = text_indexes[end]
+			const s = text_indexes[start]
+			const e = text_indexes[end]
 			if (s == null || e == null) return
 			fixed_text = fixed_text.slice(0, s) + corrected_text + fixed_text.slice(e)
-			let gap = corrected_text.length + s - e
+			const gap = corrected_text.length + s - e
 			if (gap) {
 				for (let i = end; i < text_length; i++) {
 					text_indexes[i] += gap
@@ -195,14 +195,14 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function push_to_reverse(node) {
-			let range = `${node.range[0]} ${node.range[1]}`
+			const range = `${node.range[0]} ${node.range[1]}`
 			if (node_ranges.has(range)) return
 			node_ranges.add(range)
 			expressions.push(node)
 		}
 		return {
 			"Program:exit": () => {
-				for (let node of expressions.reverse()) {
+				for (const node of expressions.reverse()) {
 					verify_correct(node)
 				}
 			},

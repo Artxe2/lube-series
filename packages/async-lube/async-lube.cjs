@@ -4,10 +4,10 @@
  * @param {Record<string, string | number>=} data
  * @returns {string}
  */
-let to_query = data => {
+const to_query = data => {
 	let query = "";
 	if (data) {
-		for (let key in data) {
+		for (const key in data) {
 			query += (query ? "&" : "")
 				+ encodeURIComponent(key)
 				+ "="
@@ -23,10 +23,10 @@ let to_query = data => {
  * @param {Record<string, string | number | Blob>=} data
  * @returns {FormData | undefined}
  */
-let to_form_data = data => {
+const to_form_data = data => {
 	if (data) {
-		let form_data = new FormData();
-		for (let key in data) form_data.append(
+		const form_data = new FormData();
+		for (const key in data) form_data.append(
 			key,
 			/** @type {string} */(data[key])/**/
 		);
@@ -34,19 +34,19 @@ let to_form_data = data => {
 	}
 };
 
-let path_variable_regex = /:[_a-zA-Z0-9]+/g;
+const path_variable_regex = /:[_a-zA-Z0-9]+/g;
 /**
  * @param {string} url
  * @param {Record<string, string | number | Blob>=} data
  * @returns {string}
  */
-let set_path_variables_in_url = (url, data) => {
+const set_path_variables_in_url = (url, data) => {
 	if (data) {
 		url = url.replace(
 			path_variable_regex,
 			s => {
 				s = s.slice(1);
-				let v = data[s];
+				const v = data[s];
 				delete data[s];
 				return String(v)
 			}
@@ -63,7 +63,7 @@ let set_path_variables_in_url = (url, data) => {
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-let get_fetch_query = (
+const get_fetch_query = (
 	url,
 	set_abort,
 	options,
@@ -72,7 +72,7 @@ let get_fetch_query = (
 ) => {
 	options = /** @type {RequestInit} */({ headers, ...options });/**/
 	if (set_abort) {
-		let controller = new AbortController();
+		const controller = new AbortController();
 		set_abort(() => controller.abort());
 		options.signal = controller.signal;
 	}
@@ -92,7 +92,7 @@ let get_fetch_query = (
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-let get_fetch_body = (
+const get_fetch_body = (
 	url,
 	method,
 	content_type,
@@ -107,7 +107,7 @@ let get_fetch_body = (
 	};
 	options = /** @type {RequestInit} */({ method, body, headers, ...options });/**/
 	if (set_abort) {
-		let controller = new AbortController();
+		const controller = new AbortController();
 		set_abort(() => controller.abort());
 		options.signal = controller.signal;
 	}
@@ -128,7 +128,7 @@ let get_fetch_body = (
  * }
  * ```
  */
-let set_options_body = (url, method, set_abort, options) =>
+const set_options_body = (url, method, set_abort, options) =>
 	({
 		/**
 		 * Function for making a JSON fetch request with optional data and headers.
@@ -272,7 +272,7 @@ var client = (url, set_abort) =>
  * @param {number} index
  * @returns {Promise<*>}
  */
-let run_node = async (
+const run_node = async (
 	resolve,
 	reject,
 	jobs,
@@ -282,15 +282,15 @@ let run_node = async (
 	handler,
 	index
 ) => {
-	let value = await handler(
+	const value = await handler(
 		...(dependencies.length ? await Promise.all(dependencies) : dependencies)
 	);
 	jobs.set(dependencies, value);
 	if (!--count[0]) resolve([ ...jobs.values() ][index]);
 	else {
-		let queue = dependents.get(handler);
+		const queue = dependents.get(handler);
 		if (queue) {
-			for (let p of queue) {
+			for (const p of queue) {
 				p[p.indexOf(handler)] = value;
 				if (p.every(v => typeof v != "function")) {
 					run_node(
@@ -314,27 +314,27 @@ let run_node = async (
  * @param {number} index
  * @returns {Promise<*>}
  */
-let run_dag = (nodes, index) =>
+const run_dag = (nodes, index) =>
 	new Promise(
 		(resolve, reject) => {
 			/** @type {Map<*[], Function>} */
-			let jobs = new Map();
+			const jobs = new Map();
 			/** @type {Map<Function, *[][]>} */
-			let dependents = new Map();
+			const dependents = new Map();
 			/** @type {[number]} */
-			let count = [ nodes.size ];
+			const count = [ nodes.size ];
 
-			for (let [ dependencies, handler ] of nodes) {
-				let clone = [ ...dependencies ];
+			for (const [ dependencies, handler ] of nodes) {
+				const clone = [ ...dependencies ];
 				jobs.set(clone, handler);
-				for (let p of clone)
+				for (const p of clone)
 					if (typeof p == "function") {
-						let array = dependents.get(p);
+						const array = dependents.get(p);
 						if (array) array.push(clone);
 						else dependents.set(p, [ clone ]);
 					}
 			}
-			for (let [ dependencies, handler ] of jobs) {
+			for (const [ dependencies, handler ] of jobs) {
 				if (
 					dependencies.every(
 						/** @type {*} */p/**/ => typeof p != "function"
@@ -368,15 +368,15 @@ let run_dag = (nodes, index) =>
  * }
  * ```
  */
-let _default$2 = () => {
+const _default$2 = () => {
 	/** @type {Map<*[], Function>} */
-	let nodes = new Map();
+	const nodes = new Map();
 
 	/**
 	 * @param {number=} index
 	 * @returns {Promise<Awaited<ReturnType<typeof run_dag>>>}
 	 */
-	let utils = (index = nodes.size - 1) => run_dag(nodes, index);
+	const utils = (index = nodes.size - 1) => run_dag(nodes, index);
 
 	/**
 	 * @template {(...args: *[]) => *} T
@@ -415,11 +415,11 @@ let _default$2 = () => {
  * Error("Too many requests") // f the operation is cancelled by the throttle.
  * ```
  */
-let _default$1 = handler => {
+const _default$1 = handler => {
 	/** @type {number} */
 	let cache_time;
 	/** @type {Record<string, ReturnType<T>>} */
-	let cached_value = {};
+	const cached_value = {};
 	/** @type {Promise<ReturnType<T>>?} */
 	let debounce_promise;
 	/** @type {number} */
@@ -434,13 +434,13 @@ let _default$1 = handler => {
 	/** @type {number} */
 	let throttle_time_ms;
 
-	let decrease_throttle = () => throttle_count--;
+	const decrease_throttle = () => throttle_count--;
 
 	/**
 	 * @param {Parameters<T>} args
 	 * @returns {Promise<ReturnType<T>>}
 	 */
-	let throttle_impl = async args => {
+	const throttle_impl = async args => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
 				throttle_count++;
@@ -458,7 +458,7 @@ let _default$1 = handler => {
 	 * @param {string} key
 	 * @returns {void}
 	 */
-	let clear_cached_value = key => {
+	const clear_cached_value = key => {
 		delete cached_value[key];
 	};
 
@@ -470,7 +470,7 @@ let _default$1 = handler => {
 	 * @param {number} count
 	 * @returns {Promise<void>}
 	 */
-	let retries_impl = (args, resolve, reject, key, count) =>
+	const retries_impl = (args, resolve, reject, key, count) =>
 		throttle_impl(args)
 			.then(
 				value => {
@@ -512,7 +512,7 @@ let _default$1 = handler => {
 	 * @param {string} key
 	 * @returns {void}
 	 */
-	let handle_debounce_timeout = (args, resolve, reject, promise, key) => {
+	const handle_debounce_timeout = (args, resolve, reject, promise, key) => {
 		if (debounce_promise == promise) {
 			debounce_promise = null;
 			is_in_progress = true;
@@ -528,7 +528,7 @@ let _default$1 = handler => {
 	 * @param {string} key
 	 * @returns {void}
 	 */
-	let debounce_impl = (args, resolve, reject, promise, key) => {
+	const debounce_impl = (args, resolve, reject, promise, key) => {
 		if (debounce_time_ms) {
 			debounce_promise = promise;
 			setTimeout(
@@ -550,18 +550,18 @@ let _default$1 = handler => {
 	 * @param {Parameters<T>} args
 	 * @returns {Promise<Awaited<ReturnType<T>>>}
 	 */
-	let utils = (...args) => {
-		/** @type {(value?: ReturnType<T>) => void} */// @ts-expect-error: resolve is assigned in PromiseConstructor
+	const utils = (...args) => {
+		/** @type {(value?: ReturnType<T>) => void} */// @ts-expect-error: resolve is assigned in Promiseconstructor
 		let resolve = void 0;
-		/** @type {(reason?: Error) => void} */// @ts-expect-error: reject is assigned in PromiseConstructor
+		/** @type {(reason?: Error) => void} */// @ts-expect-error: reject is assigned in Promiseconstructor
 		let reject = void 0;
-		let promise = new Promise(
+		const promise = new Promise(
 			(res, rej) => {
 				resolve = res;
 				reject = rej;
 			}
 		);
-		let key = JSON.stringify(args);
+		const key = JSON.stringify(args);
 		if (cached_value[key] != null) resolve(cached_value[key]);
 		else if (is_in_progress) reject(
 			Error("Request already in progress")
@@ -621,15 +621,15 @@ let _default$1 = handler => {
  * @param {T} handlers
  * @returns {Promise<import("../private.js").ParallelResult<T>>}
  */
-let _default = (size, ...handlers) => {
+const _default = (size, ...handlers) => {
 	/** @type {import("../private.js").ParallelResult<T>} */
-	let result = /** @type {import("../private.js").ParallelResult<T>} */([]);/**/
+	const result = /** @type {import("../private.js").ParallelResult<T>} */([]);/**/
 	return new Promise(
 		resolve => {
-			let length = /** @type {import("../private.js").Between<2, readonly T["length"]>} */(handlers.length);/**/
+			const length = /** @type {import("../private.js").Between<2, readonly T["length"]>} */(handlers.length);/**/
 			if (length < size) size = length;
 			let index = 0;
-			let finally_handler = () => {
+			const finally_handler = () => {
 				if (index < length) run(index++);
 				else if (++index == length + size) resolve(result);
 			};
@@ -637,7 +637,7 @@ let _default = (size, ...handlers) => {
 			 * @param {number} i
 			 * @returns {Promise<{ value: * } | { reason: * }>}
 			 */
-			let run = i =>
+			const run = i =>
 				Promise.resolve(handlers[i]?.())
 					.then(
 						value => result[i] = { value },

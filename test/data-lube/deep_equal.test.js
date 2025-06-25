@@ -5,7 +5,7 @@ import { deepEqual } from "data-lube"
 describe(
 	"deep_equal",
 	() => {
-		let dimensions = [
+		const dimensions = [
 			{
 				"dimensions": [
 					{
@@ -154,7 +154,7 @@ describe(
 		it(
 			"check with JSON.stringify",
 			() => {
-				let copy = JSON.parse(JSON.stringify(dimensions))
+				const copy = JSON.parse(JSON.stringify(dimensions))
 				assert.deepStrictEqual(dimensions, copy)
 				copy.push("extra")
 				assert.notDeepEqual(dimensions, copy)

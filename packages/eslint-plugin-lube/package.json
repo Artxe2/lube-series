@@ -5,12 +5,12 @@
 	},
 	"description": "Full fixable rules for auto-formatting with ESLint only without Prettier",
 	"devDependencies": {
-		"@types/eslint": "^8.56.2",
-		"@types/estree": "^1.0.5",
-		"@typescript-eslint/parser": "^6.19.0",
-		"eslint": "^8.56.0",
-		"mocha": "^10.2.0",
-		"typescript": "^5.3.3"
+		"@types/eslint": "^9.6.1",
+		"@types/estree": "^1.0.8",
+		"@typescript-eslint/parser": "^8.35.0",
+		"eslint": "^9.29.0",
+		"mocha": "^11.7.0",
+		"typescript": "^5.8.3"
 	},
 	"keywords": [
 		"eslint-plugin",
@@ -21,12 +21,18 @@
 	],
 	"license": "MIT",
 	"name": "eslint-plugin-lube",
+	"peerDependencies": {
+		"eslint": ">=9.0.0"
+	},
 	"repository": {
 		"directory": "packages/eslint-plugin-lube",
 		"type": "git",
 		"url": "https://github.com/Artxe2/lube-series"
 	},
-	"scripts": { "dts": "tsc", "test": "mocha" },
+	"scripts": {
+		"dts": "tsc",
+		"test": "mocha"
+	},
 	"type": "commonjs",
-	"version": "0.4.3"
+	"version": "0.5.0"
 }

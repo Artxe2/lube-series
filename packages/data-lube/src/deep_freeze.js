@@ -4,9 +4,9 @@
  * @param {T} data
  * @returns {import("../private.js").DeepReadonly<T>}
  */
-let _default = data => {
+const _default = data => {
 	if (data && typeof data == "object") {
-		for (let key in Object.freeze(data)) _default(data[key])
+		for (const key in Object.freeze(data)) _default(data[key])
 	}
 	return /** @type {import("../private.js").DeepReadonly<T>} */(data)/**/
 }

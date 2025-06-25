@@ -6,7 +6,7 @@ describe(
 	"dag",
 	() => {
 		/** @type {((...str: string[]) => Promise<string>)[]} */
-		let resolve_array = [
+		const resolve_array = [
 			(...str) =>
 				Promise.resolve()
 					.then(() => [ ...str, "a" ].join()),
@@ -31,7 +31,7 @@ describe(
 		]
 
 		/** @type {((...str: string[]) => Promise<string>)[]} */
-		let reject_array = [
+		const reject_array = [
 			() =>
 				Promise.resolve()
 					.then(() => "a"),
@@ -62,7 +62,7 @@ describe(
 		it(
 			"default(last) resolve",
 			async () => {
-				let my_dag = dag()
+				const my_dag = dag()
 					.add(resolve_array[0])
 					.add(
 						resolve_array[1],
@@ -95,7 +95,7 @@ describe(
 		it(
 			"index resolve",
 			async () => {
-				let my_dag = dag()
+				const my_dag = dag()
 					.add(resolve_array[0])
 					.add(
 						resolve_array[1],
@@ -128,7 +128,7 @@ describe(
 		it(
 			"run_dag error",
 			async () => {
-				let my_dag = dag()
+				const my_dag = dag()
 					.add(reject_array[0])
 					.add(reject_array[1])
 					.add(reject_array[2])
@@ -148,7 +148,7 @@ describe(
 		it(
 			"run_node error",
 			async () => {
-				let my_dag = dag()
+				const my_dag = dag()
 					.add(reject_array[0])
 					.add(reject_array[1], reject_array[0])
 					.add(reject_array[2])
@@ -168,7 +168,7 @@ describe(
 		it(
 			"run_node nest error",
 			async () => {
-				let my_dag = dag()
+				const my_dag = dag()
 					.add(reject_array[0])
 					.add(reject_array[1], reject_array[2])
 					.add(reject_array[2], reject_array[3])

@@ -22,11 +22,11 @@
  * Error("Too many requests") // f the operation is cancelled by the throttle.
  * ```
  */
-let _default = handler => {
+const _default = handler => {
 	/** @type {number} */
 	let cache_time
 	/** @type {Record<string, ReturnType<T>>} */
-	let cached_value = {}
+	const cached_value = {}
 	/** @type {Promise<ReturnType<T>>?} */
 	let debounce_promise
 	/** @type {number} */
@@ -41,13 +41,13 @@ let _default = handler => {
 	/** @type {number} */
 	let throttle_time_ms
 
-	let decrease_throttle = () => throttle_count--
+	const decrease_throttle = () => throttle_count--
 
 	/**
 	 * @param {Parameters<T>} args
 	 * @returns {Promise<ReturnType<T>>}
 	 */
-	let throttle_impl = async args => {
+	const throttle_impl = async args => {
 		if (!throttle_limit || throttle_count < throttle_limit) {
 			if (throttle_limit) {
 				throttle_count++
@@ -65,7 +65,7 @@ let _default = handler => {
 	 * @param {string} key
 	 * @returns {void}
 	 */
-	let clear_cached_value = key => {
+	const clear_cached_value = key => {
 		delete cached_value[key]
 	}
 
@@ -77,7 +77,7 @@ let _default = handler => {
 	 * @param {number} count
 	 * @returns {Promise<void>}
 	 */
-	let retries_impl = (args, resolve, reject, key, count) =>
+	const retries_impl = (args, resolve, reject, key, count) =>
 		throttle_impl(args)
 			.then(
 				value => {
@@ -119,7 +119,7 @@ let _default = handler => {
 	 * @param {string} key
 	 * @returns {void}
 	 */
-	let handle_debounce_timeout = (args, resolve, reject, promise, key) => {
+	const handle_debounce_timeout = (args, resolve, reject, promise, key) => {
 		if (debounce_promise == promise) {
 			debounce_promise = null
 			is_in_progress = true
@@ -135,7 +135,7 @@ let _default = handler => {
 	 * @param {string} key
 	 * @returns {void}
 	 */
-	let debounce_impl = (args, resolve, reject, promise, key) => {
+	const debounce_impl = (args, resolve, reject, promise, key) => {
 		if (debounce_time_ms) {
 			debounce_promise = promise
 			setTimeout(
@@ -157,18 +157,18 @@ let _default = handler => {
 	 * @param {Parameters<T>} args
 	 * @returns {Promise<Awaited<ReturnType<T>>>}
 	 */
-	let utils = (...args) => {
-		/** @type {(value?: ReturnType<T>) => void} */// @ts-expect-error: resolve is assigned in PromiseConstructor
+	const utils = (...args) => {
+		/** @type {(value?: ReturnType<T>) => void} */// @ts-expect-error: resolve is assigned in Promiseconstructor
 		let resolve = void 0
-		/** @type {(reason?: Error) => void} */// @ts-expect-error: reject is assigned in PromiseConstructor
+		/** @type {(reason?: Error) => void} */// @ts-expect-error: reject is assigned in Promiseconstructor
 		let reject = void 0
-		let promise = new Promise(
+		const promise = new Promise(
 			(res, rej) => {
 				resolve = res
 				reject = rej
 			}
 		)
-		let key = JSON.stringify(args)
+		const key = JSON.stringify(args)
 		if (cached_value[key] != null) resolve(cached_value[key])
 		else if (is_in_progress) reject(
 			Error("Request already in progress")

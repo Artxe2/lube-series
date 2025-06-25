@@ -16,7 +16,7 @@
  * - "sss": Milliseconds
  * @returns {string}
  */
-let _default = (
+const _default = (
 	date,
 	format = "YYYY-MM-DDTHH:mm:ss.sss"
 ) =>

@@ -1,4 +1,4 @@
-let time_regex = /(-?\d+)([YMDHms]+)/g
+const time_regex = /(-?\d+)([YMDHms]+)/g
 
 /**
  * Calculates and adds the specified time duration to the provided date.
@@ -19,9 +19,9 @@ let time_regex = /(-?\d+)([YMDHms]+)/g
  * @returns {Date}
  * @example add(new Date, "-1D") //=> Date { yesterday }
  */
-let _default = (date, sum) => {
-	for (let [ , n, unit ] of /** @type {IterableIterator<RegExpExecArray & [string, string]>} */(sum.matchAll(time_regex))/**/) {
-		let number = +n
+const _default = (date, sum) => {
+	for (const [ , n, unit ] of /** @type {IterableIterator<RegExpExecArray & [string, string]>} */(sum.matchAll(time_regex))/**/) {
+		const number = +n
 		if (unit == "Y") date.setFullYear(date.getFullYear() + number)
 		else if (unit == "M") date.setMonth(date.getMonth() + number)
 		else if (unit == "D") date.setDate(date.getDate() + number)

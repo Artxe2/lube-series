@@ -5,7 +5,7 @@ import { deepFreeze } from "data-lube"
 describe(
 	"deep_freeze.test",
 	() => {
-		let dimensions = [
+		const dimensions = [
 			{
 				"dimensions": [
 					{
@@ -125,8 +125,8 @@ describe(
 		 */
 		function recursion(obj) {
 			if (!Object.isFrozen(obj)) return false
-			for (let key in obj) {
-				let o = obj[key]
+			for (const key in obj) {
+				const o = obj[key]
 				if (o && typeof o == "object" && !recursion(o)) return false
 			}
 			return true

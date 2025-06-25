@@ -8,7 +8,7 @@ describe(
 		it(
 			"add",
 			() => {
-				let start_date = new Date("2222-03-04T11:22:33.444Z")
+				const start_date = new Date("2222-03-04T11:22:33.444Z")
 				add(start_date, "-1Y 2M")
 				add(
 					start_date,

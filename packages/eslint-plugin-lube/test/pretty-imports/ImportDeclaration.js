@@ -11,9 +11,11 @@ exports.module = (valid, invalid) => {
 			import { fff, ggg, hhh, iii, jjj, kkk, lll } from 'module/2'
 			`,
 			options: [ { maxLength: 30 } ],
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		{
@@ -24,9 +26,11 @@ import {
 	aaaaa_ddddd
 } from "module";`,
 			options: [ { semicolon: true } ],
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		}
 	)
@@ -67,9 +71,11 @@ import {
 		    	lll
 		    } from 'module/2';
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		},
 		{
@@ -108,9 +114,11 @@ import {
 		      lll
 		    } from 'module/2'
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		}
 	)

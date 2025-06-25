@@ -37,7 +37,9 @@ exports.module = (valid, invalid) => {
 				.../** @type {X} */(x)/**/
 			})/**/;
 			/** @type {Y} */(y, /** @type {Z} */(z[/** @type {123} */(123)/**/])/**/)/**/`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 	invalid.push(
@@ -85,7 +87,9 @@ exports.module = (valid, invalid) => {
 				.../** @type {X} */(x)/**/
 			})/**/;
 			/** @type {Y} */(y, /** @type {Z} */(z[/** @type {123} */(123)/**/])/**/)/**/`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 }

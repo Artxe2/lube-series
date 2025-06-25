@@ -8,67 +8,41 @@ describe(
 		it(
 			"get",
 			async () => {
-				let value = await client(
+				const value = await client(
 					"https://dummyjson.com/products/category/:ca_teGory123"
 				)
 					.get()
 					.query(
 						{
 							ca_teGory123: "smartphones",
-							limit: 2
+							limit: 2,
+							select: "brand,category,description"
 						},
 						{
-							// eslint-disable-next-line max-len
 							Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
 						}
 					)
-				let json = await value.json()
+				const json = await value.json()
 				assert.deepStrictEqual(
 					json,
 					{
-						"limit": 2,
 						"products": [
 							{
+								"id": 121,
 								"brand": "Apple",
 								"category": "smartphones",
-								"description": "An apple mobile which is nothing like apple",
-								"discountPercentage": 12.96,
-								"id": 1,
-								"images": [
-									"https://cdn.dummyjson.com/product-images/1/1.jpg",
-									"https://cdn.dummyjson.com/product-images/1/2.jpg",
-									"https://cdn.dummyjson.com/product-images/1/3.jpg",
-									"https://cdn.dummyjson.com/product-images/1/4.jpg",
-									"https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
-								],
-								"price": 549,
-								"rating": 4.69,
-								"stock": 94,
-								"thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
-								"title": "iPhone 9"
+								"description": "The iPhone 5s is a classic smartphone known for its compact design and advanced features during its release. While it's an older model, it still provides a reliable user experience."
 							},
 							{
+								"id": 122,
 								"brand": "Apple",
 								"category": "smartphones",
-								// eslint-disable-next-line max-len
-								"description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-								"discountPercentage": 17.94,
-								"id": 2,
-								"images": [
-									"https://cdn.dummyjson.com/product-images/2/1.jpg",
-									"https://cdn.dummyjson.com/product-images/2/2.jpg",
-									"https://cdn.dummyjson.com/product-images/2/3.jpg",
-									"https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
-								],
-								"price": 899,
-								"rating": 4.44,
-								"stock": 34,
-								"thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
-								"title": "iPhone X"
+								"description": "The iPhone 6 is a stylish and capable smartphone with a larger display and improved performance. It introduced new features and design elements, making it a popular choice in its time."
 							}
 						],
+						"total": 16,
 						"skip": 0,
-						"total": 5
+						"limit": 2
 					}
 				)
 			}
@@ -82,8 +56,8 @@ describe(
 					.post()
 					.json(
 						{
-							username: "kminchelle",
-							password: "0lelplR"
+							username: "emilys",
+							password: "emilyspass"
 						}
 					)
 				let json = await value.json()
@@ -94,17 +68,20 @@ describe(
 					.query(
 						{},
 						{
-							Authorization: "Bearer " + json.token
+							Authorization: "Bearer " + json.accessToken
 						}
 					)
 				json = await value.json()
-				assert.equal(json.email, "atuny0@sohu.com")
+				assert.equal(
+					json.email,
+					"emily.johnson@x.dummyjson.com"
+				)
 			}
 		)
 		it(
 			"http status",
 			async () => {
-				let value = await client(
+				const value = await client(
 					"https://dummyjson.com/auth/login"
 				)
 					.post()
@@ -116,7 +93,7 @@ describe(
 			"abort",
 			async () => {
 				let stop = () => {}
-				let api = client(
+				const api = client(
 					"https://dummyjson.com/auth/login",
 					abort => stop = abort
 				)

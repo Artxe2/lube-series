@@ -10,7 +10,9 @@ exports.module = (valid, invalid) => {
 				aaaaaaaaaa_aaaaaaaaaa_aaaaaaaaaa
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: "func(a, /* a */(b)/* b */)"
@@ -24,11 +26,15 @@ exports.module = (valid, invalid) => {
 				c
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: "func(v => f(a, b, c))",
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -45,7 +51,9 @@ exports.module = (valid, invalid) => {
 					aaaaaaaaaa_bbbbbbbbbb_cccccccccc
 				)
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -53,9 +61,11 @@ exports.module = (valid, invalid) => {
 				return [ abc, abc ]
 			}
 			`,
-			parserOptions: {
-				ecmaVersion: "latest",
-				sourceType: "module"
+			languageOptions: {
+				parserOptions: {
+					ecmaVersion: "latest",
+					sourceType: "module"
+				}
 			}
 		}
 	)
@@ -113,7 +123,9 @@ exports.module = (valid, invalid) => {
 				}
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -173,7 +185,9 @@ exports.module = (valid, invalid) => {
 				}
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 }

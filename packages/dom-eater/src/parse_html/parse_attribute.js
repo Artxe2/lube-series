@@ -3,8 +3,8 @@ import parse_attribute_double_quotes from "./parse_attribute_double_quotes.js"
 import parse_attribute_single_quotes from "./parse_attribute_single_quotes.js"
 import parse_script_block from "./parse_script_block.js"
 
-let stop_attribute_name_regex = /[\s=>]/
-let stop_space_regex = /\S/
+const stop_attribute_name_regex = /[\s=>]/
+const stop_space_regex = /\S/
 
 /**
  * @param {string} text
@@ -14,7 +14,7 @@ let stop_space_regex = /\S/
  */
 export default (text, errors, start) => {
 	if (text[start] == "{") {
-		let node = parse_script_block(text, errors, start)
+		const node = parse_script_block(text, errors, start)
 		return {
 			end: node.end,
 			name: "",
@@ -23,34 +23,34 @@ export default (text, errors, start) => {
 			value: node
 		}
 	}
-	let name_index = text.slice(start + 1).search(stop_attribute_name_regex) + 1
+	const name_index = text.slice(start + 1).search(stop_attribute_name_regex) + 1
 	if (name_index > 0) {
-		let name = text.slice(start, start + name_index)
+		const name = text.slice(start, start + name_index)
 		/** @type {import("../../public.js").Attribute} */
-		let node = {
+		const node = {
 			end: start + name_index,
 			name,
 			start,
 			type: "Attribute",
 			value: true
 		}
-		let equals_sign_index = text.slice(start + name_index).search(stop_space_regex)
+		const equals_sign_index = text.slice(start + name_index).search(stop_space_regex)
 		if (equals_sign_index < 0 || text[start + name_index + equals_sign_index] != "=") return node
-		let value_index = text.slice(
+		const value_index = text.slice(
 			start + name_index + equals_sign_index + 1
 		).search(stop_space_regex) + 1
 		if (value_index > 0) {
-			let index = start + name_index + equals_sign_index + value_index
+			const index = start + name_index + equals_sign_index + value_index
 			if (text[index] == "'") {
-				let value = parse_attribute_single_quotes(text, errors, index)
+				const value = parse_attribute_single_quotes(text, errors, index)
 				node.value = value
 				node.end = value.end
 			} else if (text[index] == "\"") {
-				let value = parse_attribute_double_quotes(text, errors, index)
+				const value = parse_attribute_double_quotes(text, errors, index)
 				node.value = value
 				node.end = value.end
 			} else if (text[index] == "{") {
-				let value = parse_script_block(text, errors, index)
+				const value = parse_script_block(text, errors, index)
 				node.value = value
 				node.end = value.end
 			} else {

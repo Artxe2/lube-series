@@ -1,4 +1,4 @@
-let E = Error
+const E = Error
 
 /**
  * @param {string} message
@@ -8,7 +8,7 @@ let E = Error
  */
 export default (message, start, end) => {
 	/** @type {Error & { start?: number, end?: number }} */
-	let error = E(message)
+	const error = E(message)
 	error.name = "AstSyntaxError"
 	error.start = start
 	error.end = end

@@ -13,7 +13,7 @@ const non_word_pattern = "[^가-힣0-9A-Z]*?"
  * searcher("특수문자 test 1234!@#$") //=>
  * /특[^가-힣0-9A-Z]*?[수-숳][^가-힣0-9A-Z]*?문[^가-힣0-9A-Z]*?[자-잫][^가-힣0-9A-Z]*? [^가-힣0-9A-Z]*?t[^가-힣0-9A-Z]*?e[^가-힣0-9A-Z]*?s[^가-힣0-9A-Z]*?t[^가-힣0-9A-Z]*? [^가-힣0-9A-Z]*?1[^가-힣0-9A-Z]*?2[^가-힣0-9A-Z]*?3[^가-힣0-9A-Z]*?4[^가-힣0-9A-Z]*?![^가-힣0-9A-Z]*?@[^가-힣0-9A-Z]*?#[^가-힣0-9A-Z]*?$/i
  */
-let _default = text => {
+const _default = text => {
 	let regex = ""
 	const len = text.length - 1
 	for (let i = 0; i <= len; i++) {

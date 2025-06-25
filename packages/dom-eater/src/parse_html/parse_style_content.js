@@ -1,6 +1,6 @@
 import AstSyntaxError from "../AstSyntaxError.js"
 
-let end_style_content_regex = /<\/style>/
+const end_style_content_regex = /<\/style>/
 
 /**
  * @param {string} text
@@ -9,7 +9,7 @@ let end_style_content_regex = /<\/style>/
  * @returns {import("../../public.js").Style}
  */
 export default (text, errors, start) => {
-	let index = text.slice(start).search(end_style_content_regex)
+	const index = text.slice(start).search(end_style_content_regex)
 	if (index >= 0) {
 		return {
 			end: start + index,

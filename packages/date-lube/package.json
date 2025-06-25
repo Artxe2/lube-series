@@ -5,8 +5,8 @@
 	},
 	"description": "Simplify Date Manipulation in JavaScript",
 	"devDependencies": {
-		"rollup": "^4.9.5",
-		"typescript": "^5.3.3"
+		"rollup": "^4.44.0",
+		"typescript": "^5.8.3"
 	},
 	"exports": {
 		".": {
@@ -38,8 +38,12 @@
 	"types": "types/index.d.ts",
 	"typesVersions": {
 		"*": {
-			"@types": [ "public.d.ts" ],
-			"*": [ "types/index.d.ts" ]
+			"@types": [
+				"public.d.ts"
+			],
+			"*": [
+				"types/index.d.ts"
+			]
 		}
 	},
 	"version": "1.4.2"

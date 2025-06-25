@@ -8,8 +8,8 @@ describe(
 		it(
 			"default equals",
 			() => {
-				let date = new Date("2222-03-04T11:22:33.444")
-				let default_string = dateToString(date)
+				const date = new Date("2222-03-04T11:22:33.444")
+				const default_string = dateToString(date)
 				assert.equal(
 					default_string,
 					"2222-03-04T11:22:33.444"
@@ -19,8 +19,8 @@ describe(
 		it(
 			"formatted equals",
 			() => {
-				let date = new Date("2222-03-04T11:22:33.444")
-				let formatted_string = dateToString(
+				const date = new Date("2222-03-04T11:22:33.444")
+				const formatted_string = dateToString(
 					date,
 					"HHhmmmssSsss _ YYYY/MM/DD"
 				)

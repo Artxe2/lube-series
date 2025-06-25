@@ -3,9 +3,9 @@ import parse_attribute from "./parse_attribute.js"
 import parse_script_content from "./parse_script_content.js"
 import parse_style_content from "./parse_style_content.js"
 
-let end_element_name_regex = /[ >]/
-let slash_regex = /^\/|\/$/
-let stop_element_regex = /[^\s/]/
+const end_element_name_regex = /[ >]/
+const slash_regex = /^\/|\/$/
+const stop_element_regex = /[^\s/]/
 
 /**
  * @param {string} text
@@ -14,13 +14,13 @@ let stop_element_regex = /[^\s/]/
  * @returns {import("../../public.js").Element}
  */
 export default (text, errors, start) => {
-	let name_index = text.slice(start + 1).search(end_element_name_regex) + 1
+	const name_index = text.slice(start + 1).search(end_element_name_regex) + 1
 	if (name_index > 0) {
 		let child_pre_index = start + name_index
-		let name = text.slice(start + 1, child_pre_index).replace(slash_regex, "")
+		const name = text.slice(start + 1, child_pre_index).replace(slash_regex, "")
 		if (text[child_pre_index] == ">") {
 			/** @type {import("../../public.js").Element} */
-			let node = {
+			const node = {
 				attributes: [],
 				children: [],
 				end: child_pre_index + 1,
@@ -35,11 +35,11 @@ export default (text, errors, start) => {
 			}
 			if (node?.type == "Element") {
 				if (node.name == "script" && node.subType == "open") {
-					let text_content = parse_script_content(text, errors, child_pre_index + 1)
+					const text_content = parse_script_content(text, errors, child_pre_index + 1)
 					node.children.push(text_content)
 					node.end = text_content.end + 9
 				} else if (node.name == "style" && node.subType == "open") {
-					let text_content = parse_style_content(text, errors, child_pre_index + 1)
+					const text_content = parse_style_content(text, errors, child_pre_index + 1)
 					node.children.push(text_content)
 					node.end = text_content.end + 8
 				}
@@ -47,14 +47,14 @@ export default (text, errors, start) => {
 			return node
 		}
 		/** @type {import("../../public.js").Attribute[]} */
-		let attributes = []
+		const attributes = []
 		for (;;) {
-			let child_index = text.slice(child_pre_index).search(stop_element_regex)
+			const child_index = text.slice(child_pre_index).search(stop_element_regex)
 			if (child_index >= 0) {
-				let index = child_pre_index + child_index
+				const index = child_pre_index + child_index
 				if (text[index] == ">") {
 					/** @type {import("../../public.js").Element} */
-					let node = {
+					const node = {
 						attributes,
 						children: [],
 						end: index + 1,
@@ -69,18 +69,18 @@ export default (text, errors, start) => {
 					}
 					if (node?.type == "Element") {
 						if (node.name == "script" && node.subType == "open") {
-							let text_content = parse_script_content(text, errors, index + 1)
+							const text_content = parse_script_content(text, errors, index + 1)
 							node.children.push(text_content)
 							node.end = text_content.end + 9
 						} else if (node.name == "style" && node.subType == "open") {
-							let text_content = parse_style_content(text, errors, index + 1)
+							const text_content = parse_style_content(text, errors, index + 1)
 							node.children.push(text_content)
 							node.end = text_content.end + 8
 						}
 					}
 					return node
 				}
-				let node = parse_attribute(text, errors, index)
+				const node = parse_attribute(text, errors, index)
 				attributes.push(node)
 				child_pre_index = node.end
 			} else {

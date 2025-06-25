@@ -2,10 +2,10 @@
  * @param {Record<string, string | number>=} data
  * @returns {string}
  */
-let to_query = data => {
+const to_query = data => {
 	let query = ""
 	if (data) {
-		for (let key in data) {
+		for (const key in data) {
 			query += (query ? "&" : "")
 				+ encodeURIComponent(key)
 				+ "="
@@ -21,10 +21,10 @@ let to_query = data => {
  * @param {Record<string, string | number | Blob>=} data
  * @returns {FormData | undefined}
  */
-let to_form_data = data => {
+const to_form_data = data => {
 	if (data) {
-		let form_data = new FormData()
-		for (let key in data) form_data.append(
+		const form_data = new FormData()
+		for (const key in data) form_data.append(
 			key,
 			/** @type {string} */(data[key])/**/
 		)
@@ -32,19 +32,19 @@ let to_form_data = data => {
 	}
 }
 
-let path_variable_regex = /:[_a-zA-Z0-9]+/g
+const path_variable_regex = /:[_a-zA-Z0-9]+/g
 /**
  * @param {string} url
  * @param {Record<string, string | number | Blob>=} data
  * @returns {string}
  */
-let set_path_variables_in_url = (url, data) => {
+const set_path_variables_in_url = (url, data) => {
 	if (data) {
 		url = url.replace(
 			path_variable_regex,
 			s => {
 				s = s.slice(1)
-				let v = data[s]
+				const v = data[s]
 				delete data[s]
 				return String(v)
 			}
@@ -61,7 +61,7 @@ let set_path_variables_in_url = (url, data) => {
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-let get_fetch_query = (
+const get_fetch_query = (
 	url,
 	set_abort,
 	options,
@@ -70,7 +70,7 @@ let get_fetch_query = (
 ) => {
 	options = /** @type {RequestInit} */({ headers, ...options })/**/
 	if (set_abort) {
-		let controller = new AbortController()
+		const controller = new AbortController()
 		set_abort(() => controller.abort())
 		options.signal = controller.signal
 	}
@@ -90,7 +90,7 @@ let get_fetch_query = (
  * @param {Record<string, string>=} headers
  * @returns {Promise<Response>}
  */
-let get_fetch_body = (
+const get_fetch_body = (
 	url,
 	method,
 	content_type,
@@ -105,7 +105,7 @@ let get_fetch_body = (
 	}
 	options = /** @type {RequestInit} */({ method, body, headers, ...options })/**/
 	if (set_abort) {
-		let controller = new AbortController()
+		const controller = new AbortController()
 		set_abort(() => controller.abort())
 		options.signal = controller.signal
 	}
@@ -126,7 +126,7 @@ let get_fetch_body = (
  * }
  * ```
  */
-let set_options_body = (url, method, set_abort, options) =>
+const set_options_body = (url, method, set_abort, options) =>
 	({
 		/**
 		 * Function for making a JSON fetch request with optional data and headers.

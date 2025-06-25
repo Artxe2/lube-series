@@ -1,7 +1,7 @@
 'use strict';
 
-let _date = Date;
-let _array = Array;
+const _date = Date;
+const _array = Array;
 
 /**
  * Deep copy object.
@@ -9,15 +9,15 @@ let _array = Array;
  * @param {T} obj
  * @returns {T}
  */
-let _default$2 = obj => {
+const _default$2 = obj => {
 	if (!obj || typeof obj != "object") return obj
 	if (obj.constructor == _date) return /** @type {T} */(new _date(obj))/**/
 	/** @type {Record<string, *>} */
-	let copy = obj.constructor == _array
+	const copy = obj.constructor == _array
 		? []
 		: {};
-	for (let key in obj) {
-		let data = obj[key];
+	for (const key in obj) {
+		const data = obj[key];
 		copy[key] = data && typeof data == "object"
 			? _default$2(data)
 			: data;
@@ -32,16 +32,16 @@ let _default$2 = obj => {
  * @param {*} another
  * @returns {another is T}
  */
-let _default$1 = (object, another) => {
+const _default$1 = (object, another) => {
 	if (
 		!object
 		|| typeof object != "object"
 		|| object?.constructor != another?.constructor
 	) return object === another
-	let o_key = Object.keys(object);
-	let a_key = Object.keys(another);
+	const o_key = Object.keys(object);
+	const a_key = Object.keys(another);
 	if (o_key.length != a_key.length) return false
-	for (let key of o_key) {
+	for (const key of o_key) {
 		if (
 			!a_key.includes(key)
 			|| !_default$1(
@@ -59,9 +59,9 @@ let _default$1 = (object, another) => {
  * @param {T} data
  * @returns {import("../private.js").DeepReadonly<T>}
  */
-let _default = data => {
+const _default = data => {
 	if (data && typeof data == "object") {
-		for (let key in Object.freeze(data)) _default(data[key]);
+		for (const key in Object.freeze(data)) _default(data[key]);
 	}
 	return /** @type {import("../private.js").DeepReadonly<T>} */(data)/**/
 };

@@ -3,7 +3,7 @@
  * @param {string} value
  * @returns {import("eslint").RuleTester.InvalidTestCase}
  */
-let test_case = (type, value) => ({
+const test_case = (type, value) => ({
 	code: `
 	var value = /** @type {A} */(${value})
 	var value = /** @type {B} */(${value}) // comment...
@@ -29,7 +29,9 @@ let test_case = (type, value) => ({
 	var value = /** @type {D} */((${value}))/**/
 	var value = ((/** @type {E} */(${value})/**/))
 	`,
-	parserOptions: { ecmaVersion: "latest" }
+	languageOptions: {
+		parserOptions: { ecmaVersion: "latest" }
+	}
 })
 
 /**
@@ -94,7 +96,9 @@ exports.module = (valid, invalid) => {
 				((/** @type {E} */(await b)/**/));
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		test_case("BinaryExpression", "a / b"),
 		test_case("CallExpression", "a(b, c)"),
@@ -169,7 +173,9 @@ exports.module = (valid, invalid) => {
 				((/** @type {E} */(new.target)/**/));
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		test_case("NewExpression", "new a(b, c)"),
 		test_case(
@@ -235,7 +241,9 @@ exports.module = (valid, invalid) => {
 				((/** @type {E} */(yield b)/**/));
 			}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 }

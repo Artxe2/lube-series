@@ -2,31 +2,31 @@ import normalize_nodes from "./normalize_nodes.js"
 import parse_element from "./parse_element.js"
 import parse_script_block from "./parse_script_block.js"
 
-let stop_text_regex = /[<{]/
+const stop_text_regex = /[<{]/
 
 /**
  * @param {string} text
  * @param {import("../../public.js").AstNode} node
  */
-let set_text = (text, node) => {
+const set_text = (text, node) => {
 	node.text = text.slice(node.start, node.end)
 	if (node.type == "Attribute") {
 		if (node.value !== true) {
 			set_text(text, node.value)
 		}
 	} else if (node.type == "Element") {
-		for (let attr of node.attributes) {
+		for (const attr of node.attributes) {
 			set_text(text, attr)
 		}
-		for (let child of node.children) {
+		for (const child of node.children) {
 			set_text(text, child)
 		}
 	} else if (node.type == "Script") {
-		for (let string of node.strings) {
+		for (const string of node.strings) {
 			set_text(text, string)
 		}
 	} else if (node.type == "String") {
-		for (let script of node.scripts) {
+		for (const script of node.scripts) {
 			set_text(text, script)
 		}
 	}
@@ -42,12 +42,12 @@ let set_text = (text, node) => {
  */
 export default (text, include_text) => {
 	/** @type {import("../../public.js").AstSyntaxError[]} */
-	let errors = []
+	const errors = []
 	/** @type {import("../../public.js").AstNode[]} */
-	let ast_nodes = []
+	const ast_nodes = []
 	let start = 0
 	for (;;) {
-		let index = text.slice(start).search(stop_text_regex)
+		const index = text.slice(start).search(stop_text_regex)
 		if (index >= 0) {
 			if (index) {
 				ast_nodes.push(
@@ -59,11 +59,11 @@ export default (text, include_text) => {
 				)
 			}
 			if (text[start + index] == "<") {
-				let node = parse_element(text, errors, start + index)
+				const node = parse_element(text, errors, start + index)
 				ast_nodes.push(node)
 				start = node.end
 			} else {
-				let node = parse_script_block(text, errors, start + index)
+				const node = parse_script_block(text, errors, start + index)
 				ast_nodes.push(node)
 				start = node.end
 			}
@@ -87,7 +87,7 @@ export default (text, include_text) => {
 	)
 	normalize_nodes(text, ast_nodes, errors)
 	if (include_text) {
-		for (let node of ast_nodes) {
+		for (const node of ast_nodes) {
 			set_text(text, node)
 		}
 	}

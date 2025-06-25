@@ -19,7 +19,9 @@ exports.module = (valid, invalid) => {
 					checkSequence: false
 				}
 			],
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -28,14 +30,18 @@ exports.module = (valid, invalid) => {
 			}
 			`,
 			options: [ { indent: "    " } ],
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
 			var value = { aaaaaaaaaa_aaaaaaaaaa_aaaaaaaaaa }
 			`,
 			options: [ { maxLength: 40 } ],
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 	invalid.push(
@@ -70,7 +76,9 @@ exports.module = (valid, invalid) => {
 			output: `
 			var value = ( a, b, c ) => {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -81,7 +89,9 @@ exports.module = (valid, invalid) => {
 			output: `
 			var value = (a, b, c) => {}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 	invalid.push(
@@ -94,7 +104,9 @@ exports.module = (valid, invalid) => {
 			output: `
 			var value = { a, b, c }
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		},
 		{
 			code: `
@@ -105,7 +117,9 @@ exports.module = (valid, invalid) => {
 			output: `
 			var value = {a, b, c}
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 	invalid.push(
@@ -120,7 +134,9 @@ exports.module = (valid, invalid) => {
 			output: `
 			var value = \`\${[ a, b, c ]}\`
 			`,
-			parserOptions: { ecmaVersion: "latest" }
+			languageOptions: {
+				parserOptions: { ecmaVersion: "latest" }
+			}
 		}
 	)
 }

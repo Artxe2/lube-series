@@ -8,7 +8,7 @@ describe(
 		it(
 			"self-closing",
 			() => {
-				let ast = parseHtml(
+				const ast = parseHtml(
 					`
 <area>
 <base>
@@ -152,7 +152,7 @@ describe(
 		it(
 			"script element",
 			() => {
-				let ast = parseHtml(
+				const ast = parseHtml(
 					`
 <script>
 import { Component } from "module"
@@ -272,7 +272,7 @@ func()
 		it(
 			"style element",
 			() => {
-				let ast = parseHtml(
+				const ast = parseHtml(
 					`
 <script>
 </script>
@@ -342,7 +342,7 @@ func()
 		it(
 			"attributes and children",
 			() => {
-				let ast = parseHtml(
+				const ast = parseHtml(
 					`
 <div {var} script =  {"double"}{\`\${'single'}\`} flag string="{true ?? "true"}">
 <span>text</span>
@@ -493,7 +493,7 @@ func()
 		it(
 			"attribute error",
 			() => {
-				let ast = parseHtml(
+				const ast = parseHtml(
 					`
 <a {></a>
 `,
