@@ -43,16 +43,16 @@ import {
 			`,
 			errors: [
 				{
-					messageId: "imports",
-					type: "ImportDeclaration",
+					column: 4,
 					line: 3,
-					column: 4
+					messageId: "imports",
+					type: "ImportDeclaration"
 				},
 				{
-					messageId: "imports",
-					type: "ImportDeclaration",
+					column: 7,
 					line: 4,
-					column: 7
+					messageId: "imports",
+					type: "ImportDeclaration"
 				}
 			],
 			options: [
@@ -86,16 +86,16 @@ import {
 			`,
 			errors: [
 				{
-					messageId: "imports",
-					type: "ImportDeclaration",
+					column: 4,
 					line: 3,
-					column: 4
+					messageId: "imports",
+					type: "ImportDeclaration"
 				},
 				{
-					messageId: "imports",
-					type: "ImportDeclaration",
+					column: 7,
 					line: 4,
-					column: 7
+					messageId: "imports",
+					type: "ImportDeclaration"
 				}
 			],
 			options: [

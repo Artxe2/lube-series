@@ -85,21 +85,25 @@ exports.module = (valid, invalid) => {
 				{
 					column: 9,
 					line: 3,
+					messageId: "not_match",
 					type: "ArrayExpression"
 				},
 				{
 					column: 9,
 					line: 5,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 40,
 					line: 6,
+					messageId: "not_match",
 					type: "ArrayExpression"
 				},
 				{
 					column: 10,
 					line: 7,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				}
 			],
@@ -135,36 +139,43 @@ exports.module = (valid, invalid) => {
 				{
 					column: 17,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 20,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 23,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 26,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 29,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 32,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
 					column: 35,
 					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				}
 			],

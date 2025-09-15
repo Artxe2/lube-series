@@ -346,10 +346,10 @@ module.exports = {
 					// while (camelCase) {}
 					defer(node)
 					break
-				case "WithStatement":
-					// with (camelCase) {}
-					defer(node)
-					break
+				// case "WithStatement":
+				// 	// with (camelCase) {}
+				// 	defer(node)
+				// 	break
 				case "YieldExpression":
 					// function* func() { yield camelCase }
 					defer(node)

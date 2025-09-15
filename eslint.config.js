@@ -1,15 +1,14 @@
-/*
-VSCE: ESLint
-VSCE: Sort JS object keys
-VSCE: JavaScript and TypeScript Nightly
-*/
-
 import globals from "globals"
 import lube from "eslint-plugin-lube"
 import parser from "@typescript-eslint/parser"
 
-
 export default [
+	{
+		ignores: [
+			"coverage/**/*",
+			"packages/*/types/**/*.d.ts"
+		]
+	},
 	{
 		...lube.configs,
 		files: [
@@ -17,7 +16,6 @@ export default [
 			"**/*.svelte",
 			"**/*.ts"
 		],
-		ignores: [ "coverage/**/*" ],
 		languageOptions: {
 			ecmaVersion: "latest",
 			sourceType: "module",

@@ -1,4 +1,5 @@
 import {
+	existsSync,
 	readdirSync,
 	rmdirSync,
 	statSync,
@@ -40,6 +41,9 @@ exec(
 			}
 			if (!length) rmdirSync(dir_path)
 		}
-		clean_dir(pacakge_path + "/types")
+		const dir_path = pacakge_path + "/types"
+		if (existsSync(dir_path)) {
+			clean_dir(pacakge_path + "/types")
+		}
 	}
 )

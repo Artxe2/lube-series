@@ -24,23 +24,44 @@ exports.module = (valid, invalid) => {
 	invalid.push(
 		{
 			code: "var __camelCase$$ = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			],
 			output: "var __camel_case$$ = 'Hello'"
 		},
 		{
 			code: "var ___ = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
-			output: "var ___ = 'Hello'"
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			]
 		},
 		{
 			code: "var $$$ = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
-			output: "var $$$ = 'Hello'"
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			]
 		},
 		{
 			code: "var $snake$case$ = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
-			output: "var $snake$case$ = 'Hello'"
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			]
 		}
 	)
 }

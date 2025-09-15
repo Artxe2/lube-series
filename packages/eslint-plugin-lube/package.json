@@ -20,6 +20,7 @@
 		"jsdoc"
 	],
 	"license": "MIT",
+	"main": "index.js",
 	"name": "eslint-plugin-lube",
 	"peerDependencies": {
 		"eslint": ">=9.0.0"
@@ -30,9 +31,10 @@
 		"url": "https://github.com/Artxe2/lube-series"
 	},
 	"scripts": {
-		"dts": "tsc",
+		"dts": "node ../../scripts/tsc_with_clean.js eslint-plugin-lube",
 		"test": "mocha"
 	},
 	"type": "commonjs",
-	"version": "0.5.0"
+	"types": "types/index.d.ts",
+	"version": "0.5.1"
 }

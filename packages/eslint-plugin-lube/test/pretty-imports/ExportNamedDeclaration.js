@@ -41,16 +41,16 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					messageId: "exports",
-					type: "ExportNamedDeclaration",
+					column: 4,
 					line: 3,
-					column: 4
+					messageId: "exports",
+					type: "ExportNamedDeclaration"
 				},
 				{
-					messageId: "exports",
-					type: "ExportNamedDeclaration",
+					column: 7,
 					line: 4,
-					column: 7
+					messageId: "exports",
+					type: "ExportNamedDeclaration"
 				}
 			],
 			options: [
@@ -84,16 +84,16 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					messageId: "exports",
-					type: "ExportNamedDeclaration",
+					column: 4,
 					line: 3,
-					column: 4
+					messageId: "exports",
+					type: "ExportNamedDeclaration"
 				},
 				{
-					messageId: "exports",
-					type: "ExportNamedDeclaration",
+					column: 7,
 					line: 4,
-					column: 7
+					messageId: "exports",
+					type: "ExportNamedDeclaration"
 				}
 			],
 			options: [

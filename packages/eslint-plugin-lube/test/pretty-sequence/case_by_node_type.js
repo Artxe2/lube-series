@@ -12,13 +12,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 17,
+					line: 2,
+					messageId: "not_match",
 					type: "ArrayExpression"
 				},
 				{
-					line: 3,
 					column: 17,
+					line: 3,
+					messageId: "not_match",
 					type: "ArrayExpression"
 				}
 			],
@@ -40,13 +42,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 9,
+					line: 2,
+					messageId: "not_match",
 					type: "ArrayPattern"
 				},
 				{
-					line: 3,
 					column: 9,
+					line: 3,
+					messageId: "not_match",
 					type: "ArrayPattern"
 				}
 			],
@@ -78,13 +82,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 17,
+					line: 2,
+					messageId: "not_match",
 					type: "ArrowFunctionExpression"
 				},
 				{
-					line: 5,
 					column: 17,
+					line: 5,
+					messageId: "not_match",
 					type: "ArrowFunctionExpression"
 				}
 			],
@@ -116,18 +122,20 @@ exports.module = (valid, invalid) => {
 			function func2(aaaaaaaaaa, bbbbbbbbbbb, ccccccccccc) {
 				//
 			}
-			function func() {}
-			async function func() {}
+			function func3() {}
+			async function func4() {}
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 18,
+					line: 2,
+					messageId: "not_match",
 					type: "FunctionDeclaration"
 				},
 				{
-					line: 5,
 					column: 19,
+					line: 5,
+					messageId: "not_match",
 					type: "FunctionDeclaration"
 				}
 			],
@@ -142,8 +150,8 @@ exports.module = (valid, invalid) => {
 			) {
 				//
 			}
-			function func() {}
-			async function func() {}
+			function func3() {}
+			async function func4() {}
 			`,
 			languageOptions: {
 				parserOptions: { ecmaVersion: "latest" }
@@ -162,13 +170,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 26,
+					line: 2,
+					messageId: "not_match",
 					type: "FunctionExpression"
 				},
 				{
-					line: 5,
 					column: 26,
+					line: 5,
+					messageId: "not_match",
 					type: "FunctionExpression"
 				}
 			],
@@ -198,13 +208,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 9,
+					line: 2,
+					messageId: "not_match",
 					type: "CallExpression"
 				},
 				{
-					line: 3,
 					column: 9,
+					line: 3,
+					messageId: "not_match",
 					type: "CallExpression"
 				}
 			],
@@ -226,13 +238,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 10,
+					line: 2,
+					messageId: "not_match",
 					type: "NewExpression"
 				},
 				{
-					line: 3,
 					column: 10,
+					line: 3,
+					messageId: "not_match",
 					type: "NewExpression"
 				}
 			],
@@ -254,13 +268,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 17,
+					line: 2,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				},
 				{
-					line: 3,
 					column: 17,
+					line: 3,
+					messageId: "not_match",
 					type: "ObjectExpression"
 				}
 			],
@@ -285,13 +301,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 9,
+					line: 2,
+					messageId: "not_match",
 					type: "ObjectPattern"
 				},
 				{
-					line: 3,
 					column: 9,
+					line: 3,
+					messageId: "not_match",
 					type: "ObjectPattern"
 				}
 			],
@@ -318,13 +336,15 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 4,
+					line: 2,
+					messageId: "not_match",
 					type: "SequenceExpression"
 				},
 				{
-					line: 6,
 					column: 4,
+					line: 6,
+					messageId: "not_match",
 					type: "SequenceExpression"
 				}
 			],

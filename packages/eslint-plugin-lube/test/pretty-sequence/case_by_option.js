@@ -49,7 +49,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = [a,b,c]
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [ { arrayBracketSpacing: true } ],
 			output: `
 			var value = [ a, b, c ]
@@ -59,7 +59,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = [a,b,c]
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [ { arrayBracketSpacing: false } ],
 			output: `
 			var value = [a, b, c]
@@ -71,7 +71,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = (a,b,c) => {}
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [ { funcCallSpacing: true } ],
 			output: `
 			var value = ( a, b, c ) => {}
@@ -84,7 +84,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = (a,b,c) => {}
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [ { funcCallSpacing: false } ],
 			output: `
 			var value = (a, b, c) => {}
@@ -99,7 +99,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = {a,b,c}
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [ { objectCurlySpacing: true } ],
 			output: `
 			var value = { a, b, c }
@@ -112,7 +112,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = {a,b,c}
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [ { objectCurlySpacing: false } ],
 			output: `
 			var value = {a, b, c}
@@ -127,7 +127,7 @@ exports.module = (valid, invalid) => {
 			code: `
 			var value = \`\${[a,b,c]}\`
 			`,
-			errors: [ {} ],
+			errors: [ { messageId: "not_match" } ],
 			options: [
 				{ ignoreTemplateLiteral: false }
 			],

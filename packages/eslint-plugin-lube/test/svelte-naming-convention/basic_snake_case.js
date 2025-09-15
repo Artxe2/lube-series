@@ -12,9 +12,6 @@ exports.module = (valid, invalid) => {
 			code: "var snake_case_123 = 'Hello'"
 		},
 		{
-			code: "var snake_case_123 = 'Hello'"
-		},
-		{
 			code: "var snake1_2_3case_4 = 'Hello'"
 		},
 		{
@@ -37,18 +34,34 @@ exports.module = (valid, invalid) => {
 	invalid.push(
 		{
 			code: "var camelCase = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			],
 			output: "var camel_case = 'Hello'"
 		},
 		{
 			code: "var NO_SNAKE__CASE = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
-			output: "var NO_SNAKE__CASE = 'Hello'"
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			]
 		},
 		{
 			code: "var NO_SNAKE_CASE_ = 'Hello'",
-			errors: [ { line: 1, column: 5 } ],
-			output: "var NO_SNAKE_CASE_ = 'Hello'"
+			errors: [
+				{
+					column: 5,
+					line: 1,
+					messageId: "not_match"
+				}
+			]
 		}
 	)
 }

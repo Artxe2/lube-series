@@ -14,11 +14,36 @@ const test_case = (type, value) => ({
 	var value = ((/** @type {E} */(${value})))
 	`,
 	errors: [
-		{ line: 2, column: 13, type },
-		{ line: 3, column: 13, type },
-		{ line: 4, column: 13, type },
-		{ line: 7, column: 13, type },
-		{ line: 8, column: 13, type }
+		{
+			column: 13,
+			line: 2,
+			messageId: "not_match",
+			type
+		},
+		{
+			column: 13,
+			line: 3,
+			messageId: "not_match",
+			type
+		},
+		{
+			column: 13,
+			line: 4,
+			messageId: "not_match",
+			type
+		},
+		{
+			column: 13,
+			line: 7,
+			messageId: "not_match",
+			type
+		},
+		{
+			column: 13,
+			line: 8,
+			messageId: "not_match",
+			type
+		}
 	],
 	output: `
 	var value = /** @type {A} */(${value})/**/
@@ -60,28 +85,33 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 24,
+					line: 2,
+					messageId: "not_match",
 					type: "AwaitExpression"
 				},
 				{
+					column: 31,
 					line: 3,
-					column: 31,
+					messageId: "not_match",
 					type: "AwaitExpression"
 				},
 				{
+					column: 31,
 					line: 4,
-					column: 31,
+					messageId: "not_match",
 					type: "AwaitExpression"
 				},
 				{
-					line: 7,
 					column: 7,
+					line: 7,
+					messageId: "not_match",
 					type: "AwaitExpression"
 				},
 				{
-					line: 8,
 					column: 33,
+					line: 8,
+					messageId: "not_match",
 					type: "AwaitExpression"
 				}
 			],
@@ -137,28 +167,33 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 18,
+					line: 2,
+					messageId: "not_match",
 					type: "MetaProperty"
 				},
 				{
+					column: 34,
 					line: 3,
-					column: 34,
+					messageId: "not_match",
 					type: "MetaProperty"
 				},
 				{
+					column: 34,
 					line: 4,
-					column: 34,
+					messageId: "not_match",
 					type: "MetaProperty"
 				},
 				{
-					line: 7,
 					column: 7,
+					line: 7,
+					messageId: "not_match",
 					type: "MetaProperty"
 				},
 				{
-					line: 8,
 					column: 36,
+					line: 8,
+					messageId: "not_match",
 					type: "MetaProperty"
 				}
 			],
@@ -205,28 +240,33 @@ exports.module = (valid, invalid) => {
 			`,
 			errors: [
 				{
-					line: 2,
 					column: 19,
+					line: 2,
+					messageId: "not_match",
 					type: "YieldExpression"
 				},
 				{
+					column: 31,
 					line: 3,
-					column: 31,
+					messageId: "not_match",
 					type: "YieldExpression"
 				},
 				{
+					column: 31,
 					line: 4,
-					column: 31,
+					messageId: "not_match",
 					type: "YieldExpression"
 				},
 				{
-					line: 7,
 					column: 7,
+					line: 7,
+					messageId: "not_match",
 					type: "YieldExpression"
 				},
 				{
-					line: 8,
 					column: 33,
+					line: 8,
+					messageId: "not_match",
 					type: "YieldExpression"
 				}
 			],

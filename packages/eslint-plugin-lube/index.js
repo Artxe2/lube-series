@@ -21,14 +21,14 @@ Object.assign(
 			"arrow-parens": [ "error", "as-needed" ],
 			"arrow-spacing": [
 				"error",
-				{ "before": true, "after": true }
+				{ "after": true, "before": true }
 			],
 			"block-spacing": [ "error", "always" ],
 			"brace-style": [ "error", "1tbs" ],
 			"comma-dangle": [ "error", "never" ],
 			"comma-spacing": [
 				"error",
-				{ "before": false, "after": true }
+				{ "after": true, "before": false }
 			],
 			"comma-style": [ "error", "last" ],
 			"computed-property-spacing": [ "error", "never" ],
@@ -50,6 +50,10 @@ Object.assign(
 				"error",
 				{ "after": true, "before": true }
 			],
+			"lube/pretty-imports": "error",
+			"lube/pretty-jsdoc-casting": "error",
+			"lube/pretty-sequence": "error",
+			"lube/svelte-naming-convention": "error",
 			"max-len": [ "warn", 120 ],
 			"max-statements-per-line": [ "error", { "max": 1 } ],
 			"multiline-ternary": [ "error", "always-multiline" ],
@@ -76,6 +80,7 @@ Object.assign(
 			],
 			"object-curly-newline": [ "error", { "consistent": true } ],
 			"object-curly-spacing": [ "error", "always" ],
+			"one-var": [ "error", "never" ],
 			"operator-linebreak": [ "error", "before" ],
 			"prefer-const": [
 				"warn",
@@ -105,7 +110,7 @@ Object.assign(
 			"space-infix-ops": [ "error", { "int32Hint": true } ],
 			"space-unary-ops": [
 				"error",
-				{ "words": true, "nonwords": false }
+				{ "nonwords": false, "words": true }
 			],
 			"switch-colon-spacing": [
 				"error",
@@ -113,11 +118,7 @@ Object.assign(
 			],
 			"template-curly-spacing": [ "error", "never" ],
 			"template-tag-spacing": [ "error", "never" ],
-			"yield-star-spacing": [ "error", "after" ],
-			"lube/pretty-imports": "error",
-			"lube/pretty-jsdoc-casting": "error",
-			"lube/pretty-sequence": "error",
-			"lube/svelte-naming-convention": "error"
+			"yield-star-spacing": [ "error", "after" ]
 		}
 	}
 )
